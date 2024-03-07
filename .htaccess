@@ -1,0 +1,20 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /esmearq/sistema/
+    # Define a página de erro personalizada
+    ErrorDocument 404 /esmearq/404.php
+
+    # Ignore existing files or directories
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Remove a extensão .php da URL
+    RewriteCond %{REQUEST_URI} !\.(css|js|jpg|png|gif)$
+    RewriteRule ^([^/]+)/?$ $1.php [QSA,L]
+
+    # Rewrite the URL
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} !^/esmearq/sistema/404.php
+    RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>

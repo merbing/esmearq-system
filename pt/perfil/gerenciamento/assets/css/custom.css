@@ -1,0 +1,103 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0 auto;
+    max-width: 100%;
+    padding: 2%;
+}
+
+#header {
+    padding: 20px;
+    text-align: center;
+}
+
+#header h1 {
+    margin: 0;
+}
+
+#header p {
+    margin: 10px 0;
+}
+
+#logo {
+    float: left;
+    margin-right: 20px;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+h2 {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+p {
+    margin: 10px 0;
+    text-align: left;
+    line-height: 2em; /* Espaçamento uniforme entre linhas */
+}
+
+.info {
+    overflow: hidden; /* Para conter as margens e paddings */
+}
+.info span {
+    float: right;
+    text-align: left; /* Alinhe o texto à esquerda */
+    margin-right: 10px; /* Ajuste a margem direita conforme necessário */
+}
+
+
+
+.info span {
+    float: right;
+    text-align: right; /* Alinhamento à direita */
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #ccc;
+}
+
+/* Estilos para a nova área de simulação de crédito */
+.pagetwo {
+    margin-top: 50px;
+}
+
+.simulacao {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quadrado {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.tabelas {
+    display: flex;
+    justify-content: space-between;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
