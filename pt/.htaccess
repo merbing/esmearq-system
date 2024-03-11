@@ -1,9 +1,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /mbuli/sistema/pt/
+    RewriteBase /esmearq-system/pt/
 
     # Define a página de erro personalizada
-    ErrorDocument 404 /mbuli/404.php
+    ErrorDocument 404 /esmearq-system/404.php
 
     # Ignore existing files or directories
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -16,6 +16,6 @@
     # Rewrite the URL
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} !^/mbuli/404.php
+    RewriteCond %{REQUEST_URI} !^/esmearq-system/404.php
     RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
 </IfModule>

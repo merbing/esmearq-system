@@ -2,12 +2,25 @@
 <html lang="pt">
    <head> 
       <?php 
-         include("../banco/config.php");
+      session_start();
+         include("../../banco/config.php");
          include("../views/include/head.php");
          include("processar/cliente/senhas.php");
          ?>
    </head>
    <body>
+      <?php 
+         if(isset($_SESSION['success']))
+         {
+            $message = $_SESSION['success'];
+      ?>
+         <script>
+            alert("<?php echo $message?>");
+         </script>
+      <?php 
+      $_SESSION['success'] = null;
+         }
+      ?>
       <!-- begin app -->
       <div class="app">
          <!-- begin app-wrap -->
@@ -62,13 +75,13 @@
                            </div>
                            <div class="card-body">
                               <form action="processar/cliente/adicionar_info/basicas.php" method="post" class="form-horizontal">
-                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                                 <!-- <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                  <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
-                                 <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
+                                 <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" /> -->
                                  <div class="form-group">
                                     <label class="control-label" for="nome">Nome Completo*</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required />
+                                       <input type="text" class="form-control" id="nome" name="name" placeholder="Nome" required />
                                     </div>
                                  </div>
                                  <div class="form-group">
@@ -80,13 +93,13 @@
                                  <div class="form-group">
                                     <label class="control-label" for="data_de_nascimento">Data de Nascimento*</label>
                                     <div class="mb-2">
-                                       <input type="date" class="form-control" name="data_de_nascimento" placeholder="Data de Nascimento" required />
+                                       <input type="date" class="form-control" name="birthdate" placeholder="Data de Nascimento" required />
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label class="control-label" for="nacionalidade">Nacionalidade*</label>
                                     <div class="mb-2">
-                                       <select class="form-control" name="nacionalidade" id="nacionalidade" required onchange="handleNacionalidade()">
+                                       <select class="form-control" name="nationality" id="nacionalidade" required onchange="handleNacionalidade()">
                                           <option selected disabled>Selecionar</option>
                                           <option value="Angola">Angola</option>
                                           <option value="Outra">Outra</option>
@@ -94,15 +107,15 @@
                                     </div>
                                  </div>
                                  <div class="form-group" id="outra_nacionalidade">
-                                    <label class="control-label" for="nacionalidade_input">Nome da Nacionalidade*</label>
+                                    <label class="control-label" for="foreingh_nationality">Nome da Nacionalidade*</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="nacionalidade_input" name="nacionalidade_input" placeholder="Nome da Nacionalidade" disabled />
+                                       <input type="text" class="form-control" id="nacionalidade_input" name="foreingh_nationality" placeholder="Nome da Nacionalidade" disabled />
                                     </div>
                                  </div>
                                  <div class="form-group">
-                                    <label class="control-label" for="estado_civil">Estado Civil*</label>
+                                    <label class="control-label" for="state">Estado Civil*</label>
                                     <div class="mb-2">
-                                       <select class="form-control" name="estado_civil" id="estado_civil" required>
+                                       <select class="form-control" name="state" id="estado_civil" required>
                                           <option selected disabled>Selecionar</option>
                                           <option value="Solteiro">Solteiro</option>
                                           <option value="Casado">Casado</option>
@@ -115,19 +128,19 @@
                                  <div class="form-group">
                                     <label class="control-label" for="Endereço">Endereço residencial*</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="Endereço" name="Endereço" placeholder="Endereço" required />
+                                       <input type="text" class="form-control" id="Endereço" name="address" placeholder="Endereço" required />
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label class="control-label" for="Telefone">Número de Telefone*</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="Telefone" name="Telefone" placeholder="Telefone" required />
+                                       <input type="text" class="form-control" id="Telefone" name="phonenumber" placeholder="Telefone" required />
                                     </div>
                                  </div>
                                  <div class="form-group">
                                     <label class="control-label" for="uemail">Email*</label>
                                     <div class="mb-2">
-                                       <input type="email" class="form-control" id="uemail" name="uemail" placeholder="Email" required />
+                                       <input type="email" class="form-control" id="uemail" name="email" placeholder="Email" required />
                                     </div>
                                  </div>
                                  <div class="form-group">

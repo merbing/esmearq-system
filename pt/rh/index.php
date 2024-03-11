@@ -86,8 +86,8 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Novo Funcionário</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Novo Funcionário</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-warning"></i><code>Funcionários Desativados</code></a></div>
                               </div>
                            </div>

@@ -2,9 +2,9 @@
 <html lang="pt">
    <head>
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
-         
+         include("consultas/funcionarios/dados.php");
          ?>
    </head>
    <body>
@@ -28,7 +28,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Lista de Atividades</h1>
+                              <h1>Lista de Funcionários</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -85,7 +85,7 @@
                                  <form class="" action="pesquisar_clientes" method="get">
                                     <div class="row">
                                        <div class="col-md-10">
-                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                          <input placeholder="Pesquise pelos seus funcionarios aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
                                        </div>
                                        <div class="col">
                                           <button type="submit" class="btn btn-primary">Pesquisar</button>
@@ -96,22 +96,26 @@
                                     <thead>
                                        <tr>
                                           <th>Nome</th>
-                                          <th>Inicio</th>
-                                          <th>Estado</th>
-                                          <th>Termino</th>
+                                          <th>Email</th>
+                                          <th>Telefone</th>
+                                          <th>Agencia</th>
+                                          <th>Departamento</th>
                                           <th>Ação</th>
                                        </tr>
                                     </thead>
                                     <tbody>
+                                    <?php foreach($employes as $item): ?>
                                        <tr>
-                                          <td>Id</td>
-                                          <td>Id</td>
-                                          <td>Idkz</td>
-                                          <td>Id</td>
+                                          <td><?php echo $item['nome'] ?></td>
+                                          <td><?php echo $item['email'] ?></td>
+                                          <td><?php echo $item['telefone'] ?></td>
+                                          <td><?php echo $item['agencia'] ?></td>
+                                          <td><?php echo $item['departamento'] ?></td>
                                           <td>
-                                          <a href="dados_cliente?conta_do_cliente=<?php echo $id_encriptado; ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
-                                       </td>
+                                             <a href="show.php?id=<?=base64_encode($client['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                           </td>
                                        </tr>
+                                       <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                        <tr>

@@ -2,9 +2,9 @@
 <html lang="pt">
    <head>
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
-         
+         include("consultas/clientes/dados.php");
          ?>
    </head>
    <body>
@@ -96,9 +96,10 @@
                                     <thead>
                                        <tr>
                                           <th>Nome</th>
-                                          <th>Inicio</th>
-                                          <th>Estado</th>
-                                          <th>Termino</th>
+                                          <th>NIF</th>
+                                          <th>Data de Nascimento</th>
+                                          <th>Nacionalidade</th>
+                                          <th>Telefone</th>
                                           <th>Ação</th>
                                        </tr>
                                     </thead>
@@ -108,10 +109,25 @@
                                           <td>Id</td>
                                           <td>Idkz</td>
                                           <td>Id</td>
+                                          <td>Id</td>
                                           <td>
                                           <a href="dados_cliente?conta_do_cliente=<?php echo $id_encriptado; ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
-                                       </td>
+                                          </td>
                                        </tr>
+                                       <?php 
+                                          
+                                       foreach($clients as $client): ?>
+                                       <tr>
+                                          <td><?php echo $client['nome'] ?></td>
+                                          <td><?php echo $client['nif'] ?></td>
+                                          <td><?php echo $client['data_de_nascimento'] ?></td>
+                                          <td><?php echo $client['nacionalidade'] ?></td>
+                                          <td><?php echo $client['telefone'] ?></td>
+                                          <td>
+                                             <a href="show.php?id=<?=base64_encode($client['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                           </td>
+                                       </tr>
+                                       <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                        <tr>

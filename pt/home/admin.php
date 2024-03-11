@@ -2,7 +2,7 @@
 <html lang="pt">
    <head>
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/admin.php");
          

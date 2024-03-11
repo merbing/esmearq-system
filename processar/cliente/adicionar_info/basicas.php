@@ -2,9 +2,16 @@
 require_once("../../banco/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $senha = $_POST["password"];
 
+    $name = $_POST["nome"];
+    $nif = $_POST["nif"];
+    $birthdate = $_POST["birthdate"];
+    $nationality = $_POST["nationality"];
+    $foreingh_nationality = $_POST["foreign_nationality"];
+    $address = $_POST["address"];
+    $phonenumber = $_POST["phonenumber"];
+    $email = $_POST["email"];
+    
     $verificar_usuario = "SELECT F.id,F.nome,F.email,F.telefone,F.papel_usuario,F.agencia,
                          P.id as papel_usuario,P.nome as papel, F.senha FROM funcionarios F inner join funcionarios_papel P
                          ON (F.papel_usuario = P.id) WHERE email = '$email'";
