@@ -1,14 +1,14 @@
 <?php
-    $query = "SELECT * FROM departamentos";
+    $query = "SELECT * FROM permissoessistema";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();
     
-    $departments = [];
+    $permitions = [];
     if ($result->num_rows > 0) {
                              // Obtém os dados do cliente
-        while($department = $result->fetch_assoc()){
-         $departments[] = $department; 
+        while($permition = $result->fetch_assoc()){
+         $permitions[] = $permition; 
         }
     }
     

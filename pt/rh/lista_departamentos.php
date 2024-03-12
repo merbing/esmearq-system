@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt">
-   <head> 
+   <head>
       <?php 
+         include("../../banco/config.php");
          include("../views/include/head.php");
-         include("../banco/config.php");
+         include("consultas/departamentos/dados.php");
          ?>
    </head>
    <body>
@@ -27,7 +28,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Gestão de RH</h1>
+                              <h1>Lista de Departamentos</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -36,9 +37,9 @@
                                        <a href="../"><i class="ti ti-home"></i></a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                    Gestão
+                                    Atividades Diária
                                     </li>
-                                    <li class="breadcrumb-item active text-primary" aria-current="page">Gerenciamento de RH</li>
+                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Atividades</li>
                                  </ol>
                               </nav>
                            </div>
@@ -77,61 +78,56 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                     <div class="col-lg-12">
                         <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Funcionários</h4>
-                              </div>
-                           </div>
                            <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Novo Funcionário</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-warning"></i><code>Funcionários Desativados</code></a></div>
+                              <div class="datatable-wrapper table-responsive">
+                                 <form class="" action="pesquisar_clientes" method="get">
+                                    <div class="row">
+                                       <div class="col-md-10">
+                                          <input placeholder="Pesquise pelos seus funcionarios aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                       </div>
+                                       <div class="col">
+                                          <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                       </div>
+                                    </div>
+                                 </form>
+                                 <table id="datatable" class="display compact table table-striped table-bordered">
+                                    <thead>
+                                       <tr>
+                                          <th>ID</th>
+                                          
+                                          <th>Departamento</th>
+                                          <th>Ação</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($departments as $item): ?>
+                                       <tr>
+                                          <td><?php echo $item['id'] ?></td>
+                                          <td><?php echo $item['nome'] ?></td>
+                                          <td>
+                                             <a href="show.php?id=<?=base64_encode($item['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                           </td>
+                                       </tr>
+                                       <?php endforeach; ?>
+                                    </tbody>
+                                    <tfoot>
+                                       <tr>
+                                          <th>Número de Conta</th>
+                                          <th>Nome</th>
+                                          <th>Profissão</th>
+                                          <th>Sálario</th>
+                                          <th>Telefone</th>
+                                          <th>Email</th>
+                                          <th>Perfil</th>
+                                       </tr>
+                                    </tfoot>
+                                 </table>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- end container-fluid -->
-                  </div>
-                  <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Departamentos</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_departamentos.php"><i class="dripicons dripicons-plus"></i><code>Novo Departamento</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_departamentos.php"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end container-fluid -->
-                  </div>
-                  <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Permissões Por Cargos</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_papel.php"><i class="dripicons dripicons-plus"></i><code>Novo Papel(Cargo)</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_papeis.php"><i class="dripicons dripicons-checklist"></i><code>Lista de Papeis</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_permissao.php"><i class="dripicons dripicons-plus"></i><code>Novo Permissão</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_permissoes.php"><i class="dripicons dripicons-checklist"></i><code>Lista de Permissões</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end container-fluid -->
                   </div>
                   <!-- end container-fluid -->
                </div>
