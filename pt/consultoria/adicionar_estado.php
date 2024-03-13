@@ -2,12 +2,43 @@
 <html lang="pt">
    <head> 
       <?php 
-         include("../banco/config.php");
+       session_start();
+         include("../../banco/config.php");
          include("../views/include/head.php");
-         
+         // include("consultas/departamentos/dados.php");
+         // include("consultas/papeis/dados.php");
+         // include("consultas/agencias/dados.php");
          ?>
    </head>
    <body>
+   <?php 
+         if(isset($_SESSION['success']))
+         {
+            $message = $_SESSION['success'];
+      ?>
+         <div class="modal" tabindex="-1" id="MyModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Concluído</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p><?=$message?></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+      <?php 
+      $_SESSION['success'] = null;
+         }
+      ?>
       <!-- begin app -->
       <div class="app">
          <!-- begin app-wrap -->
@@ -57,42 +88,23 @@
                         <div class="card card-statistics">
                            <div class="card-header">
                               <div class="card-heading">
-                                 <h4 class="card-title">Novo Serviço</h4>
+                                 <h4 class="card-title">Novo Estado</h4>
                               </div>
                            </div>
                            <div class="card-body">
-                              <form action="processar/servicos/adicionar_info/basicas.php" method="post" class="form-horizontal">
-                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                 <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
-                                 <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
+                              <form action="processar/estados/adicionar_info/basicas.php" method="post" class="form-horizontal">
+                                 
                                  <div class="row">
-                                 <div class="col-4 form-group">
-                                    <label class="control-label" for="novo_servico">Nome do Serviço*</label>
-                                    <div class="mb-2">
-                                       <input type="text" class="form-control" id="novo_servico" name="name" placeholder="Nome do Serviço" required />
+                                    <div class="col-6 form-group">
+                                       <label class="control-label" for="nome">Nome</label>
+                                       <div class="mb-2">
+                                          <input type="text" class="form-control" id="nome" name="name" placeholder="Nome" required />
+                                       </div>
                                     </div>
-                                 </div>
-                                 <div class="col-4 form-group">
-                                    <label class="control-label" for="tempo">Tempo de Execução (em dias)*</label>
-                                    <div class="mb-2">
-                                       <input type="number" class="form-control" id="tempo" name="duracao" placeholder="Tempo Execução" required />
-                                    </div>
-                                 </div>
-                                 <div class="col-4 form-group">
-                                    <label class="control-label" for="Valor">Valor*</label>
-                                    <div class="mb-2">
-                                       <input type="number" class="form-control" name="valor" placeholder="Valor do Serviço" 
-                                       required />
-                                    </div>
-                                 </div>
+                                    
                                  
                                  </div>
-                                 <div class="form-group">
-                                    <div class="form-check">
-                                       <input required class="form-check-input" type="checkbox" checked id="uagree" name="uagree">
-                                       <label class="form-check-label" for="uagree">Eu Confirmo estas informações*</label>
-                                    </div>
-                                 </div>
+                                 
                                  <div class="form-group">
                                     <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Guardar</button>
                                  </div>
@@ -116,8 +128,31 @@
       </div>
       <!-- end app -->
       <!-- plugins -->
+      <script>
+         function handleNacionalidade() {
+             var nacionalidadeSelect = document.getElementById('nacionalidade');
+             var nacionalidadeInput = document.getElementById('nacionalidade_input');
+             var outraNacionalidadeDiv = document.getElementById('outra_nacionalidade');
+             
+             if (nacionalidadeSelect.value === 'Outra') {
+                 outraNacionalidadeDiv.style.display = 'block';
+                 nacionalidadeInput.removeAttribute('disabled');
+             } else {
+                 outraNacionalidadeDiv.style.display = 'none';
+                 nacionalidadeInput.setAttribute('disabled', 'disabled');
+             }
+         }
+      </script>
       <script src="../assets/js/vendors.js"></script>
       <!-- custom app -->
       <script src="../assets/js/app.js"></script>
+      <script>
+         $(document).ready(function(){
+
+            $('#MyModal').modal('show')
+            
+         })
+        
+      </script>
    </body>
 </html>

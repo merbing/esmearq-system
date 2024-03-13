@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt">
-   <head> 
+   <head>
       <?php 
+         include("../../banco/config.php");
          include("../views/include/head.php");
-         include("../banco/config.php");
+         include("consultas/servicos/dados.php");
          ?>
    </head>
    <body>
@@ -27,7 +28,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Gestão Comercial</h1>
+                              <h1>Lista de Serviços</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -36,12 +37,17 @@
                                        <a href="../"><i class="ti ti-home"></i></a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                    Gestão
+                                    Atividades Diária
                                     </li>
-                                    <li class="breadcrumb-item active text-primary" aria-current="page">Gerenciamento de Comércio</li>
+                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Serviços</li>
                                  </ol>
                               </nav>
                            </div>
+
+                        </div>
+
+                        <div class="mt-3">
+                           <a href="adicionar_servico.php" class="btn btn-sm btn-success">Adicionar</a>
                         </div>
                         <!-- end page title -->
                      </div>
@@ -77,42 +83,54 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                     <div class="col-lg-12">
                         <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Factura</h4>
-                              </div>
-                           </div>
                            <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Nova Factura</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-up"></i><code>Pagas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-down"></i><code>Não Pagas</code></a></div>
+                              <div class="datatable-wrapper table-responsive">
+                                 <form class="" action="pesquisar_clientes" method="get">
+                                    <div class="row">
+                                       <div class="col-md-10">
+                                          <input placeholder="Pesquise pelos seus servicos aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                       </div>
+                                       <div class="col">
+                                          <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                       </div>
+                                    </div>
+                                 </form>
+                                 <table id="datatable" class="display compact table table-striped table-bordered">
+                                    <thead>
+                                       <tr>
+                                          <th>ID</th>
+                                          
+                                          <th>Serviço</th>
+                                          <th>Custo</th>
+                                          <th>Duração (dias)</th>
+                                          <th>Ação</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php foreach($services as $item): ?>
+                                       <tr>
+                                          <td><?php echo $item['id'] ?></td>
+                                          <td style="text-transform: uppercase;"><?php echo $item['nome'] ?></td>
+                                          <td style="text-transform: uppercase;"><?php echo $item['custo'] ?></td>
+                                          <td style="text-transform: uppercase;"><?php echo $item['prazo_dias'] ?></td>
+                                          <td>
+                                             <a href="editar.php?service_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-success">Editar</a>
+                                             <!-- <a href="lista_papel_permissoes.php?papel_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-info">Ver Permissões</a> -->
+                                            
+                                          </td>
+                                       </tr>
+                                       <?php endforeach; ?>
+                                    </tbody>
+                                    <tfoot>
+                                       
+                                    </tfoot>
+                                 </table>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- end container-fluid -->
-                  </div>
-                  <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Serviço</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_servico.php"><i class="dripicons dripicons-cart"></i><code>Novo Serviço</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_servicos.php"><i class="dripicons dripicons-checklist"></i><code>Todos os Serviços</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                     <!-- end container-fluid -->
                   </div>
                   <!-- end container-fluid -->
                </div>

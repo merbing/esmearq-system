@@ -86,13 +86,33 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Nova Consulta</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="iniciando"><i class="dripicons dripicons-media-play"></i><code>Iniciando Consulta</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-calendar"></i><code>Agendadas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Nova Consulta</code></a></div>
+                                 <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="iniciando.php"><i class="dripicons dripicons-media-play"></i><code>Iniciando Consulta</code></a></div> -->
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-calendar"></i><code>Agendadas</code></a></div>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checkmark"></i><code>Realizadas</code></a></div>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-up"></i><code>Aprovadas</code></a></div>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-down"></i><code>Reprovadas</code></a></div>
                               </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end container-fluid -->
+                  </div>
+
+
+                  <div class="row">
+                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card card-statistics">
+                           <div class="card-header">
+                              <div class="card-heading">
+                                 <h4 class="card-title">Gestão de Estados da Consulta</h4>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div class="row no-gutters icon-list">
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_estado.php"><i class="dripicons dripicons-plus"></i><code>Novo estado</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_estados.php"><i class="dripicons dripicons-checklist"></i><code>Lista</code></a></div>
+                                 </div>
                            </div>
                         </div>
                      </div>

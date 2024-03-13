@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 <html lang="pt">
-   <head> <?php 
+   <head> 
+      <?php 
+      if(!isset($_GET['agendamento_id']))
+      {
+          $error_message = "Agendamento não encontrado";
+          header("Location: lista.php?error_message=". urlencode($error_message));
+          // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+      }
       include("../views/include/head.php");
-      include("../banco/config.php");
+      include("../../banco/config.php");
+      include("consultas/agendamentos/buscar.php");
+
+      if(!$consulta)
+      {
+          $error_message = "Agendamento não encontrado";
+          header("Location: lista.php?error_message=". urlencode($error_message));
+          // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+      }
+
       ?> 
    </head>
    <body>
@@ -59,36 +75,36 @@
                                     <div class="card card-statistics">
                                        <div class="card-header">
                                           <div class="card-heading">
-                                             <h4 class="card-title">Alteração de Conta</h4>
+                                             <h4 class="card-title " style="font-weight: normal;">Iniciar Agendamento de  <strong><?=$consulta['client_name']?></strong> para <strong><?=$consulta['service_name']?></strong> </h4>
                                           </div>
                                        </div>
                                        <div class="card-body">
                                           <div class="tab">
                                              <div class="tab-content">
                                                 <div class="tab-pane fade active show py-3" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                                   <form action="processar/cliente/adicionar_info/basicas.php" method="post" class="form-horizontal">
-                                                      <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                                      <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
-                                                      <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
+                                                   <form action="processar/agendamentos/adicionar/iniciar.php" method="post" class="form-horizontal">
+                                                      <!-- <input type="hidden" name="user_id" value="<?php echo $user_id ?>"> -->
+                                                      <input type="hidden" name="agendamento_id" value="<?php echo $consulta['id'] ?>">
+                                                      <!-- <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" /> -->
                                                       <!-- 1. Quais são as razões que o faz viajar? -->
                                                       <div class="form-group">
-                                                         <label class="control-label" for="razoes_viajar">Quais são as razões que o faz viajar?</label>
+                                                         <label class="control-label" for="razoes">Quais são as razões que o faz viajar?</label>
                                                          <div class="mb-2">
-                                                            <textarea name="razoes_viajar" id="" cols="30" rows="3" class="form-control" required>Digite as razões</textarea>
+                                                            <textarea name="razoes" id="" cols="30" rows="3" class="form-control" required>Digite as razões</textarea>
                                                          </div>
                                                       </div>
                                                       <!-- 2. Motivo da Viagem Por Opção -->
                                                       <div class="form-group">
-                                                         <label class="control-label" for="motivo_viagem">Motivo da Viagem Por Opção</label>
+                                                         <label class="control-label" for="motivo">Motivo da Viagem Por Opção</label>
                                                          <div class="mb-2">
-                                                            <select class="form-control" name="motivo_viagem" id="motivo_viagem" required onchange="handleMotivoViagem()">
+                                                            <select class="form-control" name="motivo" id="motivo_viagem" required onchange="handleMotivoViagem()">
                                                                <option selected disabled>Selecionar</option>
                                                                <option value="Turismo">Turismo</option>
                                                                <option value="Estudo">Estudo</option>
                                                                <option value="Trabalho">Trabalho</option>
                                                                <option value="Transito">Transito</option>
                                                                <option value="Saúde">Saúde</option>
-                                                               <option value="Outro">Outro</option>
+                                                               <option value="outro">Outro</option>
                                                             </select>
                                                          </div>
                                                       </div>
@@ -210,7 +226,11 @@
                                                       <div class="form-group">
                                                          <label class="control-label" for="extracto_conta">Pode nos passar o extrato dos últimos 3 meses de sua conta corrente ou salarial?</label>
                                                          <div class="mb-2">
-                                                            <input type="text" class="form-control" id="extracto_conta" name="extracto_conta" required />
+                                                            <select class="form-control" name="extracto_conta" id="">
+                                                               <option value="1">Sim</option>
+                                                               <option value="0">Não</option>
+                                                            </select>
+                                                            <!-- <input type="text" class="form-control" id="extracto_conta" name="extracto_conta" required /> -->
                                                          </div>
                                                       </div>
                                                       <!-- 8. Campo de Mensagem para passar as notas -->
@@ -225,11 +245,11 @@
                                                          <label class="control-label">Utente Legível/Não</label>
                                                          <div class="mb-2">
                                                             <div class="form-check">
-                                                               <input required class="form-check-input" type="radio" name="utente_legivel" id="utente_legivel_sim" value="Sim">
+                                                               <input required class="form-check-input" type="radio" name="utente_legivel" id="utente_legivel_sim" value="1">
                                                                <label class="form-check-label" for="utente_legivel_sim">Sim</label>
                                                             </div>
                                                             <div class="form-check">
-                                                               <input required class="form-check-input" type="radio" name="utente_legivel" id="utente_legivel_nao" value="Não">
+                                                               <input required class="form-check-input" type="radio" name="utente_legivel" id="utente_legivel_nao" value="2">
                                                                <label class="form-check-label" for="utente_legivel_nao">Não</label>
                                                             </div>
                                                          </div>
@@ -242,7 +262,7 @@
                                                          </div>
                                                       </div>
                                                       <div class="form-group">
-                                                         <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Iniciar Cadastro</button>
+                                                         <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Guardar dados</button>
                                                       </div>
                                                    </form>
                                                 </div>
