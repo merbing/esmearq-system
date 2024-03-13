@@ -1,7 +1,8 @@
 <?php
     
     $agendamento_id = base64_decode($_GET['agendamento_id']);
-    $query = "SELECT A.id, A.pais_destino,A.data_consulta,C.nome as client_name,E.nome as state_name,S.nome as service_name FROM consultasagendamento A
+    $query = "SELECT A.id, A.pais_destino,A.data_consulta,C.nome as client_name,C.id as client_id,
+            E.nome as state_name,E.id as state_id,S.nome as service_name,S.id as service_id FROM consultasagendamento A
             INNER JOIN clientes C ON (C.id = A.id_cliente)
             INNER JOIN consultasestado E ON(E.id = A.id_estado) 
             INNER JOIN servicos S ON(S.id = A.servico_desejado)

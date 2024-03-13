@@ -95,7 +95,7 @@
                      <div class="col-lg-12">
                         <div class="card card-statistics">
                            <div class="card-body ">
-                            <h4>Dados da consulta <a href="#" class="btn btn-info btn-xs ml-2">Editar</a></h4>
+                            <h4>Dados da consulta <a href="editar_agendamento.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a></h4>
                             <div class="row m-1 p-3 border border-grey rounded-lg" style="border-radius: 5px;">
                                 <div class="col-3">
                                     <h5>Cliente</h5>
@@ -117,8 +117,9 @@
                             </div>
 
                             <?php if($consulta['state_name'] != "em espera"): ?>
-                                <h4 class="mt-5">Detalhes da consulta <a href="#" class="btn btn-info btn-xs ml-2">Editar</a></h4>
-                            <div class="row m-1 p-3 border border-grey rounded-lg" style="border-radius: 5px;">
+                                <h4 class="mt-5">Detalhes da consulta <a href="editar_detalhes.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a></h4>
+                              <div class="m-1 p-3 border border-grey rounded-lg" style="border-radius: 5px;">
+                                <div class="row " >
                                 <div class="col-12">
                                     <h5>Razões da viagem</h5>
                                     <h4 class="text-secondary"><?=$detalhes['razoes_viagem']?></h4>
@@ -139,52 +140,82 @@
                                     <h5>Quantidade de Reprovações</h5>
                                     <h4 class="text-secondary"><?=$detalhes['vezes_nao_aprovado']?></h4>
                                 </div>
+                                
+
+                            </div>
+                            <div class="row mt-5">
+                                 <div class="col-3">
+                                    <h5>Ano de Visto</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['ano_visto']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Vinheta</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['ano_vinheta_visto']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Motivo de Reprovação</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['motivo_reprovacao']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Tipo de Visto</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['tipo_visto']?></h4>
+                                </div>
+                            </div>
+                            <div class="row mt-5">
+                                 <div class="col-3">
+                                    <h5>Quantidade de Filhos</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['quantidade_filhos']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Responsabilidade das despesas</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['pessoa_responsavel']?></h4>
+                                </div>
+                                
+                            </div>
+                            <div class="row mt-5">
+                            <div class="col-3">
+                                    <h5>Nome do Responsavel</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['nome_responsavel']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Telefone do responsavel</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Endereço do responsavel</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Telefone do responsavel</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Tipo de trabalho</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['trabalhando']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Nome da Empresa</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['nome_empresa']?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Função</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['funcao']?></h4>
+                                </div>
+
+                            </div>
+                            <div class="row mt-5">
+                            <div class="col-3">
+                                    <h5>Utente Elegível</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['utente_legivel']=='1'?'Sim':'Não'?></h4>
+                                </div>
+                                <div class="col-3">
+                                    <h5>Recomendação</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['recomendacao']?></h4>
+                                </div>
+                            </div>
                             </div>
                             <?php endif; ?>
-                              <div class="datatable-wrapper table-responsive">
-                                 
-                                 <table id="datatable" class="display compact table table-striped table-bordered">
-                                    <thead>
-                                       <tr>
-                                          <th>Cliente</th>
-                                          <th>Serviço</th>
-                                          <th>País</th>
-                                          <th>Data da Consulta</th>
-                                          <th>Estado</th>
-                                          <th>Ação</th>
-                                       </tr>
-                                    </thead>
-                                    <tbody>
-                                       <?php foreach($consultas as $consulta): ?>
-                                       <tr>
-                                          <td><?=$consulta['client_name']?></td>
-                                          <td><?=$consulta['service_name']?></td>
-                                          <td><?=$consulta['pais_destino']?></td>
-                                          <td><?=$consulta['data_consulta']?></td>
-                                          <td style="text-transform: uppercase;"><?=$consulta['state_name']?></td>
-                                          <td>
-                                             <a href="details.php?id=<?php echo base64_encode($consulta['id']); ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
-                                             <?php if (  strcmp($consulta['state_name'],"em espera") == 0 ): ?>
-                                                <a href="iniciando.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info">Iniciar</a>
-                                             <?php else: ?>
-                                             <?php endif; ?>
-                                          </td>
-                                       </tr>
-                                       <?php endforeach; ?>
-                                    </tbody>
-                                    <tfoot>
-                                       <tr>
-                                          <th>Número de Conta</th>
-                                          <th>Nome</th>
-                                          <th>Profissão</th>
-                                          <th>Sálario</th>
-                                          <th>Telefone</th>
-                                          <th>Email</th>
-                                          <th>Perfil</th>
-                                       </tr>
-                                    </tfoot>
-                                 </table>
-                              </div>
+                              
                            </div>
                         </div>
                      </div>
