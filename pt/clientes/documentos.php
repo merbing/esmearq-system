@@ -2,8 +2,16 @@
 <html lang="pt">
    <head> 
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
+         include("consultas/clientes/dados.php");
+         include_once("../../config/auth.php");
+
+         // verificar se  o utilizador tem permissao para ver essa pagina
+         if(!in_array("Adicionar Documentos de Clientes",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>
@@ -61,18 +69,19 @@
                            </div>
                            <div class="card-body">
                               <form enctype="multipart/form-data" action="processar/cliente/adicionar_info/files.php" method="post" class="form-horizontal" id="formDocumentos">
-                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                 <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
-                                 <input type="hidden" name="cliente_id" value="<?php echo $cliente_id ?>">
+                                 <!-- <input type="hidden" name="user_id" value="<?php echo $user_id ?>"> -->
+                                 <!-- <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>"> -->
+                                 <!-- <input type="hidden" name="cliente_id" value="<?php echo $cliente_id ?>"> -->
                                  <div class="form-group">
                                     <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar...">
                                     <br>
                                     <label class="control-label" for="Cliente">Cliente*</label>
                                     <div class="mb-2">
-                                       <select class="form-control" name="id_cliente" id="id_cliente" required>
+                                       <select class="form-control" name="client_id" id="cliente_id" required>
                                           <option selected disabled>Selecionar</option>
-                                          <option value="2">Cliente 1</option>
-                                          <option value="1">Cliente 2</option>
+                                          <?php foreach($clients as $client): ?>
+                                          <option value="<?=$client['id']?>"><?=$client['nome']?></option>
+                                          <?php endforeach; ?>
                                        </select>
                                     </div>
                                  </div>
@@ -113,7 +122,7 @@
              var input, filter, select, options, option, i, txtValue;
              input = document.getElementById("searchInput");
              filter = input.value.toUpperCase();
-             select = document.getElementById("id_cliente");
+             select = document.getElementById("client_id");
              options = select.getElementsByTagName("option");
              for (i = 0; i < options.length; i++) {
                  option = options[i];

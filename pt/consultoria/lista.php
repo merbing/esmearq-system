@@ -4,7 +4,14 @@
       <?php 
          include("../../banco/config.php");
          include("../views/include/head.php");
-         include("consultas/agendamentos/dados.php")
+         include("consultas/agendamentos/dados.php");
+         include_once("../../config/auth.php");
+
+         // verificar se  o utilizador tem permissao para ver essa pagina
+       if(!in_array("Ver Lista das Consultorias",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
+      }
          ?>
    </head>
    <body>
@@ -28,7 +35,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Lista de Consultas</h1>
+                              <h1>Lista de Consultorias</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -39,7 +46,7 @@
                                     <li class="breadcrumb-item">
                                     Consultas
                                     </li>
-                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Consultas</li>
+                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Consultorias</li>
                                  </ol>
                               </nav>
                            </div>
@@ -82,10 +89,10 @@
                         <div class="card card-statistics">
                            <div class="card-body">
                               <div class="datatable-wrapper table-responsive">
-                                 <form class="" action="pesquisar" method="get">
+                                 <form class="" action="pesquisar_consultorias.php" method="get">
                                     <div class="row">
                                        <div class="col-md-10">
-                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                          <input placeholder="Pesquise pelas consultorias aqui..." class="form-control" type="search" name="termo" id="">
                                        </div>
                                        <div class="col">
                                           <button type="submit" class="btn btn-primary">Pesquisar</button>
@@ -113,10 +120,12 @@
                                           <td style="text-transform: uppercase;"><?=$consulta['state_name']?></td>
                                           <td>
                                              <a href="details.php?agendamento_id=<?php echo base64_encode($consulta['id']); ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <?php if(in_array("Iniciar Consultoria",$permissoes) ):?>
                                              <?php if (  strcmp($consulta['state_name'],"em espera") == 0 ): ?>
                                                 <a href="iniciando.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info">Iniciar</a>
                                              <?php else: ?>
                                              <?php endif; ?>
+                                             <?php endif;?>
                                           </td>
                                        </tr>
                                        <?php endforeach; ?>

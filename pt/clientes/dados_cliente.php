@@ -2,8 +2,29 @@
 <html lang="pt">
    <head>
       <?php 
-         include("../banco/config.php");
+         if(!isset($_GET['cliente_id']))
+         {
+            
+           $error_message = "Cliente não encontrado";
+           header("Location: lista.php?error_message=". urlencode($error_message));
+           // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+         }
          include("../views/include/head.php");
+         include("../../banco/config.php");
+         include("consultas/clientes/buscar.php");
+         include_once("../../config/auth.php");
+         if(!$cliente)
+         {
+            
+           $error_message = "Cliente não encontrado";
+           header("Location: lista.php?error_message=". urlencode($error_message));
+           // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+         }
+         // verificar se  o utilizador tem permissao para ver essa pagina
+         if(!in_array("Ver Clientes",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>
@@ -81,20 +102,20 @@
                         <div class="text-center">
                            <div class="pt-1 bg-img m-auto"><img class="img-fluid" src="../assets/img/avtar/user.jfif" alt="socialwidget-img"></div>
                            <div class="mt-3">
-                              <h4 class="mb-1">NOme Cliente</h4>
+                              <h4 class="mb-1"><?=$cliente['nome']?></h4>
                               <p class="mb-0 text-muted"><a href="javascript:void(0)"></a></p>
                               <ul class="nav justify-content-between mt-4 px-3 py-2">
                                  <li class="flex-fill">
                                     <h3 class="mb-0">Telefone</h3>
-                                    <p>+244 923 392 323</p>
+                                    <p><?=$cliente['telefone']?></p>
                                  </li>
                                  <li class="flex-fill">
                                     <h3 class="mb-0">Email</h3>
-                                    <p>geral£cliente.com</p>
+                                    <p><?=$cliente['email']?></p>
                                  </li>
                                  <li class="flex-fill">
-                                    <h3 class="mb-0">Número de Conta</h3>
-                                    <p>#10040</p>
+                                    <h3 class="mb-0">NIF</h3>
+                                    <p><?=$cliente['nif']?></p>
                                  </li>
                               </ul>
                            </div>
@@ -108,18 +129,50 @@
                            <div class="card-body">
                               <h4 class="card-title">Informações Básica:</h4>
                               <ul class="list-unstyled">
-                              <li><strong>Nome Completo:NOME CLIENTE</li>
-                              <li><strong>Endereço residencial: LUANDA</li>
-                              <li><strong>NIF:</strong> NIF</li>
-                              <li><strong>Data de nascimento: 19/29/2001</li>
-                              <li><strong>Estado Civil: CASADO</li>
-                              <li><strong>Nacionalidade:ANGOLA</li>
+                              <li>Nome: <strong><?=$cliente['nome']?></li>
+                              <li>Endereço: <strong><?=$cliente['endereco']?></li>
+                              <li>NIF:<strong><?=$cliente['nif']?></li>
+                              <li>Data de Nascimento: <strong><?=$cliente['data_de_nascimento']?></li>
+                              <li>Estado Civil: <strong><?=$cliente['estado_civil']?></li>
+                              <li>Nacionalidade: <strong><?=$cliente['nacionalidade']?></li>
                            </div>
                         </div>
                      </div>
                   </div>
                   <!-- Mais Dados -->
-                  <div class="row mt-4">
+                  <h4>DOCUMENTOS</h4>
+                  <div class="row">
+                     <?php foreach($documentos as $documento): ?>
+                     <div class="col-xl-3 col-sm-6">
+                        <div class="card card-statistics">
+                           <div class="card-body">
+
+                              <div class="text-center p-2">
+                                 <div class="mb-2">
+                                    <?php if(  (explode(".",$documento['nome_arquivo']))[1] == "pdf" ): ?>
+                                       <img src="../assets/img/file-icon/pdf.png" alt="png-img">
+                                    <?php else: ?>
+                                       <img src="../assets/img/file-icon/jpg.png" alt="png-img">
+                                    <?php endif; ?>
+                                    
+                                 </div>
+                                 <h4 class="mb-3"><?=$documento['nome_documento']?></h4>
+                                 <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-sm btn-light" download>Download</a>
+                                 <a href="editar_arquivo.php?file_id=<?=base64_encode($documento['id'])?>" class="btn btn-icon btn-sm btn-info"><i  class="dripicons dripicons-pencil"></i></a>
+                                 <a href="processar/cliente/remover_arquivo.php?file_id=<?=base64_encode($documento['id'])?>&cliente_id=<?=base64_encode($cliente['id'])?>" class=" btn btn-icon btn-sm btn-danger" ><i  class="dripicons dripicons-trash"></i></a>
+                                 
+                                 <!-- <a href="" class="btn btn-dark" download>Impressão</a> -->
+
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <?php endforeach; ?>
+                  </div>
+
+
+
+                  <!-- <div class="row mt-4">
                      <div class="col-md-12">
                         <div class="card">
                            <div class="card-body">
@@ -141,8 +194,8 @@
                            </div>
                         </div>
                      </div>
-                  </div>
-                  <div class="row">
+                  </div> -->
+                  <!-- <div class="row">
                      <div class="col-xl-3 col-sm-6">
                         <div class="card card-statistics">
                            <div class="card-body">
@@ -189,7 +242,7 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   <!-- end container-fluid -->
                </div>
                <!-- end app-main -->

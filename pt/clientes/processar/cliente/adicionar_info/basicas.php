@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once("../../../../../banco/config.php");
+require_once("../../../../utils/Log.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
@@ -9,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nif = $_POST["nif"];
     $birthdate = $_POST["birthdate"];
     $nationality = $_POST["nationality"];
-    if(isset($foreingh_nationality)){
+    if(isset($_POST["foreingh_nationality"])){
         $foreingh_nationality = $_POST["foreingh_nationality"];    
     }
     $address = $_POST["address"];
@@ -26,17 +27,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     
     if ($result === TRUE) {
-        $encrypted_user_id = base64_encode($cliente_id);
-        $sucess_message = "Cadastrado realizado com sucesso!";
-        $_SESSION["success"] = "Utilizador Cadastrado com sucesso!"; 
-        header("Location: ../../../adicionar.php");
-        // header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&success_message=" . urlencode($sucess_message));
+        $encrypted_user_id = $_SESSION['funcionario_id'];
+        $sucess_message = "Cliente cadastrado com sucesso!";
+        try{
+            // Registar a actividade (Log)
+            $log = new Log("Cadastrando um Cliente",('Client:'.$name."-NIF:".$nif."-NASCIMENTO:".$birthdate."-FUNCIONARIO:".$encrypted_user_id),$conn);
+            $log->save();
+        } catch(\Exception $e)
+        {
+            
+        }
+        // $_SESSION["success"] = "Utilizador Cadastrado com sucesso!"; 
+        // header("Location: ../../../adicionar.php");
+        header("Location: ../../../lista.php?success_message=" . urlencode($sucess_message));
         exit();
 
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../cliente_files?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($error_message));
+        header("Location: ../../../lista.php?error_message=" . urlencode($error_message));
         exit;
     }
 } else {

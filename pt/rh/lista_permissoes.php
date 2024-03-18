@@ -5,6 +5,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/permissoes/dados.php");
+         include_once("../../config/auth.php");
          ?>
    </head>
    <body>

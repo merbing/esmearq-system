@@ -1,10 +1,21 @@
-
 <!DOCTYPE html>
 <html lang="pt">
    <head> 
       <?php 
+      session_start();
+         include("../../banco/config.php");
          include("../views/include/head.php");
-         include("../banco/config.php");
+         include("consultas/estados/dados.php");
+         include("consultas/servicos/dados.php");
+         include("../clientes/consultas/clientes/dados.php");
+         include_once("../../config/auth.php");
+         $id_funcionario = $_SESSION['funcionario_id'];
+
+         // verificar se  o utilizador tem permissao para ver essa pagina
+     if(!in_array("Adicionar Processo",$permissoes) ){
+      header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+   
+   }
          ?>
    </head>
    <body>
@@ -55,70 +66,116 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div class="card card-statistics">
+                           <div class="card-header">
+                              <div class="card-heading">
+                                 <h4 class="card-title">Criar Novo Processo</h4>
+                              </div>
+                           </div>
                            <div class="card-body">
-                              <div class="row tabs-contant">
-                                 <div class="col-xxl-6">
-                                    <div class="card card-statistics">
-                                       <div class="card-header">
-                                          <div class="card-heading">
-                                             <h4 class="card-title">Adicionar Novo Processo</h4>
-                                          </div>
-                                       </div>
-                                       <div class="card-body">
-                                          <div class="tab">
-                                             <form enctype="multipart/form-data" action="" method="post" class="form-horizontal">
-                                             <div class="form-group">
+                              <form action="processar/processos/adicionar/basico.php" method="post" class="form-horizontal">
+                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                                 <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
+                                 <input type="hidden" name="funcionario_id" value="<?=$id_funcionario?>">
+                                 <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
+                                 <div class="form-group">
                                     <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar...">
                                     <br>
                                     <label class="control-label" for="Cliente">Cliente*</label>
                                     <div class="mb-2">
-                                       <select class="form-control" name="id_cliente" id="id_cliente" required>
+                                       <select class="form-control" name="id_client" id="id_cliente" required>
                                           <option selected disabled>Selecionar</option>
-                                          <option value="2">Cliente 1</option>
-                                          <option value="1">Cliente 2</option>
+                                          <?php foreach($clients as $client): ?>
+                                             <option value="<?=$client['id']?>"><?=$client['nome']?></option>
+                                          <?php endforeach;  ?>
+
                                        </select>
                                     </div>
                                  </div>
-                                                <div class="form-group">
-                                                   <label for="servico_nome">Tipo de Serviço</label>
-                                                   <select class="form-control" name="servico" id="servico"  required>
-                                                      <option value="Selecionar" selected>
-                                                      </option>
-                                                      <option value="1">1</option>
-                                                      <option value="0">1</option>
-                                                   </select>                                                </div>
-                                                <div class="form-group">
-                                                   <input  value="" type="hidden" class="form-control" id="data_inicio" name="data_inicio" disabled placeholder="" />
 
-                                                   <input  value="" type="hidden" class="form-control" id="data_termino" name="data_termino" disabled placeholder="" />                                                </div>
-                                                <button type="submit" class="btn btn-primary">Atualizar</button>
-                                             </form>
-                                          </div>
-                                       </div>
+                                 <div class="row">
+                                 <div class="col-6 form-group">
+                                    
+                                    <label class="control-label" for="Cliente">Estado*</label>
+                                    <div class="mb-2">
+                                       <select class="form-control" name="id_state" id="id_cliente" required>
+                                          <option selected disabled>Selecionar</option>
+                                          <?php foreach($states as $item): ?>
+                                             <option style="text-transform: uppercase;" value="<?=$item['id']?>"><?=$item['nome_estado']?></option>
+                                          <?php endforeach;  ?>
+
+                                       </select>
+                                    </div>
+                                 </div>  
+                                    <div class="col-6 form-group">
+                                    
+                                    <label class="control-label" for="Cliente">Serviço*</label>
+                                    <div class="mb-2">
+                                       <select class="form-control" name="id_service" id="id_cliente" required>
+                                          <option selected disabled>Selecionar</option>
+                                          <?php foreach($services as $item): ?>
+                                             <option value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                          <?php endforeach;  ?>
+
+                                       </select>
+                                    </div>
+                                 </div>       
+                                 </div>
+
+                                 <div class="row">
+                                 <div class="col-6 form-group">
+                                    <label class="control-label" for="data_inicio">Data de Início*</label>
+                                    <div class="mb-2">
+                                       <input type="date" class="form-control" name="data_inicio" placeholder="Data" required />
                                     </div>
                                  </div>
-                              </div>
+
+                                 <div class="col-6 form-group">
+                                    <label class="control-label" for="horario">Data de Conclusão</label>
+                                    <div class="mb-2">
+                                       <input type="date" class="form-control" id="data_fim" name="data_fim" placeholder="Data" />
+                                    </div>
+                                 </div>
+                                  
+
+                                 </div>
+                                 <div class="row">
+                                 <div class="col-6 form-group">
+                                    <label class="control-label" for="horario">Descrição do Processo</label>
+                                    <div class="mb-2">
+                                       <textarea class="form-control" name="descricao" id="" cols="30" rows="5"></textarea>
+                                    </div>
+                                 </div>
+
+                                 </div>
+
+
+                                 
+                                 
+                                 <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Guardar</button>
+                                 </div>
+                              </form>
                            </div>
                         </div>
                      </div>
-                     <!-- end row -->
                   </div>
-                  <!-- end container-fluid -->
+                  <!-- end row -->
                </div>
-               <!-- end app-main -->
+               <!-- end container-fluid -->
             </div>
-            <!-- end app-container -->
-            <!-- begin footer -->
+            <!-- end app-main -->
          </div>
          <!-- end app-container -->
+         <!-- begin footer -->
+      </div>
+      <!-- end app-container -->
       </div>
       <!-- end app-wrap -->
       </div>
       <!-- end app -->
       <!-- plugins -->
-
       <script>
-                  function filterOptions() {
+         function filterOptions() {
              var input, filter, select, options, option, i, txtValue;
              input = document.getElementById("searchInput");
              filter = input.value.toUpperCase();
@@ -138,8 +195,8 @@
          document.addEventListener("DOMContentLoaded", function() {
              document.getElementById("searchInput").addEventListener("input", filterOptions);
          });
+         
       </script>
-
       <script src="../assets/js/vendors.js"></script>
       <!-- custom app -->
       <script src="../assets/js/app.js"></script>

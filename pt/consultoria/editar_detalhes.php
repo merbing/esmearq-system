@@ -11,12 +11,18 @@
       include("../views/include/head.php");
       include("../../banco/config.php");
       include("consultas/agendamentos/buscar.php");
+      include_once("../../config/auth.php");
 
       if(!$consulta)
       {
           $error_message = "Agendamento não encontrado";
           header("Location: lista.php?error_message=". urlencode($error_message));
           // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+      }
+       // verificar se  o utilizador tem permissao para ver essa pagina
+       if(!in_array("Iniciar Consultoria",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
       }
 
       ?> 

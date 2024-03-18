@@ -1,62 +1,61 @@
 <?php
-include("../../../../banco/config.php");
-
+session_start();
+require_once("../../../../../banco/config.php");
+require_once("../../../../utils/Log.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    // 1. Receber dados do formulário
-    $user_id = $_POST["user_id"];
-    $agencia_id = $_POST["agencia_id"];
-    $nome = $_POST["nome"];
+    
+    $name = $_POST["name"];
     $nif = $_POST["nif"];
-    $data_de_nascimento = $_POST["data_de_nascimento"];
-    $nacionalidade = $_POST["nacionalidade"];
-    $estado_civil = $_POST["estado_civil"];
-    $endereco = $_POST["Endereço"];
-    $telefone = $_POST["Telefone"];
-    $email = $_POST["uemail"];
-    $funcionario_id = $_POST["funcionario_id"];
-    $cliente_id = $_POST["cliente_id"];
-
-    // 2. Atualizar dados do perfil do cliente
-    $queryUpdateCliente = "UPDATE usuarios SET nome=?, nif=?, data_nascimento=?, nacionalidade=?, estado_civil=?, endereco=?, telefone=?, email=? WHERE id=?";
-    $stmtUpdateCliente = $conn->prepare($queryUpdateCliente);
-    $stmtUpdateCliente->bind_param("ssssssssi", $nome, $nif, $data_de_nascimento, $nacionalidade, $estado_civil, $endereco, $telefone, $email, $cliente_id);
-
-    if ($stmtUpdateCliente->execute()) {
-        $stmtUpdateCliente->close();
-
-        // 3. Registrar na tabela de atividades
-        $descricao_atividade = "Atualização de Conta de Cliente";
-        $queryInsertAtividade = "INSERT INTO atividades (descricao, status, data_inicio, funcionario_id, agencia_id, id_alterado) VALUES (?, 'Completo', NOW(), ?, ?, ?)";
-        $stmtInsertAtividade = $conn->prepare($queryInsertAtividade);
-        $stmtInsertAtividade->bind_param("siii", $descricao_atividade, $funcionario_id, $agencia_id, $cliente_id);
-
-        if ($stmtInsertAtividade->execute()) {
-            $stmtInsertAtividade->close();
-
-            // 4. Redirecionar para a página de sucesso
-            $encrypted_user_id = base64_encode($cliente_id);
-            $sucess_message = "Edição realizada com sucesso!";
-            header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&success_message=" . urlencode($sucess_message));
-            exit();
-        } else {
-            // Tratamento de erro ao inserir atividade
-            $stmtInsertAtividade->close();
-            $erro_msg = "Erro ao registrar atividade. Por favor, tente novamente.";
-            header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($erro_msg));
-            exit();
-        }
-    } else {
-        // Tratamento de erro ao atualizar dados do perfil do cliente
-        $stmtUpdateCliente->close();
-        $erro_msg = "Erro ao atualizar dados do perfil do cliente. Por favor, tente novamente.";
-        header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($erro_msg));
-        exit();
+    $birthdate = $_POST["birthdate"];
+    $nationality = $_POST["nationality"];
+    if(isset($_POST["foreingh_nationality"])){
+        $foreingh_nationality = $_POST["foreingh_nationality"];    
     }
+    $address = $_POST["address"];
+    $phonenumber = $_POST["phonenumber"];
+    $email = $_POST["email"];
+    $state = $_POST["state"];
+    $cliente_id = $_POST['id'];
+    if($nationality == "Outra")
+    {
+        $nationality = $foreingh_nationality;
+    }
+    $query = "UPDATE clientes SET nome='$name', nif='$nif', data_de_nascimento='$birthdate', nacionalidade='$nationality', 
+            estado_civil='$state', endereco='$address', telefone='$phonenumber',email='$email' WHERE id=$cliente_id";
+    $result = $conn->query($query);
+    
+    
+    if ($result === TRUE) {
+        $encrypted_user_id = base64_encode($cliente_id);
+        
+        $sucess_message = "Dados alterados com sucesso!";
+        $funcionario_id = $_SESSION['funcionario_id'];
+        try{
+            // Registar a actividade (Log)
+            $log = new Log("Editando um Cliente",('Client:'.$name."-NIF:".$nif."-NASCIMENTO:".$birthdate."-FUNCIONARIO:".$funcionario_id),$conn);
+            $log->save();
+        } catch(\Exception $e)
+        {
+            
+        }
+        // $_SESSION["success"] = "Utilizador Cadastrado com sucesso!"; 
+        // header("Location: ../../../adicionar.php");
+        header("Location: ../../../dados_cliente.php?cliente_id=$encrypted_user_id&success_message=" . urlencode($sucess_message));
+        exit();
 
-    // Redirecionar para a página de erro
-    header("Location: ../../../?erro=" . urlencode($erro_msg));
+    } else {
+        $encrypted_user_id = base64_encode($cliente_id);
+        $error_message = "Ocorreu um erro.";
+        header("Location: ../../../cliente_files.php?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($error_message));
+        exit;
+    }
+} else {
+    // Página de login se o formulário não for submetido via POST
+    header("Location: ../../login.php");
     exit();
 }
+
+$conn->close();
 ?>
+

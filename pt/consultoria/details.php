@@ -12,6 +12,7 @@
         include("../views/include/head.php");
         include("../../banco/config.php");
         include("consultas/agendamentos/buscar.php");
+        include_once("../../config/auth.php");
 
         if(!$consulta)
         {
@@ -19,6 +20,12 @@
           header("Location: lista.php?error_message=". urlencode($error_message));
           // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
         }
+
+        // verificar se  o utilizador tem permissao para ver essa pagina
+        if(!in_array("Ver Lista das Consultorias",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
     ?>
    </head>
    <body>
@@ -117,28 +124,37 @@
                             </div>
 
                             <?php if($consulta['state_name'] != "em espera"): ?>
-                                <h4 class="mt-5">Detalhes da consulta <a href="editar_detalhes.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a></h4>
+                                <h4>
+                                Detalhes da consulta
+                                <?php if(isset($detalhes['id'])):?> 
+                                    <a href="editar_detalhes.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a>
+                                <?php else: ?>
+                                    <a href="iniciando.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-xs btn-info">Iniciar</a>
+                                 <?php endif; ?>
+                            </h4>
+                                <!-- <h4 class="mt-5">Detalhes da consulta 
+                                    <a href="editar_detalhes.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a></h4> -->
                               <div class="m-1 p-3 border border-grey rounded-lg" style="border-radius: 5px;">
                                 <div class="row " >
                                 <div class="col-12">
                                     <h5>Razões da viagem</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['razoes_viagem']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['razoes_viagem']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Motivo da viagem</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['motivo_viagem']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['motivo_viagem']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Já Esteve na embaixada?</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['esteve_embaixada']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['esteve_embaixada']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Visto Concedido?</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['visto_concedido']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['visto_concedido']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Quantidade de Reprovações</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['vezes_nao_aprovado']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['vezes_nao_aprovado']??'------'?></h4>
                                 </div>
                                 
 
@@ -146,71 +162,76 @@
                             <div class="row mt-5">
                                  <div class="col-3">
                                     <h5>Ano de Visto</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['ano_visto']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['ano_visto']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Vinheta</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['ano_vinheta_visto']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['ano_vinheta_visto']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Motivo de Reprovação</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['motivo_reprovacao']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['motivo_reprovacao']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Tipo de Visto</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['tipo_visto']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['tipo_visto']??'------'?></h4>
                                 </div>
                             </div>
                             <div class="row mt-5">
                                  <div class="col-3">
                                     <h5>Quantidade de Filhos</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['quantidade_filhos']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['quantidade_filhos']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Responsabilidade das despesas</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['pessoa_responsavel']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['pessoa_responsavel']??'------'?></h4>
                                 </div>
                                 
                             </div>
                             <div class="row mt-5">
                             <div class="col-3">
                                     <h5>Nome do Responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['nome_responsavel']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['nome_responsavel']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Telefone do responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Endereço do responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Telefone do responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Tipo de trabalho</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['trabalhando']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['trabalhando']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Nome da Empresa</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['nome_empresa']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['nome_empresa']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Função</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['funcao']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['funcao']??'------'?></h4>
                                 </div>
 
                             </div>
                             <div class="row mt-5">
                             <div class="col-3">
                                     <h5>Utente Elegível</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['utente_legivel']=='1'?'Sim':'Não'?></h4>
+                                    <?php if(isset($detalhes['utente_legivel'])): ?>
+                                        <h4 class="text-secondary"><?=($detalhes['utente_legivel']=='1'?'Sim':'Não')??''?></h4>
+                                    <?php else: ?>
+                                        <h4 class="text-secondary">-----</h4>
+                                    <?php endif; ?>
+                                    
                                 </div>
                                 <div class="col-3">
                                     <h5>Recomendação</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['recomendacao']?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['recomendacao']??'------'?></h4>
                                 </div>
                             </div>
                             </div>

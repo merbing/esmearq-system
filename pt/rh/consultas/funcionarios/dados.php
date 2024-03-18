@@ -1,5 +1,5 @@
 <?php
-    $query = "SELECT F.nome,F.email,F.telefone,A.nome as agencia ,D.nome as departamento FROM funcionarios F
+    $query = "SELECT F.id,F.nome,F.email,F.telefone,A.nome as agencia ,D.nome as departamento FROM funcionarios F
             INNER JOIN departamentos D ON (F.departamento = D.id)
             INNER JOIN agencias A ON (F.agencia = A.id) ";
     $stmt = $conn->prepare($query);

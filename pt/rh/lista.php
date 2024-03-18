@@ -5,6 +5,12 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/funcionarios/dados.php");
+         include_once("../../config/auth.php");
+
+         if(!in_array("Ver Funcionários",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>
@@ -112,7 +118,7 @@
                                           <td><?php echo $item['agencia'] ?></td>
                                           <td><?php echo $item['departamento'] ?></td>
                                           <td>
-                                             <a href="show.php?id=<?=base64_encode($client['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="details_funcionario.php?funcionario_id=<?=base64_encode($item['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
                                            </td>
                                        </tr>
                                        <?php endforeach; ?>

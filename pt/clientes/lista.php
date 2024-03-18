@@ -5,6 +5,12 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/clientes/dados.php");
+         include_once("../../config/auth.php");
+
+         if(!in_array("Ver Clientes",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>
@@ -82,10 +88,10 @@
                         <div class="card card-statistics">
                            <div class="card-body">
                               <div class="datatable-wrapper table-responsive">
-                                 <form class="" action="pesquisar_clientes" method="get">
+                                 <form class="" action="pesquisar_clientes.php" method="get">
                                     <div class="row">
                                        <div class="col-md-10">
-                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo" id="">
                                        </div>
                                        <div class="col">
                                           <button type="submit" class="btn btn-primary">Pesquisar</button>
@@ -104,16 +110,7 @@
                                        </tr>
                                     </thead>
                                     <tbody>
-                                       <tr>
-                                          <td>Id</td>
-                                          <td>Id</td>
-                                          <td>Idkz</td>
-                                          <td>Id</td>
-                                          <td>Id</td>
-                                          <td>
-                                          <a href="dados_cliente?conta_do_cliente=<?php echo $id_encriptado; ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
-                                          </td>
-                                       </tr>
+                                       
                                        <?php 
                                           
                                        foreach($clients as $client): ?>
@@ -124,8 +121,10 @@
                                           <td><?php echo $client['nacionalidade'] ?></td>
                                           <td><?php echo $client['telefone'] ?></td>
                                           <td>
-                                             <a href="show.php?id=<?=base64_encode($client['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
-                                           </td>
+                                             <a href="dados_cliente.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="editar.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm btn-info">Editar</a>
+                                           
+                                          </td>
                                        </tr>
                                        <?php endforeach; ?>
                                     </tbody>

@@ -1,9 +1,19 @@
 <!DOCTYPE html>
 <html lang="pt">
-   <head> <?php 
-      include("../views/include/head.php");
-      include("../banco/config.php");
-      ?> 
+   <head> 
+      <?php 
+         include("../../banco/config.php");
+         include("../views/include/head.php");
+         include("../rh/consultas/funcionarios/dados.php");
+         include("consultas/buscar.php");
+         include_once("../../config/auth.php");
+
+            // verificar se  o utilizador tem permissao para ver essa pagina
+       if(!in_array("Editar Atividade",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
+      }
+         ?>
    </head>
    <body>
       <!-- begin app -->
@@ -53,146 +63,70 @@
                   <div class="row">
                      <div class="col-md-12">
                         <div class="card card-statistics">
+                           <div class="card-header">
+                              <div class="card-heading">
+                                 <h4 class="card-title">Editar Atividade - <span class="text-info"><?=$activity['atividade']?></span></h4>
+                              </div>
+                           </div>
                            <div class="card-body">
-                              <div class="row tabs-contant">
-                                 <div class="col-xxl-6">
-                                    <div class="card card-statistics">
-                                       <div class="card-header">
-                                          <div class="card-heading">
-                                             <h4 class="card-title">Alteração de Conta</h4>
-                                          </div>
-                                       </div>
-                                       <div class="card-body">
-                                          <div class="tab">
-                                             <ul class="nav nav-tabs" role="tablist">
-                                                <li class="nav-item">
-                                                   <a class="nav-link active show" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Pessoal e Contacto</a>
-                                                </li>
-                                                <li class="nav-item">
-                                                   <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Anexos</a>
-                                                </li>
-                                             </ul>
-                                             <div class="tab-content">
-                                                <div class="tab-pane fade active show py-3" id="home" role="tabpanel" aria-labelledby="home-tab">
-                                                   <form action="processar/cliente/adicionar_info/basicas.php" method="post" class="form-horizontal">
-                                                      <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
-                                                      <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
-                                                      <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="nome">Nome Completo*</label>
-                                                         <div class="mb-2">
-                                                            <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="nif">Número de identificação fiscal*</label>
-                                                         <div class="mb-2">
-                                                            <input type="text" class="form-control" id="nif" name="nif" placeholder="NIF" required />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="data_de_nascimento">Data de Nascimento*</label>
-                                                         <div class="mb-2">
-                                                            <input type="date" class="form-control" name="data_de_nascimento" placeholder="Data de Nascimento" required />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="nacionalidade">Nacionalidade*</label>
-                                                         <div class="mb-2">
-                                                            <select class="form-control" name="nacionalidade" id="nacionalidade" required onchange="handleNacionalidade()">
-                                                               <option selected disabled>Selecionar</option>
-                                                               <option value="Angola">Angola</option>
-                                                               <option value="Outra">Outra</option>
-                                                            </select>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group" id="outra_nacionalidade">
-                                                         <label class="control-label" for="nacionalidade_input">Nome da Nacionalidade*</label>
-                                                         <div class="mb-2">
-                                                            <input type="text" class="form-control" id="nacionalidade_input" name="nacionalidade_input" placeholder="Nome da Nacionalidade" disabled />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="estado_civil">Estado Civil*</label>
-                                                         <div class="mb-2">
-                                                            <select class="form-control" name="estado_civil" id="estado_civil" required>
-                                                               <option selected disabled>Selecionar</option>
-                                                               <option value="Solteiro">Solteiro</option>
-                                                               <option value="Casado">Casado</option>
-                                                               <option value="Divorciado">Divorciado</option>
-                                                               <option value="Viúvo">Viúvo</option>
-                                                               <option value="Separado">Separado</option>
-                                                            </select>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="Endereço">Endereço residencial*</label>
-                                                         <div class="mb-2">
-                                                            <input type="text" class="form-control" id="Endereço" name="Endereço" placeholder="Endereço" required />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="Telefone">Número de Telefone*</label>
-                                                         <div class="mb-2">
-                                                            <input type="text" class="form-control" id="Telefone" name="Telefone" placeholder="Telefone" required />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <label class="control-label" for="uemail">Email*</label>
-                                                         <div class="mb-2">
-                                                            <input type="email" class="form-control" id="uemail" name="uemail" placeholder="Email" required />
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <div class="form-check">
-                                                            <input required class="form-check-input" type="checkbox" checked id="uagree" name="uagree">
-                                                            <label class="form-check-label" for="uagree">Eu Confirmo estas informações*</label>
-                                                         </div>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Iniciar Cadastro</button>
-                                                      </div>
-                                                   </form>
-                                                </div>
-                                                <div class="tab-pane fade py-3" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                                   <form enctype="multipart/form-data" action="processar/cliente/aditar_info/files.php" method="post" class="form-horizontal">
-                                                      <input type="hidden" name="user_id" value="
-                                                         <?php echo $user_id ?>">
-                                                      <input type="hidden" name="agencia_id" value="
-                                                         <?php echo $agencia_id ?>">
-                                                      <input type="hidden" name="cliente_id" value="
-                                                         <?php echo $cliente_id ?>">
-                                                      <div class="col-md-12 mb-3">
-                                                         <label for="Extrato">Foto do Cliente</label>
-                                                         <input type="file" name="Foto" accept=".jpg, .jpeg, .png" class="custom-file-input" id="customFileFoto">
-                                                         <label class="custom-file-label" for="customFileFoto">Foto do Cliente</label>
-                                                      </div>
-                                                      <div class="col-md-12 mb-3">
-                                                         <label for="Extrato">Extrato Bancario</label>
-                                                         <input type="file" name="Extrato" accept=".pdf, .jpg, .jpeg, .png" class="custom-file-input" id="customFileExtrato">
-                                                         <label class="custom-file-label" for="customFileExtrato">Extrato Bancario</label>
-                                                      </div>
-                                                      <div class="col-md-12 mb-3">
-                                                         <label for="Bilhete">Bilhete/Passaporte</label>
-                                                         <input type="file" name="Bilhete" accept=".pdf, .jpg, .jpeg, .png" class="custom-file-input" id="customFileBilhete">
-                                                         <label class="custom-file-label" for="customFileBilhete">Bilhete/Passaporte</label>
-                                                      </div>
-                                                      <div class="col-md-12 mb-3">
-                                                         <label for="Declaração">Declaração de Serviços</label>
-                                                         <input type="file" name="Declaração" accept=".pdf, .jpg, .jpeg, .png" class="custom-file-input" id="customFileDeclaracao">
-                                                         <label class="custom-file-label" for="customFileDeclaracao">Declaração de Serviços</label>
-                                                      </div>
-                                                      <div class="form-group">
-                                                         <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Atualizar</button>
-                                                      </div>
-                                                   </form>
-                                                </div>
-                                             </div>
-                                          </div>
-                                       </div>
+                              <form action="processar/editar_info/basicas.php" method="post" class="form-horizontal">
+                                 <input type="hidden" name="id_atividade" value="<?=$activity['id']?>">
+                                 <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
+                                 <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
+                                 <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
+                                 <div class="form-group">
+                                    <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar...">
+                                    <br>
+                                    <label class="control-label" for="Funcionario">Funcionario*</label>
+                                    <div class="mb-2">
+                                       <select class="form-control" name="id_funcionario" id="id_funcionario" required>
+                                          <option selected disabled>Selecionar</option>
+                                          <?php foreach($employes as $item): ?>
+                                             <option value="<?=$item['id']?>" <?=($item['id']==$activity['funcionario_id'])?'selected':'' ?> ><?=$item['nome']?></option>
+                                          <?php endforeach;  ?>
+
+                                       </select>
                                     </div>
                                  </div>
-                              </div>
+
+                                 <div class="form-group">
+                                    <label class="control-label" for="nome">Atividade a Executar*</label>
+                                    <div class="mb-2">
+                                       <input type="text" class="form-control" id="atividade" name="atividade" 
+                                       placeholder="Descrição da actividade" value="<?=$activity['atividade']?>" required />
+                                    </div>
+                                 </div>
+                                 <div class="row">
+                                 <div class="col-4 form-group">
+                                    <label class="control-label" for="nif">Data de Inicio</label>
+                                    <div class="mb-2">
+                                       <input type="date" class="form-control" id="data_inicio" name="data_inicio" 
+                                       placeholder="Data" value="<?=(explode(" ",$activity['data_inicio']))[0]?>" />
+                                    </div>
+                                 </div>
+                                 <div class="col-4 form-group">
+                                    <label class="control-label" for="nif">Data de Conclusão</label>
+                                    <div class="mb-2">
+                                       <input type="date" class="form-control" id="data_fim" name="data_fim" placeholder="Data" 
+                                       value="<?=(explode(" ",$activity['data_fim']))[0]?>"/>
+                                    </div>
+                                 </div>
+                                 <div class="col-4 form-group">
+                                    <label class="control-label" for="nome">Estado</label>
+                                    <div class="mb-2">
+                                       <select name="status" class="form-control" id="">
+                                          <option value="em_andamento" <?=($activity['estado']=="em_andamento")?'selected':''?> >Em andamento</option>
+                                          <option value="concluida" <?=($activity['estado']=="concluida")?'selected':''?>>Concluida</option>
+                                          <option value="cancelada" <?=($activity['estado']=="cancelada")?'selected':''?>>Cancelada</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 
+                                 </div>
+                                 <div class="form-group">
+                                    <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Salvar</button>
+                                 </div>
+                              </form>
                            </div>
                         </div>
                      </div>
@@ -211,8 +145,46 @@
       <!-- end app-wrap -->
       </div>
       <!-- end app -->
-      <!-- custom app -->
+      <!-- plugins -->
+      <script>
+         function handleNacionalidade() {
+             var nacionalidadeSelect = document.getElementById('nacionalidade');
+             var nacionalidadeInput = document.getElementById('nacionalidade_input');
+             var outraNacionalidadeDiv = document.getElementById('outra_nacionalidade');
+             
+             if (nacionalidadeSelect.value === 'Outra') {
+                 outraNacionalidadeDiv.style.display = 'block';
+                 nacionalidadeInput.removeAttribute('disabled');
+             } else {
+                 outraNacionalidadeDiv.style.display = 'none';
+                 nacionalidadeInput.setAttribute('disabled', 'disabled');
+             }
+         }
+
+
+         function filterOptions() {
+             var input, filter, select, options, option, i, txtValue;
+             input = document.getElementById("searchInput");
+             filter = input.value.toUpperCase();
+             select = document.getElementById("id_funcionario");
+             options = select.getElementsByTagName("option");
+             for (i = 0; i < options.length; i++) {
+                 option = options[i];
+                 txtValue = option.textContent || option.innerText;
+                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                     option.style.display = "";
+                 } else {
+                     option.style.display = "none";
+                 }
+             }
+         }
+         
+         document.addEventListener("DOMContentLoaded", function() {
+             document.getElementById("searchInput").addEventListener("input", filterOptions);
+         });
+      </script>
       <script src="../assets/js/vendors.js"></script>
+      <!-- custom app -->
       <script src="../assets/js/app.js"></script>
    </body>
 </html>

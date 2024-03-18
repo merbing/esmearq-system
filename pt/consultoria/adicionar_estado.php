@@ -5,9 +5,11 @@
        session_start();
          include("../../banco/config.php");
          include("../views/include/head.php");
+         include_once("../../config/auth.php");
          // include("consultas/departamentos/dados.php");
          // include("consultas/papeis/dados.php");
          // include("consultas/agencias/dados.php");
+         
          ?>
    </head>
    <body>

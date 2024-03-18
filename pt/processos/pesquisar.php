@@ -2,9 +2,15 @@
 <html lang="pt">
    <head>
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
+         include("consultas/processos/pesquisar.php");
+         include_once("../../config/auth.php");
+
+         if(!in_array("Ver Processo",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
          
+         }
          ?>
    </head>
    <body>
@@ -28,7 +34,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Lista de Clientes</h1>
+                              <h1>Lista de Processos</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -37,12 +43,15 @@
                                        <a href="../"><i class="ti ti-home"></i></a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                       Clientes
+                                    Processos
                                     </li>
-                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Clientes</li>
+                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Processos</li>
                                  </ol>
                               </nav>
                            </div>
+                        </div>
+                        <div class="mt-3">
+                           <a href="adicionar.php" class="btn btn-info btn-sm">Adicionar</a>
                         </div>
                         <!-- end page title -->
                      </div>
@@ -82,10 +91,11 @@
                         <div class="card card-statistics">
                            <div class="card-body">
                               <div class="datatable-wrapper table-responsive">
-                                 <form class="" action="pesquisar_clientes" method="get">
+                                 <form class="" action="pesquisar.php" method="get">
                                     <div class="row">
                                        <div class="col-md-10">
-                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                          <input placeholder="Pesquise pelos seus processos aqui..." class="form-control" 
+                                          type="search" name="termo" id="">
                                        </div>
                                        <div class="col">
                                           <button type="submit" class="btn btn-primary">Pesquisar</button>
@@ -95,23 +105,29 @@
                                  <table id="datatable" class="display compact table table-striped table-bordered">
                                     <thead>
                                        <tr>
-                                          <th>Nome</th>
-                                          <th>Inicio</th>
+                                          <th>Cliente</th>
+                                          <th>Serviço</th>
+                                          <th>Descrição</th>
                                           <th>Estado</th>
-                                          <th>Termino</th>
+                                          <th>Data de Inicio</th>
+                                          <th>Data de Conclusão</th>
                                           <th>Ação</th>
                                        </tr>
                                     </thead>
                                     <tbody>
+                                       <?php foreach($processos as $processo): ?>
                                        <tr>
-                                          <td>Id</td>
-                                          <td>Id</td>
-                                          <td>Idkz</td>
-                                          <td>Id</td>
+                                          <td><?=$processo['client_name']?></td>
+                                          <td><?=$processo['service_name']?></td>
+                                          <td><?=$processo['descricao']?></td>
+                                          <td style="text-transform: uppercase;"><?=$processo['state_name']?></td>
+                                          <td><?=$processo['data_inicio']?></td>
+                                          <td><?=$processo['data_fim']?></td>
                                           <td>
-                                          <a href="dados_cliente?conta_do_cliente=<?php echo $id_encriptado; ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
-                                       </td>
+                                             <a href="details.php?processo_id=<?php echo base64_encode($processo['id']); ?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                          </td>
                                        </tr>
+                                       <?php endforeach; ?>
                                     </tbody>
                                     <tfoot>
                                        <tr>

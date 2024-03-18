@@ -2,8 +2,17 @@
 <html lang="pt">
    <head> 
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
+         include("../rh/consultas/funcionarios/dados.php");
+         include_once("../../config/auth.php");
+         
+           // verificar se  o utilizador tem permissao para ver essa pagina
+       if(!in_array("Adicionar Atividade",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
+      }
+
          ?>
    </head>
    <body>
@@ -60,24 +69,58 @@
                               </div>
                            </div>
                            <div class="card-body">
-                              <form action="processar/cliente/adicionar_info/basicas.php" method="post" class="form-horizontal">
+                              <form action="processar/adicionar_info/basicas.php" method="post" class="form-horizontal">
                                  <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                  <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
                                  <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
                                  <div class="form-group">
+                                    <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar...">
+                                    <br>
+                                    <label class="control-label" for="Funcionario">Funcionario*</label>
+                                    <div class="mb-2">
+                                       <select class="form-control" name="id_funcionario" id="id_funcionario" required>
+                                          <option selected disabled>Selecionar</option>
+                                          <?php foreach($employes as $item): ?>
+                                             <option value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                          <?php endforeach;  ?>
+
+                                       </select>
+                                    </div>
+                                 </div>
+
+                                 <div class="form-group">
                                     <label class="control-label" for="nome">Atividade a Executar*</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required />
+                                       <input type="text" class="form-control" id="atividade" name="atividade" placeholder="Descrição da actividade" required />
                                     </div>
                                  </div>
-                                 <div class="form-group">
-                                    <label class="control-label" for="nif">Nota</label>
+                                 <div class="row">
+                                 <div class="col-4 form-group">
+                                    <label class="control-label" for="nif">Data de Inicio</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="nif" name="nif" placeholder="NOTA" />
+                                       <input type="date" class="form-control" id="data_inicio" name="data_inicio" placeholder="Data" />
                                     </div>
                                  </div>
+                                 <div class="col-4 form-group">
+                                    <label class="control-label" for="nif">Data de Conclusão</label>
+                                    <div class="mb-2">
+                                       <input type="date" class="form-control" id="data_fim" name="data_fim" placeholder="Data" />
+                                    </div>
+                                 </div>
+                                 <div class="col-4 form-group">
+                                    <label class="control-label" for="nome">Estado</label>
+                                    <div class="mb-2">
+                                       <select name="status" class="form-control" id="">
+                                          <option value="em_andamento" selected>Em andamento</option>
+                                          <option value="concluida" disabled>Concluida</option>
+                                          <option value="cancelada" disabled>Cancelada</option>
+                                       </select>
+                                    </div>
+                                 </div>
+                                 
+                                 </div>
                                  <div class="form-group">
-                                    <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Inserir</button>
+                                    <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Salvar</button>
                                  </div>
                               </form>
                            </div>
@@ -113,6 +156,28 @@
                  nacionalidadeInput.setAttribute('disabled', 'disabled');
              }
          }
+
+
+         function filterOptions() {
+             var input, filter, select, options, option, i, txtValue;
+             input = document.getElementById("searchInput");
+             filter = input.value.toUpperCase();
+             select = document.getElementById("id_funcionario");
+             options = select.getElementsByTagName("option");
+             for (i = 0; i < options.length; i++) {
+                 option = options[i];
+                 txtValue = option.textContent || option.innerText;
+                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                     option.style.display = "";
+                 } else {
+                     option.style.display = "none";
+                 }
+             }
+         }
+         
+         document.addEventListener("DOMContentLoaded", function() {
+             document.getElementById("searchInput").addEventListener("input", filterOptions);
+         });
       </script>
       <script src="../assets/js/vendors.js"></script>
       <!-- custom app -->

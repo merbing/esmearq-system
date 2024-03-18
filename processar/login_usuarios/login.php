@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../../banco/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -6,7 +7,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $senha = $_POST["password"];
 
     $verificar_usuario = "SELECT F.id,F.nome,F.email,F.telefone,F.papel_usuario,F.agencia,
-                         P.id as papel_usuario,P.nome as papel, F.senha FROM funcionarios F inner join funcionarios_papel P
+                         P.id as papel_usuario,P.nome as papel, F.senha FROM funcionarios F 
+                         inner join funcionarios_papel P
                          ON (F.papel_usuario = P.id) WHERE email = '$email'";
     $result = $conn->query($verificar_usuario);
    
@@ -24,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["telefone_usuario"] = $row["telefone"];
             $_SESSION["papel_usuario"] = $row["papel"];
             $_SESSION["papel_usuario_id"] = $row["papel_usuario"];
-            $_SESSION["agencia_id"] = $row["agencia_id"];
+            $_SESSION["agencia_id"] = $row["agencia"];
 
             // Redirecionando para a área do cliente
             header("Location: ../../pt/");

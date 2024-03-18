@@ -2,9 +2,16 @@
 <html lang="pt">
    <head>
       <?php 
-         include("../banco/config.php");
+         include("../../banco/config.php");
          include("../views/include/head.php");
+         include("consultas/dados.php");
+         include_once("../../config/auth.php");
          
+            // verificar se  o utilizador tem permissao para ver essa pagina
+       if(!in_array("Ver Atividade",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
+      }
          ?>
    </head>
    <body>
@@ -49,7 +56,15 @@
                   </div>
                   <!-- end row -->
                   <div class="row">
-                     <div class="col-12 mb-2">
+                        
+                  </div>
+                  <div class="row ">
+                     <div class="col-12">
+                        <div class="">
+                           <a href="adicionar.php" class="btn btn-sm btn-info">Adicionar</a>
+                        </div>
+                     </div>
+                     <div class="col-12 mb-2 mt-3">
                         <?php
                            // Verifica se há uma mensagem de erro
                            if (isset($_GET['error_message'])) {
@@ -82,10 +97,11 @@
                         <div class="card card-statistics">
                            <div class="card-body">
                               <div class="datatable-wrapper table-responsive">
-                                 <form class="" action="pesquisar_clientes" method="get">
+                                 <form class="" action="pesquisar.php" method="get">
                                     <div class="row">
                                        <div class="col-md-10">
-                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                          <input placeholder="Pesquise pelas suas actividades aqui..." 
+                                          class="form-control" type="search" name="termo" id="">
                                        </div>
                                        <div class="col">
                                           <button type="submit" class="btn btn-primary">Pesquisar</button>
@@ -95,24 +111,32 @@
                                  <table id="datatable" class="display compact table table-striped table-bordered">
                                     <thead>
                                        <tr>
-                                          <th>Nome</th>
+                                          <th>Actividade</th>
+                                          <th>Funcionario Atribuido</th>
                                           <th>Inicio</th>
-                                          <th>Estado</th>
                                           <th>Termino</th>
+                                          <th>Estado</th>
                                           <th>Ação</th>
                                        </tr>
                                     </thead>
                                     <tbody>
+                                       <?php foreach($activities as $activity): ?>
                                        <tr>
-                                          <td>Id</td>
-                                          <td>Id</td>
-                                          <td>Idkz</td>
-                                          <td>Id</td>
+                                          <td><?=$activity['atividade']?></td>
+                                          <td><?=$activity['funcionario']?></td>
+                                          <td><?=$activity['data_inicio']?></td>
+                                          <td><?=$activity['data_fim']?></td>
+                                          <td><?=$activity['estado']?></td>
                                           <td>
-                                          <a href="dados_cliente?conta_do_cliente=<?php echo $id_encriptado; ?>" class="btn btn-icon btn-dark"><i class="dripicons dripicons-document-edit"></i></a>
-                                             <a href="dados_cliente?conta_do_cliente=<?php echo $id_encriptado; ?>" class="btn btn-icon btn-danger"><i class="dripicons dripicons-trash"></i></a>
-                                       </td>
+                                          <?php if(in_array("Editar Atividade",$permissoes) ):?>
+                                             <a href="editar.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-icon btn-dark"><i class="dripicons dripicons-document-edit"></i></a>
+                                             <?php endif;?>
+                                             <?php if(in_array("Remover Atividade",$permissoes) ):?>
+                                             <a href="remover.php?atividade_id=<?php echo base64_encode($activity['id']) ?>"" class="btn btn-icon btn-danger"><i class="dripicons dripicons-trash"></i></a>
+                                             <?php endif;?>
+                                          </td>
                                        </tr>
+                                       <?php endforeach;?>
                                     </tbody>
                                     <tfoot>
                                        <tr>

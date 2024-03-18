@@ -7,6 +7,13 @@
          include("consultas/estados/dados.php");
          include("consultas/servicos/dados.php");
          include("../clientes/consultas/clientes/dados.php");
+         include_once("../../config/auth.php");
+
+         // verificar se  o utilizador tem permissao para ver essa pagina
+         if(!in_array("Agendar Nova Consultoria",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>

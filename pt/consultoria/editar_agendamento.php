@@ -14,6 +14,7 @@
          include("consultas/servicos/dados.php");
          include("../clientes/consultas/clientes/dados.php");
          include("consultas/agendamentos/buscar.php");
+         include_once("../../config/auth.php");
 
         if(!$consulta)
         {
@@ -21,6 +22,12 @@
           header("Location: lista.php?error_message=". urlencode($error_message));
           // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
         }
+
+        // verificar se  o utilizador tem permissao para ver essa pagina
+        if(!in_array("Agendar Nova Consultoria",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
+      }
          ?>
    </head>
    <body>

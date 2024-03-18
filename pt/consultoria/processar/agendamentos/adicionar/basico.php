@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("../../../../../banco/config.php");
-
+require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
@@ -23,6 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $encrypted_user_id = base64_encode($cliente_id);
         $sucess_message = "Agendamento Cadastrado realizado com sucesso!";
         // $_SESSION["success"] = "Papel Cadastrado com sucesso!"; 
+        $funcionario_id = $_SESSION['funcionario_id'];
+        try{
+            // Registar a actividade (Log)
+            $log = new Log("Cadastrando um agendamento",('Client:'.$client_id."-SERVICE:".$service_id."-DATA:".$date."-FUNCIONARIO:".$funcionario_id),$conn);
+            $log->save();
+        } catch(\Exception $e)
+        {
+            
+        }
         header("Location: ../../../adicionar.php?success_message=". urlencode($sucess_message));
         // header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&success_message=" . urlencode($sucess_message));
         exit();

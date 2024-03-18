@@ -5,9 +5,15 @@
        session_start();
          include("../../banco/config.php");
          include("../views/include/head.php");
+         include_once("../../config/auth.php");
          // include("consultas/departamentos/dados.php");
          // include("consultas/papeis/dados.php");
          // include("consultas/agencias/dados.php");
+
+         if(!in_array("Novo Cargo",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>

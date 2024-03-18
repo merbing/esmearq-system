@@ -28,9 +28,10 @@
             <div class="app-main" id="main">
                <!-- begin container-fluid -->
                <div class="container-fluid">
+                  
                   <!-- begin row -->
                   <div class="row">
-                     <div class="col-md-12 m-b-30">
+                     <div class="col-md-12 ">
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                         <div class="page-title mb-2 mb-sm-0">
@@ -51,6 +52,36 @@
                         </div>
                         </div>
                         <!-- end page title -->
+                     </div>
+                  </div>
+                  <!-- end row -->
+                  <div class="row">
+                     <div class="col-12 mb-2">
+                        <?php
+                           // Verifica se há uma mensagem de erro
+                           if (isset($_GET['error_message'])) {
+                           ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                           <strong>Erro:</strong> <?php echo urldecode($_GET['error_message']); ?>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <i class="ti ti-close"></i>
+                           </button>
+                        </div>
+                        <?php
+                           }
+                           
+                           // Verifica se há uma mensagem de sucesso
+                           if (isset($_GET['success_message'])) {
+                           ?>
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                           <strong>Sucesso:</strong> <?php echo urldecode($_GET['success_message']); ?>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <i class="ti ti-close"></i>
+                           </button>
+                        </div>
+                        <?php
+                           }
+                           ?>
                      </div>
                   </div>
                   <!-- end row -->

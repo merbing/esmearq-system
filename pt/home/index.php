@@ -1,6 +1,6 @@
 <?php 
 include("../env/auth_check.php");
-
+include("admin.php");
 // if ($cargo_id == 0) {
 //    include("analista.php");
 // }
@@ -13,13 +13,14 @@ include("../env/auth_check.php");
 // else {
 //    echo "Erro Cargo Desconhecido, Contecte Um Admin Para Colocar Um Cargo Válido";
 // }
-if ($papel_usuario == "Admin") {
-   include("admin.php");
-}
-// elseif ($cargo_id == 2 || $cargo_id == 3 || $cargo_id == 4) {
+// if ($papel_usuario == "Admin") {
 //    include("admin.php");
 // }
-else {
-   echo "Erro Cargo Desconhecido, Contecte Um Admin Para Colocar Um Cargo Válido";
-}
+// // elseif ($cargo_id == 2 || $cargo_id == 3 || $cargo_id == 4) {
+// //    include("admin.php");
+// // }
+// else {
+//    echo "Erro Cargo Desconhecido, Contecte Um Admin Para Colocar Um Cargo Válido";
+// }
+
 ?>

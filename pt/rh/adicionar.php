@@ -8,6 +8,12 @@
          include("consultas/departamentos/dados.php");
          include("consultas/papeis/dados.php");
          include("consultas/agencias/dados.php");
+         include_once("../../config/auth.php");
+
+         if(!in_array("Adicionar Funcionário",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>

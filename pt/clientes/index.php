@@ -4,6 +4,7 @@
       <?php 
          include("../views/include/head.php");
          include("../../banco/config.php");
+         include_once("../../config/auth.php");
          ?>
    </head>
    <body>
@@ -76,6 +77,7 @@
                            ?>
                      </div>
                   </div>
+                  <?php if(in_array("Ver Clientes",$permissoes) ):?>
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -86,16 +88,22 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Cadastro</code></a></div>
+                              <?php if(in_array("Adicionar Clientes",$permissoes) ):?>
+                                    <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Cadastro</code></a></div>
+                                 <?php endif; ?>
+                                 <?php if(in_array("Ver Clientes",$permissoes) ):?>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-checklist"></i><code>Todos Os Clientes</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="documentos"><i class="dripicons dripicons-document"></i><code>Documentação</code></a></div>
-
+                                 <?php endif;?>
+                                 <?php if(in_array("Adicionar Documentos de Clientes",$permissoes) ):?>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="documentos.php"><i class="dripicons dripicons-document"></i><code>Documentação</code></a></div>
+                                 <?php endif;?>
                               </div>
                            </div>
                         </div>
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <?php endif;?>
                   <!-- end container-fluid -->
                </div>
                <!-- end app-main -->

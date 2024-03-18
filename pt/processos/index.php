@@ -3,7 +3,8 @@
    <head> 
       <?php 
          include("../views/include/head.php");
-         include("../banco/config.php");
+         include("../../banco/config.php");
+         include_once("../../config/auth.php");
          ?>
    </head>
    <body>
@@ -76,6 +77,7 @@
                            ?>
                      </div>
                   </div>
+                  <?php if(in_array("Ver Processo",$permissoes) ):?>
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -86,17 +88,24 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Adicionar</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-warning"></i><code>Atrasado</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-clock"></i><code>Em Andamento</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checkmark"></i><code>Terminado</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-clipboard"></i><code>Todos</code></a></div>
+                              <?php if(in_array("Adicionar Processo",$permissoes) ):?>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Adicionar</code></a></div>
+                                 <?php endif;?>
+                                 <?php if(in_array("Ver Processo",$permissoes) ):?>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-clipboard"></i><code>Todos</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=atrasado"><i class="dripicons dripicons-warning"></i><code>Atrasado</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=andamento"><i class="dripicons dripicons-clock"></i><code>Em Andamento</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=terminado"><i class="dripicons dripicons-checkmark"></i><code>Terminado</code></a></div>
+                                 <?php endif;?>
                               </div>
                            </div>
                         </div>
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <?php endif;?>
+
+                  <?php if(in_array("Ver Estado de Processo",$permissoes) ):?>
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -107,14 +116,17 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Novo Estado de Processo</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
+                              <?php if(in_array("Cadastrar Novo Estado de Processo",$permissoes) ):?>
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_estado.php"><i class="dripicons dripicons-plus"></i><code>Novo Estado de Processo</code></a></div>
+                              <?php endif;?>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_estados.php"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
                               </div>
                            </div>
                         </div>
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <?php endif;?>
                   <!-- end container-fluid -->
                </div>
                <!-- end app-main -->

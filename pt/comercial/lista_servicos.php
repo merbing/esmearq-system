@@ -5,6 +5,12 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/servicos/dados.php");
+         include_once("../../config/auth.php");
+
+         if(!in_array("Ver Serviços",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>

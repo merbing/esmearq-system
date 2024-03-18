@@ -6,6 +6,13 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("processar/cliente/senhas.php");
+         include_once("../../config/auth.php");
+
+         // verificar se  o utilizador tem permissao para ver essa pagina
+         if(!in_array("Adicionar Clientes",$permissoes) ){
+            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+         
+         }
          ?>
    </head>
    <body>

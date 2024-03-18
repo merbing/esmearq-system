@@ -3,7 +3,8 @@
    <head> 
       <?php 
          include("../views/include/head.php");
-         include("../banco/config.php");
+         include("../../banco/config.php");
+         include_once("../../config/auth.php");
          ?>
    </head>
    <body>
@@ -76,6 +77,7 @@
                            ?>
                      </div>
                   </div>
+                  <?php if(in_array("Ver Funcionários",$permissoes) ):?>
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -86,15 +88,18 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
+                              <?php if(in_array("Adicionar Funcionário",$permissoes) ):?>
                                  <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Novo Funcionário</code></a></div>
+                                 <?php endif;?>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-warning"></i><code>Funcionários Desativados</code></a></div>
+                                 <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-warning"></i><code>Funcionários Desativados</code></a></div> -->
                               </div>
                            </div>
                         </div>
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <?php endif;?>
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -113,6 +118,7 @@
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <?php if(in_array("Ver Cargo",$permissoes) ):?>
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -123,16 +129,20 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
+                              <?php if(in_array("Novo Cargo",$permissoes) ):?>
                                  <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_papel.php"><i class="dripicons dripicons-plus"></i><code>Novo Papel(Cargo)</code></a></div>
+                                 <?php endif;?>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_papeis.php"><i class="dripicons dripicons-checklist"></i><code>Lista de Papeis</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_permissao.php"><i class="dripicons dripicons-plus"></i><code>Novo Permissão</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_permissoes.php"><i class="dripicons dripicons-checklist"></i><code>Lista de Permissões</code></a></div>
+                                 
+                                 <!-- <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_permissao.php"><i class="dripicons dripicons-plus"></i><code>Novo Permissão</code></a></div> -->
+                                 <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_permissoes.php"><i class="dripicons dripicons-checklist"></i><code>Lista de Permissões</code></a></div> -->
                               </div>
                            </div>
                         </div>
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <?php endif;?>
                   <!-- end container-fluid -->
                </div>
                <!-- end app-main -->
