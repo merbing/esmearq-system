@@ -122,7 +122,7 @@
                                           <td style="text-transform: uppercase;"><?php echo $item['custo'] ?></td>
                                           <td style="text-transform: uppercase;"><?php echo $item['prazo_dias'] ?></td>
                                           <td>
-                                             <a href="editar.php?service_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-success">Editar</a>
+                                             <a href="editar_servico.php?service_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-success">Editar</a>
                                              <!-- <a href="lista_papel_permissoes.php?papel_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-info">Ver Permissões</a> -->
                                             
                                           </td>

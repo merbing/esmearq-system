@@ -94,9 +94,9 @@
                                  <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="iniciando.php"><i class="dripicons dripicons-media-play"></i><code>Iniciando Consulta</code></a></div> -->
                                  <?php if(in_array("Ver Lista das Consultorias",$permissoes) ):?>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-calendar"></i><code>Agendadas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checkmark"></i><code>Realizadas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-up"></i><code>Aprovadas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-down"></i><code>Reprovadas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=concluido"><i class="dripicons dripicons-checkmark"></i><code>Realizadas</code></a></div>
+                                 <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-up"></i><code>Aprovadas</code></a></div> -->
+                                 <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-thumbs-down"></i><code>Reprovadas</code></a></div> -->
                                  <?php endif;?>
                               </div>
                            </div>

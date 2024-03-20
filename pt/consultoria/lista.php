@@ -5,6 +5,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/agendamentos/dados.php");
+         include_once("consultas/estados/dados.php");
          include_once("../../config/auth.php");
 
          // verificar se  o utilizador tem permissao para ver essa pagina
@@ -91,8 +92,20 @@
                               <div class="datatable-wrapper table-responsive">
                                  <form class="" action="pesquisar_consultorias.php" method="get">
                                     <div class="row">
-                                       <div class="col-md-10">
-                                          <input placeholder="Pesquise pelas consultorias aqui..." class="form-control" type="search" name="termo" id="">
+                                       <div class="col-md-6">
+                                          <input placeholder="Pesquise pelo nome do cliente" class="form-control" type="search" name="termo" id="">
+                                       </div>
+                                       <div class="col-3 form-group">
+                                    
+                                          <div class="mb-2">
+                                             <select class="form-control" name="id_state" id="id_cliente" required>
+                                                <option selected disabled>Selecionar o estado</option>
+                                                <?php foreach($states as $item): ?>
+                                                   <option style="text-transform: uppercase;" value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                                <?php endforeach;  ?>
+
+                                             </select>
+                                          </div>
                                        </div>
                                        <div class="col">
                                           <button type="submit" class="btn btn-primary">Pesquisar</button>

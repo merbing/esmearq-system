@@ -2,7 +2,7 @@
     
     $agendamento_id = base64_decode($_GET['agendamento_id']);
     $query = "SELECT * FROM consultasestado
-            WHERE nome LIKE '%concluido%'";
+            WHERE nome LIKE '%espera%'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();

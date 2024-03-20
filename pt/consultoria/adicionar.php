@@ -124,7 +124,7 @@
                                        <input type="time" class="form-control" id="time" name="time" placeholder="Horário" />
                                     </div>
                                  </div>
-                                 <div class="col-6 form-group">
+                                 <!-- <div class="col-6 form-group">
                                     
                                     <label class="control-label" for="Cliente">Estado*</label>
                                     <div class="mb-2">
@@ -136,7 +136,7 @@
 
                                        </select>
                                     </div>
-                                 </div>  
+                                 </div>   -->
 
                                  </div>
 

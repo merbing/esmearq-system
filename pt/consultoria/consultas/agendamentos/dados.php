@@ -1,8 +1,22 @@
 <?php
-    $query = "SELECT A.id, A.pais_destino,A.data_consulta,C.nome as client_name,E.nome as state_name,S.nome as service_name FROM consultasagendamento A
+if(isset($_GET['estado']) && $_GET['estado']=="concluido")
+{
+    $query = "SELECT A.id, A.pais_destino,A.data_consulta,C.nome as client_name,
+    E.nome as state_name,S.nome as service_name FROM consultasagendamento A
+    INNER JOIN clientes C ON (C.id = A.id_cliente)
+    INNER JOIN consultasestado E ON(E.id = A.id_estado) 
+    INNER JOIN servicos S ON(S.id = A.servico_desejado)
+    WHERE E.nome LIKE '%concluido%'";
+
+}else{
+    $query = "SELECT A.id, A.pais_destino,A.data_consulta,C.nome as client_name,
+            E.nome as state_name,S.nome as service_name FROM consultasagendamento A
             INNER JOIN clientes C ON (C.id = A.id_cliente)
             INNER JOIN consultasestado E ON(E.id = A.id_estado) 
-            INNER JOIN servicos S ON(S.id = A.servico_desejado)";
+            INNER JOIN servicos S ON(S.id = A.servico_desejado)
+            WHERE E.nome LIKE '%espera%'";
+
+}
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();

@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="pt">
-   <head> 
+   <head>
       <?php 
-         include("../../banco/config.php");
-         include("../views/include/head.php");
-         include_once("../../config/auth.php");
-         
-         // verificar se  o utilizador tem permissao para ver essa pagina
-         if(!in_array("Adicionar Serviço",$permissoes) ){
-            header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
-         
+
+         if(!isset($_GET['service_id']))
+         {
+            $error_message = "Serviço não encontrado";
+            header("Location: lista_servicos.php?error_message=". urlencode($error_message));
+             // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
          }
-         ?>
+         include("../views/include/head.php");
+         include("../../banco/config.php");
+         include("consultas/servicos/buscar.php");
+         include_once("../../config/auth.php");
+
+        if(!$service)
+        {
+          $error_message = "Serviço não encontrado";
+          header("Location: lista_servicos.php?error_message=". urlencode($error_message));
+          // header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+        }
+        if(!in_array("Ver Serviços",$permissoes) ){
+         header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
+      
+      }
+    ?>
    </head>
    <body>
       <!-- begin app -->
@@ -63,31 +76,32 @@
                         <div class="card card-statistics">
                            <div class="card-header">
                               <div class="card-heading">
-                                 <h4 class="card-title">Novo Serviço</h4>
+                                 <h4 class="card-title">Editar Serviço <span class="text-info"><?=$service['nome']?></span></h4>
                               </div>
                            </div>
                            <div class="card-body">
-                              <form action="processar/servicos/adicionar_info/basicas.php" method="post" class="form-horizontal">
+                           <form action="processar/servicos/edit/basicas.php" method="post" class="form-horizontal">
                                  <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                  <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
                                  <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
+                                 <input type="hidden" name="service_id" value="<?=$service['id']?>" >
                                  <div class="row">
                                  <div class="col-4 form-group">
                                     <label class="control-label" for="novo_servico">Nome do Serviço*</label>
                                     <div class="mb-2">
-                                       <input type="text" class="form-control" id="novo_servico" name="name" placeholder="Nome do Serviço" required />
+                                       <input type="text" class="form-control" value="<?=$service['nome']??''?>" id="novo_servico" name="name" placeholder="Nome do Serviço" required />
                                     </div>
                                  </div>
                                  <div class="col-4 form-group">
                                     <label class="control-label" for="tempo">Tempo de Execução (em dias)*</label>
                                     <div class="mb-2">
-                                       <input type="number" class="form-control" id="tempo" name="duracao" placeholder="Tempo Execução" required />
+                                       <input type="number" class="form-control" value="<?=$service['prazo_dias']??'1'?>" id="tempo" name="duracao" placeholder="Tempo Execução" required />
                                     </div>
                                  </div>
                                  <div class="col-4 form-group">
                                     <label class="control-label" for="Valor">Valor*</label>
                                     <div class="mb-2">
-                                       <input type="number" class="form-control" name="valor" placeholder="Valor do Serviço" 
+                                       <input type="number" class="form-control" name="valor" value="<?=$service['custo']??'0'?>" placeholder="Valor do Serviço" 
                                        required />
                                     </div>
                                  </div>
@@ -102,7 +116,7 @@
                                  <div class="form-group">
                                     <button type="submit" class="btn btn-primary" name="signup" value="Sign up">Guardar</button>
                                  </div>
-                              </form>
+                              </form> 
                            </div>
                         </div>
                      </div>
@@ -122,6 +136,29 @@
       </div>
       <!-- end app -->
       <!-- plugins -->
+      <script>
+         function filterOptions() {
+             var input, filter, select, options, option, i, txtValue;
+             input = document.getElementById("searchInput");
+             filter = input.value.toUpperCase();
+             select = document.getElementById("id_cliente");
+             options = select.getElementsByTagName("option");
+             for (i = 0; i < options.length; i++) {
+                 option = options[i];
+                 txtValue = option.textContent || option.innerText;
+                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                     option.style.display = "";
+                 } else {
+                     option.style.display = "none";
+                 }
+             }
+         }
+         
+         document.addEventListener("DOMContentLoaded", function() {
+             document.getElementById("searchInput").addEventListener("input", filterOptions);
+         });
+         
+      </script>
       <script src="../assets/js/vendors.js"></script>
       <!-- custom app -->
       <script src="../assets/js/app.js"></script>

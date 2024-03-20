@@ -367,9 +367,9 @@
              anoAprovacaoVistoDiv.style.display = 'none';
            } else if (selectedValue === 'Não') {
              vistoConcedidoDiv.style.display = 'none';
-             razoesNaoAprovadoDiv.style.display = 'block';
-             anoNaoAprovadoDiv.style.display = 'block';
-             quantidadeNaoAprovadoDiv.style.display = 'block';
+             razoesNaoAprovadoDiv.style.display = 'none';
+             anoNaoAprovadoDiv.style.display = 'none';
+             quantidadeNaoAprovadoDiv.style.display = 'none';
              anoVistoAprovadoDiv.style.display = 'none';
              anoAprovacaoVistoDiv.style.display = 'none';
            } else {
@@ -386,12 +386,17 @@
            const vistoConcedidoSelect = document.getElementById('visto_concedido_select');
            const anoVistoAprovadoDiv = document.getElementById('ano_visto_aprovado');
            const anoAprovacaoVistoDiv = document.getElementById('ano_aprovacao_visto');
-         
+           const razoesNaoAprovadoDiv = document.getElementById('razoes_nao_aprovado');
+           const anoNaoAprovadoDiv = document.getElementById('ano_nao_aprovado');
+           const quantidadeNaoAprovadoDiv = document.getElementById('quantidade_nao_aprovado');
            const selectedValue = vistoConcedidoSelect.value;
          
            if (selectedValue === 'Sim') {
              anoVistoAprovadoDiv.style.display = 'block';
              anoAprovacaoVistoDiv.style.display = 'block';
+             razoesNaoAprovadoDiv.style.display = 'none';
+             anoNaoAprovadoDiv.style.display = 'none';
+             quantidadeNaoAprovadoDiv.style.display = 'none';
            } else if (selectedValue === 'Não') {
              anoVistoAprovadoDiv.style.display = 'none';
              anoAprovacaoVistoDiv.style.display = 'none';

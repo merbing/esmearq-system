@@ -1,8 +1,17 @@
 <?php
 session_start();
 require_once("../../../../../banco/config.php");
+include("../../../consultas/estados/buscar_espera.php");
 require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    if($state==null)
+    {   
+        $error_message = "Estado 'em espera' não disponível.";
+        header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+        exit;
+    }
+
     // var_dump($_POST);
     // exit;
     $client_id = $_POST["id_client"];
@@ -15,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $date = $date." ".$time;
 
     $query = "INSERT INTO consultasagendamento (pais_destino,data_consulta,id_estado,id_cliente,servico_desejado) 
-            VALUES ('$country','$date','$state_id','$client_id','$service_id');";
+            VALUES ('$country','$date','".$state['id']."','$client_id','$service_id');";
     $result = $conn->query($query);
     
     
