@@ -12,6 +12,7 @@
          include("../views/include/head.php");
          include("../../banco/config.php");
          include("consultas/clientes/buscar.php");
+         include("consultas/clientes/processos.php");
          include_once("../../config/auth.php");
          if(!$cliente)
          {
@@ -64,6 +65,9 @@
                               </nav>
                            </div>
                         </div>
+                        <div class="mt-3">
+                           <a href="viagens_cliente.php?cliente_id=<?=base64_encode($cliente['id'])?>" class="btn btn-sm btn-info">Viagens</a>
+                        </div>
                         <!-- end page title -->
                      </div>
                   </div>
@@ -97,7 +101,7 @@
                            ?>
                      </div>
                   </div>
-                  <div class="card card-statistics widget-social-box1 px-2">
+                  <!-- <div class="card card-statistics widget-social-box1 px-2">
                      <div class="card-body pb-3 pt-4">
                         <div class="text-center">
                            <div class="pt-1 bg-img m-auto"><img class="img-fluid" src="../assets/img/avtar/user.jfif" alt="socialwidget-img"></div>
@@ -121,20 +125,55 @@
                            </div>
                         </div>
                      </div>
-                  </div>
+                  </div> -->
                   <!-- Cliente Info -->
                   <div class="row">
                      <div class="col-md-12">
                         <div class="card">
                            <div class="card-body">
-                              <h4 class="card-title">Informações Básica:</h4>
-                              <ul class="list-unstyled">
+                              <!-- <h4 class="card-title">Informações Básica:</h4> -->
+                              <div class="row">
+                                 <div class="col-4 mb-3">
+                                    <h5 class="">Nome</h5>
+                                    <h4 class="text-info"><?=$cliente['nome']?></h4>
+                                 </div>
+                                 
+                                 <div class="col-3">
+                                    <h5 class="">Data de Nascimento</h5>
+                                    <h4 class="text-info"><?=$cliente['data_de_nascimento']?></h4>
+                                 </div>
+                                 <div class="col-4">
+                                    <h5 class="">Endereço</h5>
+                                    <h4 class="text-info"><?=$cliente['endereco']?></h4>
+                                 </div>
+                                 
+                                 <div class="col-4">
+                                    <h5 class="">Email</h5>
+                                    <h4 class="text-info"><?=$cliente['email']?></h4>
+                                 </div>
+                                 <div class="col-3">
+                                    <h5 class="">NIF</h5>
+                                    <h4 class="text-info"><?=$cliente['nif']?></h4>
+                                 </div>
+                                 
+                                 <div class="col-2">
+                                    <h5 class="">Estado Civil</h5>
+                                    <h4 class="text-info"><?=$cliente['estado_civil']?></h4>
+                                 </div>
+                                 <div class="col-2">
+                                    <h5 class="">Nacionalidade</h5>
+                                    <h4 class="text-info"><?=$cliente['nacionalidade']?></h4>
+                                 </div>
+
+                              </div>
+                              <!-- <ul class="list-unstyled">
                               <li>Nome: <strong><?=$cliente['nome']?></li>
                               <li>Endereço: <strong><?=$cliente['endereco']?></li>
                               <li>NIF:<strong><?=$cliente['nif']?></li>
                               <li>Data de Nascimento: <strong><?=$cliente['data_de_nascimento']?></li>
                               <li>Estado Civil: <strong><?=$cliente['estado_civil']?></li>
                               <li>Nacionalidade: <strong><?=$cliente['nacionalidade']?></li>
+                              </ul> -->
                            </div>
                         </div>
                      </div>
@@ -157,10 +196,32 @@
                                     
                                  </div>
                                  <h4 class="mb-3"><?=$documento['nome_documento']?></h4>
-                                 <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-sm btn-light" download>Download</a>
+                                 <!-- <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-sm btn-light" download>Download</a> -->
+                                 <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-icon btn-sm btn-info" target="_blank"><i  class="dripicons dripicons-preview"></i></a>
                                  <a href="editar_arquivo.php?file_id=<?=base64_encode($documento['id'])?>" class="btn btn-icon btn-sm btn-info"><i  class="dripicons dripicons-pencil"></i></a>
-                                 <a href="processar/cliente/remover_arquivo.php?file_id=<?=base64_encode($documento['id'])?>&cliente_id=<?=base64_encode($cliente['id'])?>" class=" btn btn-icon btn-sm btn-danger" ><i  class="dripicons dripicons-trash"></i></a>
-                                 
+                                 <a role="button"   class=" btn btn-icon btn-sm btn-danger text-light"
+                                 data-toggle="modal" data-target="#Modal<?=$documento['id']?>" ><i  class="dripicons dripicons-trash"></i></a>
+                                    <!-- href="processar/cliente/remover_arquivo.php?file_id=<?=base64_encode($documento['id'])?>&cliente_id=<?=base64_encode($cliente['id'])?>" -->
+                                 <div class="modal" tabindex="-1" id="Modal<?=$documento['id']?>">
+                                    <div class="modal-dialog">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title">Excluir Documento</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body">
+                                                <p class="text-warning " style="font-size: 1.4em;">Tem a certeza que deseja excluir este documento?</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                          <a  class="btn btn-danger text-light" href="processar/cliente/remover_arquivo.php?file_id=<?=base64_encode($documento['id'])?>&cliente_id=<?=base64_encode($cliente['id'])?>" >Excluir</a>   
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                          </div>
+                                        </div>
+                                    </div>
+                                 </div>
                                  <!-- <a href="" class="btn btn-dark" download>Impressão</a> -->
 
                               </div>
@@ -170,6 +231,93 @@
                      <?php endforeach; ?>
                   </div>
 
+                  <h4 class="mt-5">PROCESSOS</h4>
+                  <div class="row ">
+                     <div class="col-md-12">
+                        <div class="card">
+                           <div class="card-body">
+                           <div class="datatable-wrapper table-responsive">
+                                 <form class="" action="pesquisar.php" method="get">
+                                    <!-- <div class="row">
+                                       <div class="col-md-10">
+                                          <input placeholder="Pesquise pelos seus processos aqui..." class="form-control" type="search" name="termo" id="">
+                                       </div>
+                                       <div class="col">
+                                          <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                       </div>
+                                    </div> -->
+                                 </form>
+                                 <table id="datatable" class="display compact table table-striped table-bordered">
+                                    <thead>
+                                       <tr>
+                                          <!-- <th>Cliente</th> -->
+                                          <th>Serviço</th>
+                                          <!-- <th>Descrição</th> -->
+                                          <th>Estado</th>
+                                          <th>Data de Inicio</th>
+                                          <th>Data de Conclusão</th>
+                                          <th>Funcionário Responsável</th>
+                                          <th>Ação</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <?php foreach($processos as $processo): ?>
+                                       <tr>
+                                          <!-- <td><?=$processo['client_name']?></td> -->
+                                          <td><?=$processo['service_name']?></td>
+                                          <!-- <td><?=$processo['descricao']?></td> -->
+                                          <td style="text-transform: uppercase;"><?=$processo['state_name']?></td>
+                                          <td><?=$processo['data_inicio']?></td>
+                                          <td><?=$processo['data_fim']?></td>
+                                          <td><?=$processo['funcionario_name']?></td>
+                                          <td>
+                                             <a href="../processos/details.php?processo_id=<?php echo base64_encode($processo['id']); ?>" class="btn btn-icon btn-sm btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             
+                                             <a role="button" data-toggle="modal" data-target="#Modal<?=$processo['id']?>" class="btn btn-icon btn-sm btn-danger text-light"><i class="dripicons dripicons-trash"></i> </a>
+                                             <?php if($processo['state_name']!='terminado'): ?>
+                                                <a href="../processos/terminar.php?processo_id=<?php echo base64_encode($processo['id']); ?>" class="btn btn-sm btn-info">Terminar</a>
+                                             <?php endif; ?>
+
+                                             <!-- MODAL -->
+                                             <div class="modal" tabindex="-1" id="Modal<?=$processo['id']?>">
+                                               <div class="modal-dialog">
+                                                   <div class="modal-content">
+                                                    <div class="modal-header">
+                                                         <h5 class="modal-title">Excluir Processo</h5>
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                            <p class="text-warning mb-3" style="font-size: 1.4em;">Tem a certeza que deseja excluir este processo?</p>
+                                                            <div>
+                                                               <h5>Cliente: <span style="font-weight: normal;"> <?=$processo['client_name']?> </span></h3>
+                                                               <h5>Serviço: <span style="font-weight: normal;"><?=$processo['service_name']?> </span></h3>
+                                                            </div>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                      <a  class="btn btn-danger text-light" href="../processos/remover.php?processo_id=<?php echo base64_encode($processo['id']); ?>" >Excluir</a>   
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+                                             
+                                             <!-- END MODAL -->
+                                          </td>
+                                       </tr>
+                                       <?php endforeach; ?>
+                                    </tbody>
+                                    
+                                 </table>
+                              </div>
+
+                              <!-- END DIV TABLE -->
+                           </div>
+                        </div>
+                     </div>
+                  </div>
 
 
                   <!-- <div class="row mt-4">

@@ -7,6 +7,7 @@
          include("../views/include/head.php");
          include("consultas/estados/dados.php");
          include("consultas/servicos/dados.php");
+         include("../rh/consultas/funcionarios/dados.php");
          include("../clientes/consultas/clientes/dados.php");
          include_once("../../config/auth.php");
          $id_funcionario = $_SESSION['funcionario_id'];
@@ -75,7 +76,7 @@
                               <form action="processar/processos/adicionar/basico.php" method="post" class="form-horizontal">
                                  <input type="hidden" name="user_id" value="<?php echo $user_id ?>">
                                  <input type="hidden" name="agencia_id" value="<?php echo $agencia_id ?>">
-                                 <input type="hidden" name="funcionario_id" value="<?=$id_funcionario?>">
+                                 <!-- <input type="hidden" name="funcionario_id" value="<?=$id_funcionario?>"> -->
                                  <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" />
                                  <div class="form-group">
                                     <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar...">
@@ -91,6 +92,7 @@
                                        </select>
                                     </div>
                                  </div>
+                                 
 
                                  <div class="row">
                                  <div class="col-6 form-group">
@@ -143,6 +145,20 @@
                                     <label class="control-label" for="horario">Descrição do Processo</label>
                                     <div class="mb-2">
                                        <textarea class="form-control" name="descricao" id="" cols="30" rows="5"></textarea>
+                                    </div>
+                                 </div>
+                                 <div class="col-6 form-group">
+                                    <!-- <input type="text" class="form-control" id="searchInput" placeholder="Pesquisar...">
+                                    <br> -->
+                                    <label class="control-label" for="Funcionario">Funcionario Responsável*</label>
+                                    <div class="mb-2">
+                                       <select class="form-control" name="id_funcionario" id="id_funcionario" required>
+                                          <option selected disabled>Selecionar</option>
+                                          <?php foreach($employes as $item): ?>
+                                             <option value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                          <?php endforeach;  ?>
+
+                                       </select>
                                     </div>
                                  </div>
 

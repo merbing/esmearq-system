@@ -93,6 +93,10 @@
                                     <div class="form-group">
                                        <input type="file" name="documento[]" accept=".jpg, .jpeg, .png, .pdf" class="form-control" required />
                                     </div>
+                                    <div class="form-group">
+                                       <label class="control-label" for="doc_nome">Data de Validade</label>
+                                       <input type="date" class="form-control" name="data[]" placeholder="" />
+                                    </div>
                                  </div>
                                  <div class="form-group">
                                     <button type="button" class="btn btn-dark" id="novo_doc" onclick="adicionarDocumento()">Adicionar Novo Documento</button>
@@ -148,6 +152,10 @@
          <div class="form-group">
             <input type="file" name="documento[]" accept=".jpg, .jpeg, .png, .pdf" class="form-control" required />
          </div>
+         <div class="form-group">
+                                       <label class="control-label" for="doc_nome">Data de Validade</label>
+                                       <input type="date" class="form-control" name="data[]" placeholder="" />
+                                    </div>
          `;
          var inserirAntesDe = document.querySelector('#novo_doc');
          inserirAntesDe.insertAdjacentHTML('beforebegin', novoDocumentoHTML);

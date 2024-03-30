@@ -6,7 +6,7 @@ include("../../../consultas/estados/buscar_iniciado.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $razoes = $_POST["razoes"];
+    // $razoes = $_POST["razoes"];
     $motivo = $_POST["motivo"];
     $motivo_especifico = $_POST["especificar_motivo_input"];
     if($motivo == "outro"){
@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $quantidade_nao_aprovado_input = $_POST["quantidade_nao_aprovado_input"]!= ''?$_POST["quantidade_nao_aprovado_input"]: 0;
     $vinheta = $_POST["vinheta"];
     $ano_aprovacao_visto_input = $_POST["ano_aprovacao_visto_input"] != ''? $_POST["ano_aprovacao_visto_input"]:0;
+    $data_vencimento = $_POST["data_vencimento"];
     $solicitacao_visto = $_POST["solicitacao_visto"];
     $qtd_familia = $_POST["qtd_familia"]!= ''?$_POST["qtd_familia"]:0;
     $responsabilidade_despesas = $_POST["responsabilidade_despesas"];
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $agendamento_id = $_POST["agendamento_id"];
     $detalhes_id = $_POST['detalhes_id'];
    
-    $query = "UPDATE consultoriadetalhes SET razoes_viagem='$razoes',
+    $query = "UPDATE consultoriadetalhes SET 
             motivo_viagem='$motivo',esteve_embaixada='$esteve_embaixada',visto_concedido='$visto_concedido_select',
             vezes_nao_aprovado=$quantidade_nao_aprovado_input,ano_visto=$ano_nao_aprovado_input,
             ano_vinheta_visto=$ano_aprovacao_visto_input,motivo_reprovacao='$razoes_nao_aprovado_input',
@@ -42,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             custos_viagens='',nome_responsavel='$nome_outra_pessoa',telefone_responsavel='$numero_outra_pessoa',pais_responsavel='',
             endereco_responsavel='$endereco_outra_pessoa',
             trabalhando='$trabalho',nome_empresa='$emprego_outra_pessoa',funcao='',extrato=$extracto_conta,
-            utente_legivel=$utente_legivel,recomendacao='$recomendacao'
+            utente_legivel=$utente_legivel,recomendacao='$recomendacao',data_vencimento_visto='$data_vencimento'
             WHERE id=$detalhes_id;";
     $result = $conn->query($query);
     

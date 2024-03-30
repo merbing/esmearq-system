@@ -94,12 +94,12 @@
                                                       <input type="hidden" name="agendamento_id" value="<?php echo $consulta['id'] ?>">
                                                       <!-- <input type="hidden" class="form-control" name="password" value="<?php echo $senhaGerada ?>" /> -->
                                                       <!-- 1. Quais são as razões que o faz viajar? -->
-                                                      <div class="form-group">
+                                                      <!-- <div class="form-group">
                                                          <label class="control-label" for="razoes">Quais são as razões que o faz viajar?</label>
                                                          <div class="mb-2">
                                                             <textarea name="razoes" id="" cols="30" rows="3" class="form-control" required>Digite as razões</textarea>
                                                          </div>
-                                                      </div>
+                                                      </div> -->
                                                       <!-- 2. Motivo da Viagem Por Opção -->
                                                       <div class="form-group">
                                                          <label class="control-label" for="motivo">Motivo da Viagem Por Opção</label>
@@ -178,6 +178,14 @@
                                                             <input type="text" class="form-control" id="ano_aprovacao_visto_input" name="ano_aprovacao_visto_input" placeholder="Digite o ano de aprovação do visto" />
                                                          </div>
                                                       </div>
+                                                      <div class="form-group" id="data_vencimento" style="display: none;">
+                                                         <label class="control-label" for="data_vencimento">Data de vencimento</label>
+                                                         <div class="mb-2">
+                                                            <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" 
+                                                            placeholder="" required />
+                                                         </div>
+                                                      </div>
+
                                                       <!-- 4. Solicitação de Visto é singular, ou familiar -->
                                                       <div class="form-group">
                                                          <label class="control-label" for="solicitacao_visto">Solicitação de Visto é singular, ou familiar?</label>
@@ -355,6 +363,7 @@
            const quantidadeNaoAprovadoDiv = document.getElementById('quantidade_nao_aprovado');
            const anoVistoAprovadoDiv = document.getElementById('ano_visto_aprovado');
            const anoAprovacaoVistoDiv = document.getElementById('ano_aprovacao_visto');
+           const dataVencimento = document.getElementById('data_vencimento');
          
            const selectedValue = esteveEmbaixadaSelect.value;
          
@@ -372,6 +381,7 @@
              quantidadeNaoAprovadoDiv.style.display = 'none';
              anoVistoAprovadoDiv.style.display = 'none';
              anoAprovacaoVistoDiv.style.display = 'none';
+             dataVencimento.style.display = "none";
            } else {
              vistoConcedidoDiv.style.display = 'none';
              razoesNaoAprovadoDiv.style.display = 'none';
@@ -379,6 +389,7 @@
              quantidadeNaoAprovadoDiv.style.display = 'none';
              anoVistoAprovadoDiv.style.display = 'none';
              anoAprovacaoVistoDiv.style.display = 'none';
+             dataVencimento.style.display = "none";
            }
          }
          
@@ -389,17 +400,20 @@
            const razoesNaoAprovadoDiv = document.getElementById('razoes_nao_aprovado');
            const anoNaoAprovadoDiv = document.getElementById('ano_nao_aprovado');
            const quantidadeNaoAprovadoDiv = document.getElementById('quantidade_nao_aprovado');
+           const dataVencimento = document.getElementById('data_vencimento');
            const selectedValue = vistoConcedidoSelect.value;
          
            if (selectedValue === 'Sim') {
              anoVistoAprovadoDiv.style.display = 'block';
              anoAprovacaoVistoDiv.style.display = 'block';
+             dataVencimento.style.display = "block";
              razoesNaoAprovadoDiv.style.display = 'none';
              anoNaoAprovadoDiv.style.display = 'none';
              quantidadeNaoAprovadoDiv.style.display = 'none';
            } else if (selectedValue === 'Não') {
              anoVistoAprovadoDiv.style.display = 'none';
              anoAprovacaoVistoDiv.style.display = 'none';
+             dataVencimento.style.display = "none";
              handleVistoNaoConcedido();
            }
          }

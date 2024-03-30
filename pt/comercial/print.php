@@ -25,6 +25,7 @@ require_once ("../utils/LoadPdf.php");
       }
 
     $total = ($fatura['valor'] - ($fatura['valor']*($fatura['desconto']/100)));
+    $total = ($fatura['service_price'] - ($fatura['service_price']*($fatura['desconto']/100)) );
     $path = '../assets/img/logoa.png';
     $type = pathinfo($path, PATHINFO_EXTENSION);
     $data = file_get_contents($path);
@@ -75,7 +76,7 @@ require_once ("../utils/LoadPdf.php");
         <thead>
             <tr>
                 <th style='border: 1px solid #ddd;padding: 12px;text-align: left;background-color: #f2f2f2;font-size:0.9em'>Serviço</th>
-                <th style='border: 1px solid #ddd;padding: 12px;text-align: left;background-color: #f2f2f2;font-size:0.9em'>Preço Unitário</th>
+                <th style='border: 1px solid #ddd;padding: 12px;text-align: left;background-color: #f2f2f2;font-size:0.9em'>Preço do Serviço</th>
                 <th style='border: 1px solid #ddd;padding: 12px;text-align: left;background-color: #f2f2f2;font-size:0.9em'>Desconto (%)</th>
                 <th style='border: 1px solid #ddd;padding: 12px;text-align: left;background-color: #f2f2f2;font-size:0.9em'>Total</th>
             </tr>
@@ -83,8 +84,8 @@ require_once ("../utils/LoadPdf.php");
         <tbody>
             <tr>
                 <td style='border: 1px solid #ddd;padding: 12px;text-align: left;font-size:0.9em'> ".$fatura['service_name']."</td>
-                <td style='border: 1px solid #ddd;padding: 12px;text-align: left;font-size:0.9em'>KZ ".$fatura['valor']."</td>
-                <td style='border: 1px solid #ddd;padding: 12px;text-align: left;font-size:0.9em'> ".$fatura['desconto']."</td>
+                <td style='border: 1px solid #ddd;padding: 12px;text-align: left;font-size:0.9em'>KZ ".$fatura['service_price']."</td>
+                <td style='border: 1px solid #ddd;padding: 12px;text-align: left;font-size:0.9em'> ".$fatura['desconto']."%</td>
                 <td style='border: 1px solid #ddd;padding: 12px;text-align: left;font-size:0.9em'>KZ ".$total."</td>
             </tr>
 

@@ -127,6 +127,29 @@
                      <!-- end container-fluid -->
                   </div>
                   <?php endif; ?>
+
+                  <div class="row">
+                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card card-statistics">
+                           <div class="card-header">
+                              <div class="card-heading">
+                                 <h4 class="card-title">Gestão de Requisitos Turísticos</h4>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div class="row no-gutters icon-list">
+                                    <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_requisitos.php"><i class="dripicons dripicons-plus"></i><code>Adicionar</code></a></div>
+                                 
+                                    <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_requisitos.php"><i class="dripicons dripicons-checklist"></i><code>Lista</code></a></div>
+                                    <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_faturas.php?pago=1"><i class="dripicons dripicons-thumbs-up"></i><code>Pagas</code></a></div> -->
+                                    <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_faturas.php?pago=0"><i class="dripicons dripicons-thumbs-down"></i><code>Não Pagas</code></a></div> -->
+                                  
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end container-fluid -->
+                  </div>
                   <!-- end container-fluid -->
                </div>
                <!-- end app-main -->

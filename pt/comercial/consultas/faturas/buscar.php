@@ -2,8 +2,9 @@
     
     $fatura_id = base64_decode($_GET['fatura_id']);
     $query = "SELECT F.id, F.data_emissao,F.nome_empresa,F.email,F.telefone,F.endereco,F.desconto,F.pago,F.valor,
-    C.nome as client_name,C.id as client_id,C.email as client_email,C.endereco as client_address, S.nome as service_name,S.id as service_id,
-    B.nome_conta,B.banco,B.IBAN,B.numero_conta,B.saldo,B.tipo_conta_id  FROM faturas F
+    C.nome as client_name,C.id as client_id,C.email as client_email,C.endereco as client_address,
+     S.nome as service_name,S.id as service_id,S.custo as service_price,
+    B.nome_conta,B.id as conta_id,B.banco,B.IBAN,B.numero_conta,B.saldo,B.tipo_conta_id  FROM faturas F
     INNER JOIN clientes C ON (C.id = F.cliente_id)
     INNER JOIN bancariasinformacoes B ON(B.id = F.bancaria_info_id) 
     INNER JOIN servicos S ON(S.id = F.servico_id)

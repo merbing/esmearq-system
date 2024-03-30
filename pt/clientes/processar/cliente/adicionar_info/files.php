@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     $doc_names = $_POST['doc_nome'];
+    $datas = $_POST['data'];
     $doc_files_names = $_FILES['documento']['name'];
     $doc_files_tmp_names = $_FILES['documento']['tmp_name'];
     $doc_files_types = $_FILES['documento']['type'];
@@ -34,18 +35,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     try{
         $inserted = 0;
-    
+    // var_dump($datas);
+    // exit;
     foreach($doc_names as $index => $name)
     {
         // echo $index." -> ".$name." -> ".$doc_files_names[$index]." -> ".$doc_files_tmp_names[$index]."</br>";
         $nome_do_arquivo =  uniqid("file").date("dmYHis").$extensions[$doc_files_types[$index]];
         echo $nome_do_arquivo."</br>";
         $caminho_destino = "../../../arquivos/";
+        
+        if(isset($datas[$index]) && $datas[$index]!=""){
+            $data_validade = $datas[$index];
+            $query = "INSERT INTO clientes_documentos (cliente_id,nome_documento,nome_arquivo,data_validade)
+                    VALUES ($cliente_id,'$name','$nome_do_arquivo','$data_validade')";
+        }else{
+            $data_validade = null;
+            $query = "INSERT INTO clientes_documentos (cliente_id,nome_documento,nome_arquivo,data_validade)
+                    VALUES ($cliente_id,'$name','$nome_do_arquivo',null)";
+        }
 
+        // var_dump($data_validade);
+        // exit;
         // Mova o arquivo para o diretório desejado
         move_uploaded_file($doc_files_tmp_names[$index], $caminho_destino.$nome_do_arquivo);
-        $query = "INSERT INTO clientes_documentos (cliente_id,nome_documento,nome_arquivo)
-                    VALUES ($cliente_id,'$name','$nome_do_arquivo')";
+        
         if($conn->query($query) === TRUE)
         {
             $inserted++;
@@ -69,7 +82,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 catch(\Exception $e)
 {
         $encrypted_user_id = base64_encode($cliente_id);
-        $error_message = "Ocorreu um erro ao adicionar arquivos.";
+        $error_message = "Ocorreu um erro ao adicionar arquivos.".$e->getMessage();
         header("Location: ../../../documentos.php?error_message=" . urlencode($error_message));
         exit;
 }

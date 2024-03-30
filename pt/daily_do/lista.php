@@ -132,7 +132,36 @@
                                              <a href="editar.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-icon btn-dark"><i class="dripicons dripicons-document-edit"></i></a>
                                              <?php endif;?>
                                              <?php if(in_array("Remover Atividade",$permissoes) ):?>
-                                             <a href="remover.php?atividade_id=<?php echo base64_encode($activity['id']) ?>"" class="btn btn-icon btn-danger"><i class="dripicons dripicons-trash"></i></a>
+                                             <a role="button" data-toggle="modal" data-target="#Modal<?=$activity['id']?>"  class="btn btn-icon btn-danger text-light"><i class="dripicons dripicons-trash"></i></a>
+                                             
+                                             <!-- MODAL -->
+                                             <div class="modal" tabindex="-1" id="Modal<?=$activity['id']?>">
+                                               <div class="modal-dialog">
+                                                   <div class="modal-content">
+                                                    <div class="modal-header">
+                                                         <h5 class="modal-title">Excluir Actividade</h5>
+                                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                         </button>
+                                                      </div>
+                                                      <div class="modal-body">
+                                                            <p class="text-warning mb-3" style="font-size: 1.4em;">Tem a certeza que deseja excluir esta actividade?</p>
+                                                            <div>
+                                                               <h5>Actividade: <span style="font-weight: normal;"> <?=$activity['atividade']?> </span></h3>
+                                                               <h5>Funcionário: <span style="font-weight: normal;"><?=$activity['funcionario']?> </span></h3>
+                                                            </div>
+                                                      </div>
+                                                      <div class="modal-footer">
+                                                      <a  class="btn btn-danger text-light" href="remover.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" >Excluir</a>   
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                                      </div>
+                                                   </div>
+                                                </div>
+                                             </div>
+
+                                             <!-- END MODAL -->
+                                             
                                              <?php endif;?>
                                           </td>
                                        </tr>

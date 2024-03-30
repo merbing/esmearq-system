@@ -113,7 +113,7 @@
                                        <select class="form-control" name="id_service" id="id_servico" required>
                                           <option selected disabled>Selecionar</option>
                                           <?php foreach($services as $item): ?>
-                                             <option value="<?=$item['id']?>"><?=$item['nome']?></option>
+                                             <option value="<?=$item['id']?>" data-price="<?=$item['custo']?>"><?=$item['nome']?></option>
                                           <?php endforeach;  ?>
 
                                        </select>
@@ -149,9 +149,9 @@
                                     </div>
                                  </div>
                                  <div class="col-4 form-group">
-                                    <label class="control-label" for="desconto">Valor (KZ)*</label>
+                                    <label class="control-label" for="price">Valor do Serviço (KZ)*</label>
                                     <div class="mb-2">
-                                       <input type="number" class="form-control" min='0'  value="0" name="valor" placeholder="Valor da fatura" required />
+                                       <input type="number" class="form-control" min='0'  value="0" id="price" name="valor" placeholder="Valor da fatura" disabled/>
                                     </div>
                                  </div>
                                  <div class="col-4 form-group">
@@ -202,6 +202,7 @@
       </div>
       <!-- end app -->
       <!-- plugins -->
+      <script src="../assets/js/jquery-3.3.1.min.js"></script>
       <script>
          function filterOptions() {
              var input, filter, select, options, option, i, txtValue;
@@ -224,6 +225,17 @@
              document.getElementById("searchInput").addEventListener("input", filterOptions);
          });
          
+
+         $(document).ready(function(){
+
+            $("#id_servico").on("change",function(){
+               var option_price = $('option:selected', this).attr('data-price');
+               console.log(option_price);
+
+               $("#price").val(option_price);
+            });
+
+         });
       </script>
       <script src="../assets/js/vendors.js"></script>
       <!-- custom app -->

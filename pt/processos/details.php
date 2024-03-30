@@ -49,7 +49,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Informações do Processo</h1>
+                              <h1>Informações do Processo <span class="text-info"><?=$processo['id']?></span></h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>

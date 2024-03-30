@@ -5,6 +5,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/clientes/dados.php");
+         include("consultas/clientes/documentos/expirados.php");
          include_once("../../config/auth.php");
 
          if(!in_array("Ver Clientes",$permissoes) ){
@@ -29,8 +30,8 @@
                <!-- begin container-fluid -->
                <div class="container-fluid">
                   <!-- begin row -->
-                  <div class="row">
-                     <div class="col-md-12 m-b-30">
+                  <div class="row mb-0">
+                     <div class="col-md-12 mb-1">
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
@@ -50,11 +51,105 @@
                               </nav>
                            </div>
                         </div>
+                        
                         <!-- end page title -->
                      </div>
                   </div>
+                  <div class="mt-3 d-flex justify-content-between align-items-center">
+                           <div class="">
+                              <a href="#" class="btn btn-sm btn-primary ">Notificar</a>
+                              <!-- <a href="#" class="btn btn-sm btn-primary ">Notificar</a> -->
+                           </div>
+                           <div class="">
+                              <?php if(isset($expirados) && count($expirados) > 0): ?>
+                              <div>
+                                 <!-- <h5 class="text-danger dropdown-toggle"
+                                 id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <?=count($expirados)?> Cliente(s) com documento expirado
+                                 </h5> -->
+                                 <h5 class="text-danger dropdown-toggle"
+                                 
+                                 type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                 <!-- <i class="fe fe-bell"></i> -->
+                  <span class="notify mr-2">
+                  <span class="blink"></span>    
+                  <span class="dot"></span>
+                  </span>  <?=count($expirados)?> Cliente(s) com documento expirado
+                                 </h5>
+
+                                 <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5> -->
+        <h4 class=" modal-title">
+         
+                                    <?=count($expirados)?> Cliente(s) com documento expirado
+                                 </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <ul>
+        <?php foreach($expirados as $expirado): ?>
+                                             <li class="dropdown-item py-3">
+                                             <div class="d-flex justify-content-start align-items-center">
+                                                <span class="mr-3"><?=$expirado['nome']?></span>
+                                                <span class="text-danger"><?=$expirado['qtd_documentos']?></span>
+                                                <a role="button" data-value="<?=$expirado['id']?>"  id="notify<?=$expirado['id']?>" class="btn btn-xs btn-info ml-2 notif text-light">Notificar</a>
+                                                <span class="spinner_notify" id="spinner_notify<?=$expirado['id']?>">
+                                                   <img src="../assets/img/loading2.gif" width="30px" height="30px" alt="">
+                                                </span>
+                                                <span class="error ml-3" id="error_notify<?=$expirado['id']?>">
+                                                   <img src="../assets/img/remove.png" width="20px" height="20px" alt="">
+                                                </span>
+                                                <a href="#" class="btn btn-xs btn-dark ml-2 notificado" id="notificado_notify<?=$expirado['id']?>" class="btn btn-xs btn-dark ml-2">Notificado</a>
+                                                
+                                                <!-- <span class="spinner_notify" id="spinner_notify<?=$expirado['id']?>">
+                                                <img src="../assets/img/checked.png" width="30px" height="30px" alt="">
+                                                </span> -->
+                                             </div>
+                                             </li>
+                                          <?php endforeach; ?>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    
+                                          <?php foreach($expirados as $expirado): ?>
+                                             <!-- <li class="dropdown-item py-3">
+                                             <div class="d-flex justify-content-end align-items-center">
+                                                <span class="mr-3"><?=$expirado['nome']?></span>
+                                                <span class="text-danger"><?=$expirado['qtd_documentos']?></span>
+                                                <a role="button"   id="notify<?=$expirado['id']?>" class="btn btn-xs btn-info ml-2 notif text-light">Notificar</a>
+                                                <span class="spinner_notify" id="spinner_notify<?=$expirado['id']?>">
+                                                   <img src="../assets/img/loading.gif" width="30px" height="30px" alt="">
+                                                </span>
+                                                <a href="#" class="btn btn-xs btn-dark ml-2 notificado" id="notificado_notify<?=$expirado['id']?>" class="btn btn-xs btn-dark ml-2">Notificado</a>
+                                                
+                                                <span class="spinner_notify" id="spinner_notify<?=$expirado['id']?>">
+                                                <img src="../assets/img/checked.png" width="30px" height="30px" alt="">
+                                                </span>
+                                             </div>
+                                             </li> -->
+                                          <?php endforeach; ?>
+                                       
+                                    
+                                 </div>
+                              </div>
+                              <?php endif; ?>
+                           </div>
+                  </div>
                   <!-- end row -->
-                  <div class="row">
+                  <div class="row mt-0">
                      <div class="col-12 mb-2">
                         <?php
                            // Verifica se há uma mensagem de erro
@@ -106,6 +201,7 @@
                                           <th>Data de Nascimento</th>
                                           <th>Nacionalidade</th>
                                           <th>Telefone</th>
+                                          <th>Freelancer</th>
                                           <th>Ação</th>
                                        </tr>
                                     </thead>
@@ -120,6 +216,14 @@
                                           <td><?php echo $client['data_de_nascimento'] ?></td>
                                           <td><?php echo $client['nacionalidade'] ?></td>
                                           <td><?php echo $client['telefone'] ?></td>
+                                          <td>
+                                             <?php if($client['freelancer_nome']): ?>
+                                                <a href="../freelancers/comissoes.php?freelancer_id=<?=base64_encode($client['freelancer_id'])?>"><?php echo $client['freelancer_nome'] ?></a>
+                                             <?php else: ?>
+                                                <span>-----</span>
+                                             <?php endif; ?>
+                                             
+                                          </td>
                                           <td>
                                              <a href="dados_cliente.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
                                              <a href="editar.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm btn-info">Editar</a>
@@ -158,8 +262,65 @@
       </div>
       <!-- end app -->
       <!-- plugins -->
+      <script src="../assets/js/jquery-3.3.1.min.js"></script>
       <script src="../assets/js/vendors.js"></script>
       <!-- custom app -->
       <script src="../assets/js/app.js"></script>
+      <script>
+         $(document).ready(function(){
+            
+            $(".notificado").hide();
+            $(".error").hide();
+            $(".spinner_notify").hide();
+
+            $(".notif").click(function(){
+               var id = $(this).attr("id");
+               var id_client = $(this).attr("data-value");
+
+               $("#spinner_"+id).show();
+               $(this).hide();
+               
+               // console.log($("#spinner_"+id));
+               // console.log("ID_CLIENT: "+id_client);
+
+               $.ajax({
+                  url: "<?=BASE_URL?>pt/clientes/notificar_documento.php",
+                  method:"POST", 
+                  dataType:"json",
+                  data:{
+                     client_id: id_client
+                  },
+                  success: function(result){
+                     console.log(result);
+                     if((result != undefined) && (result != null)  )
+                     {
+                        if( (result.status!= undefined) &&  (result.status!= null) )
+                        {
+                           if(result.status == "success")
+                           {
+                              $("#spinner_"+id).hide();
+                              $("#notificado_"+id).show();
+                              
+                           }else{
+                              $("#spinner_"+id).hide();
+                              $("#error_"+id).show();
+                           }
+                        }
+                     } 
+                  },
+                  error: function(xhr){
+                     // console.log(xhr);
+                     // alert("An error occured: " + xhr.status + " " + xhr.statusText);
+                     $("#spinner_"+id).hide();
+                     $("#error_"+id).show();
+                  }
+            });
+
+            })
+
+         });
+
+      </script>
+
    </body>
 </html>

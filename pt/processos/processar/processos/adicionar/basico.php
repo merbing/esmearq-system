@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $service_id = $_POST["id_service"];
     $start_date = $_POST["data_inicio"];
     $end_date = $_POST["data_fim"];
-    $employee_id = $_POST["funcionario_id"];
+    $employee_id = $_POST["id_funcionario"];
     $state_id = $_POST["id_state"];
     // $name = $_POST["name"];
     // $date = $date." ".$time;

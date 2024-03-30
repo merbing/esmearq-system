@@ -136,10 +136,10 @@
                                     <a href="editar_detalhes.php?agendamento_id=<?=base64_encode($consulta['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a></h4> -->
                               <div class="m-1 p-3 border border-grey rounded-lg" style="border-radius: 5px;">
                                 <div class="row " >
-                                <div class="col-12">
+                                <!-- <div class="col-12">
                                     <h5>Razões da viagem</h5>
                                     <h4 class="text-secondary"><?=$detalhes['razoes_viagem']??'------'?></h4>
-                                </div>
+                                </div> -->
                                 <div class="col-3">
                                     <h5>Motivo da viagem</h5>
                                     <h4 class="text-secondary"><?=$detalhes['motivo_viagem']??'------'?></h4>
@@ -169,8 +169,12 @@
                                     <h4 class="text-secondary"><?=$detalhes['ano_vinheta_visto']??'------'?></h4>
                                 </div>
                                 <div class="col-3">
+                                    <h5>Data de Vencimento do Visto</h5>
+                                    <h4 class="text-secondary"><?=$detalhes['data_vencimento_visto']??'------'?></h4>
+                                </div>
+                                <div class="col-3">
                                     <h5>Motivo de Reprovação</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['motivo_reprovacao']??'------'?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['motivo_reprovacao']!=null?$detalhes['motivo_reprovacao']:'Não indicado'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Tipo de Visto</h5>
@@ -191,19 +195,15 @@
                             <div class="row mt-5">
                             <div class="col-3">
                                     <h5>Nome do Responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['nome_responsavel']??'------'?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['nome_responsavel']!=null?$detalhes['nome_responsavel']:'Não indicado'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Telefone do responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']??'------'?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']!=null?$detalhes['telefone_responsavel']:'Não indicado'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Endereço do responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']??'------'?></h4>
-                                </div>
-                                <div class="col-3">
-                                    <h5>Telefone do responsavel</h5>
-                                    <h4 class="text-secondary"><?=$detalhes['telefone_responsavel']??'------'?></h4>
+                                    <h4 class="text-secondary"><?=$detalhes['endereco_responsavel']!=null?$detalhes['endereco_responsavel']:'Não indicado'?></h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Tipo de trabalho</h5>

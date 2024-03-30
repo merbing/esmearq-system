@@ -6,7 +6,7 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $razoes = $_POST["razoes"];
+    // $razoes = $_POST["razoes"];
     $motivo = $_POST["motivo"];
     $motivo_especifico = $_POST["especificar_motivo_input"];
     if($motivo == "outro"){
@@ -20,6 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vinheta = $_POST["vinheta"];
     $ano_aprovacao_visto_input = $_POST["ano_aprovacao_visto_input"] != ''? $_POST["ano_aprovacao_visto_input"]:0;
     $solicitacao_visto = $_POST["solicitacao_visto"];
+    $data_vencimento = $_POST["data_vencimento"];
     $qtd_familia = $_POST["qtd_familia"]!= ''?$_POST["qtd_familia"]:0;
     $responsabilidade_despesas = $_POST["responsabilidade_despesas"];
     $nome_outra_pessoa = $_POST["nome_outra_pessoa"];
@@ -33,14 +34,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $recomendacao = $_POST["recomendacao"];
     $agendamento_id = $_POST["agendamento_id"];
    
-    $query = "INSERT INTO consultoriadetalhes(agendamento_consulta_id,razoes_viagem,
+    $query = "INSERT INTO consultoriadetalhes(agendamento_consulta_id,
             motivo_viagem,esteve_embaixada,visto_concedido,vezes_nao_aprovado,ano_visto,
             ano_vinheta_visto,motivo_reprovacao,tipo_visto,quantidade_filhos,pessoa_responsavel,
             custos_viagens,nome_responsavel,telefone_responsavel,pais_responsavel,endereco_responsavel,
-            trabalhando,nome_empresa,funcao,extrato,utente_legivel,recomendacao) 
-            VALUES ('$agendamento_id','$razoes','$motivo','$esteve_embaixada','$visto_concedido_select',$quantidade_nao_aprovado_input,$ano_nao_aprovado_input,$ano_aprovacao_visto_input,
+            trabalhando,nome_empresa,funcao,extrato,utente_legivel,recomendacao,data_vencimento_visto) 
+            VALUES ('$agendamento_id','$motivo','$esteve_embaixada','$visto_concedido_select',$quantidade_nao_aprovado_input,$ano_nao_aprovado_input,$ano_aprovacao_visto_input,
             '$razoes_nao_aprovado_input','$solicitacao_visto',$qtd_familia,'$responsabilidade_despesas','','$nome_outra_pessoa','$numero_outra_pessoa','',
-            '$endereco_outra_pessoa','$trabalho','$emprego_outra_pessoa','',$extracto_conta,$utente_legivel,'$recomendacao');";
+            '$endereco_outra_pessoa','$trabalho','$emprego_outra_pessoa','',$extracto_conta,$utente_legivel,'$recomendacao','$data_vencimento');";
     // $query = "INSERT INTO consultoriadetalhes(agendamento_consulta_id,razoes_viagem,
     //         motivo_viagem,esteve_embaixada,visto_concedido,vezes_nao_aprovado,ano_visto,
     //         ano_vinheta_visto,motivo_reprovacao,tipo_visto,quantidade_filhos) 

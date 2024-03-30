@@ -83,6 +83,25 @@
                         <?php
                            }
                            ?>
+
+
+                        <?php
+                           
+                           // Verifica se há uma mensagem de sucesso
+                           if (isset($_GET['warning_message'])) {
+                           ?>
+                        <div class="mt-1 alert alert-warning alert-dismissible fade show" role="alert">
+                           <strong>Aviso:</strong> <?php echo urldecode($_GET['warning_message']); ?>
+                           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                           <i class="ti ti-close"></i>
+                           </button>
+                        </div>
+                        <?php
+                           }
+                           ?>
+
+                           
+                           
                      </div>
                   </div>
                   <div class="row">
@@ -125,6 +144,7 @@
                                           
                                           <td>
                                              <a href="details_fatura.php?fatura_id=<?php echo base64_encode($item['id']); ?>" class="btn btn-icon btn-sm btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="editar_fatura.php?fatura_id=<?php echo base64_encode($item['id']); ?>" class="btn btn-icon btn-sm btn-primary"><i class="dripicons dripicons-pencil"></i></a>
                                              <a href="print.php?fatura_id=<?php echo base64_encode($item['id']); ?>" class="btn btn-sm  btn-info">Imprimir</a>
                                           
                                           </td>

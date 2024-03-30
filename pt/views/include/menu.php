@@ -81,6 +81,12 @@ include_once("../../config/auth.php");
                     <span class="nav-title">Atividades de RH</span>
                 </a>
             </li>
+            <li>
+                <a href="../freelancers/" aria-expanded="false">
+                    <i class="nav-icon ti ti-user"></i>
+                    <span class="nav-title">Freelancers</span>
+                </a>
+            </li>
             <?php endif;?>
             <?php if(in_array("Ver Agência",$permissoes) ):?>
             <li class="nav-static-title">Administrativo</li>

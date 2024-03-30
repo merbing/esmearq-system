@@ -101,34 +101,48 @@
                      <div class="col-lg-12">
                         <div class="card card-statistics">
                            <div class="card-body ">
-                            <h4>Dados da Fatura <a href="editar_fatura.php?fatura_id=<?=base64_encode($fatura['id'])?>" class="btn btn-info btn-xs ml-2">Editar</a></h4>
+                            <h4>Dados da Fatura <a href="print.php?fatura_id=<?=base64_encode($fatura['id'])?>" class="btn btn-info btn-xs ml-2">Imprimir</a></h4>
                             <div class="row m-1 p-3 border border-grey rounded-lg" style="border-radius: 5px;">
-                                <div class="col-3">
+                                 <div class="col-3 mb-3">
+                                    <h5>Nº da fatura</h5>
+                                    <h4 class="text-secondary"><?=$fatura['id']?></h4>
+                                </div>
+                                <div class="col-3 mb-3">
                                     <h5>Cliente</h5>
                                     <h4 class="text-secondary"><?=$fatura['client_name']?></h4>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-3 mb-3">
                                     <h5>Serviço</h5>
                                     <h4 class="text-secondary"><?=$fatura['service_name']?></h4>
                                 </div>
+                                
+                                <div class="col-3 mb-3">
+                                    <h5>Data de Emissão</h5>
+                                    <h4 class="text-secondary " style=";"><?=(explode(" ",$fatura['data_emissao']))[0]?></h4>
+                                </div>
                                 <div class="col-3">
-                                    <h5>Valor</h5>
-                                    <h4 class="text-secondary " style="text-transform: uppercase;"><?=$fatura['valor']?></h4>
+                                    <h5>Preço do Serviço</h5>
+                                    <h4 class="text-secondary " style="text-transform: uppercase;"><?=$fatura['service_price']?> AKZ</h4>
                                 </div>
                                 <div class="col-3">
                                     <h5>Desconto Aplicado</h5>
                                     <h4 class="text-secondary"><?=$fatura['desconto']?>%</h4>
                                 </div>
                                 <div class="col-3">
+                                    <h5>Total a pagar:</h5>
+                                    <h4 class="text-secondary"><?= ($fatura['service_price'] - ($fatura['service_price']*($fatura['desconto']/100)) ) ?> AKZ</h4>
+                                </div>
+                                <div class="col-3">
                                     <h5>Estado</h5>
-                                    <h4 class="text-secondary " style="text-transform: uppercase;"><?=$fatura['pago']==1?'PAGO':'não PAGO'?></h4>
+                                    <?php if($fatura['pago']==1): ?>
+                                       <h4 class="text-light btn btn-sm bg-success" style="text-transform: uppercase;">PAGO</h4>
+                                    <?php else:?>
+                                       <h4 class="text-light btn btn-sm bg-danger " style="text-transform: uppercase;">não PAGO</h4>
+                                    <?php endif;?>
+                                    
                                 </div>
                                
-                                <div class="col-3">
-                                    <h5>Data de Emissão</h5>
-                                    <h4 class="text-secondary " style=";"><?=(explode(" ",$fatura['data_emissao']))[0]?></h4>
-                                </div>
-
+                                
                             </div>
 
 
