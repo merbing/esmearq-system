@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("../../banco/config.php");
-require_once("../../config/auth.php");
+require_once("../config/auth.php");
 require_once("../../libs/PHPMailer/src/PHPMailer.php");
 require_once("../../libs/PHPMailer/src/Exception.php");
 require_once("../../libs/PHPMailer/src/SMTP.php");

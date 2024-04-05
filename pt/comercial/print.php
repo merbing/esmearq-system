@@ -10,7 +10,7 @@ require_once ("../utils/LoadPdf.php");
         }
         include("../../banco/config.php");
         include("consultas/faturas/buscar.php");
-        include_once("../../config/auth.php");
+        include_once("../config/auth.php");
 
         if(!$fatura)
         {

@@ -9,7 +9,7 @@
          include("../../banco/config.php");
          include("consultas/freelancers/config/comissao.php");
          // include("consultas/clientes/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
  
         
       // var_dump($config);

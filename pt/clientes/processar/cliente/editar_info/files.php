@@ -6,6 +6,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $user_id = $_POST["user_id"];
     $agencia_id = $_POST["agencia_id"];
     $cliente_id = $_POST["cliente_id"];
+    $data_validade = $_POST["data_validade"];
     $file_id = $_POST['file_id'];
     $nome_documento = $_POST['doc_nome'];
     $nome_arquivo = $_FILES['documento']['name'];
@@ -32,8 +33,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Mova o arquivo para o diretório desejado
         move_uploaded_file($tmp_nome_arquivo, $caminho_destino.$nome_do_arquivo);
-        $query = "UPDATE clientes_documentos SET nome_documento='$nome_documento',nome_arquivo='$nome_do_arquivo'
+        if($data_validade!=""){
+            $query = "UPDATE clientes_documentos SET nome_documento='$nome_documento',nome_arquivo='$nome_do_arquivo', data_validade='$data_validade'
                     WHERE id=$file_id";
+        }else{
+            $query = "UPDATE clientes_documentos SET nome_documento='$nome_documento',nome_arquivo='$nome_do_arquivo', data_validade=$data_validade
+                    WHERE id=$file_id";
+        }
+        
         if($conn->query($query) === TRUE)
         {
             $encrypted_file_id = base64_encode($file_id);
@@ -49,8 +56,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             exit;
         }
         }else{
-            $query = "UPDATE clientes_documentos SET nome_documento='$nome_documento'
+            if($data_validade!=""){
+                $query = "UPDATE clientes_documentos SET nome_documento='$nome_documento', data_validade='$data_validade'
                     WHERE id=$file_id";
+            }else{
+                $query = "UPDATE clientes_documentos SET nome_documento='$nome_documento', data_validade=null
+                    WHERE id=$file_id";
+            }
+            
         if($conn->query($query) === TRUE)
         {
             $encrypted_file_id = base64_encode($file_id);

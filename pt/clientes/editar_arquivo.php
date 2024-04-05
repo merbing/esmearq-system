@@ -12,7 +12,7 @@
           include("../views/include/head.php");
           include("../../banco/config.php");
           include("consultas/clientes/buscar_arquivo.php");
-          include_once("../../config/auth.php");
+          include_once("../config/auth.php");
   
           if(!$file)
           {
@@ -97,6 +97,10 @@
                                     <div class="form-group">
                                         <label for="documento" class="control-label">Arquivo: <span><?=$file['nome_arquivo']?></span></label>
                                        <input type="file" name="documento" accept=".jpg, .jpeg, .png, .pdf" class="form-control"  />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="data_validade" class="control-label">Data de Validade: <span></span></label>
+                                       <input type="date" name="data_validade"  class="form-control"  value="<?=$file['data_validade']?>"/>
                                     </div>
                                  </div>
                                  <div class="form-group">

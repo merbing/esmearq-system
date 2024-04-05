@@ -5,7 +5,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/pesquisar.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
               // verificar se  o utilizador tem permissao para ver essa pagina
        if(!in_array("Ver Atividade",$permissoes) ){

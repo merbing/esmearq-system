@@ -6,7 +6,7 @@
          include("../views/include/head.php");
          include_once("consultas/estados/dados.php");
          include("consultas/agendamentos/pesquisar.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
          // verificar se  o utilizador tem permissao para ver essa pagina
        if(!in_array("Ver Lista das Consultorias",$permissoes) ){

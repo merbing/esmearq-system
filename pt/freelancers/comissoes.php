@@ -13,7 +13,7 @@
          include("../../banco/config.php");
          include("consultas/freelancers/buscar.php");
          include("consultas/freelancers/comissoes.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
          if(!$freelancer)
          {
             

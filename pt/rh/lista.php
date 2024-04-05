@@ -5,7 +5,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/funcionarios/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
          if(!in_array("Ver Funcionários",$permissoes) ){
             header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));

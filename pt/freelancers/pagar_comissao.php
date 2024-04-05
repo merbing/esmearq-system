@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("../../banco/config.php");
-require_once("../../config/auth.php");
+require_once("../config/auth.php");
 
      
 if ($_SERVER["REQUEST_METHOD"] == "GET") {

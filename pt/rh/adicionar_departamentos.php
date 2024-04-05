@@ -8,7 +8,7 @@
          include("consultas/departamentos/dados.php");
          include("consultas/papeis/dados.php");
          include("consultas/agencias/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
          ?>
    </head>
    <body>

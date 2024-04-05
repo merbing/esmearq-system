@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("../../banco/config.php");
-require_once("../../config/auth.php");
+require_once("../config/auth.php");
 
      // verificar se  o utilizador tem permissao para ver essa pagina
      if(!in_array("Atualizar Processo",$permissoes) ){

@@ -1,5 +1,5 @@
 <?php 
-include_once("../../config/auth.php");
+include_once("../config/auth.php");
 
 
 ?>
@@ -108,7 +108,7 @@ include_once("../../config/auth.php");
 
             <li class="nav-static-title">Sair</li>
             <li>
-                <a href="../../logout.php" aria-expanded="false">
+                <a href="../logout.php" aria-expanded="false">
                     <i class="nav-icon ti ti-shift-right"></i>
                     <span class="nav-title">Sair do Sistema</span>
                 </a>

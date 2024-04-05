@@ -1,3 +1,3 @@
 <?php
-header('location:pt/home/');
+header('location:customer/home/');
 ?>

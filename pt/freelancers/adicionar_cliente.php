@@ -15,7 +15,7 @@
         include("../views/include/head.php");
         include("consultas/freelancers/buscar.php");
         //  include("processar/cliente/senhas.php");
-        include_once("../../config/auth.php");
+        include_once("../config/auth.php");
         if(!$freelancer)
         {
             

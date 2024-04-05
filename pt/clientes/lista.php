@@ -6,7 +6,7 @@
          include("../views/include/head.php");
          include("consultas/clientes/dados.php");
          include("consultas/clientes/documentos/expirados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
          if(!in_array("Ver Clientes",$permissoes) ){
             header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
@@ -198,7 +198,7 @@
                                        <tr>
                                           <th>Nome</th>
                                           <th>NIF</th>
-                                          <th>Data de Nascimento</th>
+                                          <!-- <th>Data de Nascimento</th> -->
                                           <th>Nacionalidade</th>
                                           <th>Telefone</th>
                                           <th>Freelancer</th>
@@ -213,7 +213,7 @@
                                        <tr>
                                           <td><?php echo $client['nome'] ?></td>
                                           <td><?php echo $client['nif'] ?></td>
-                                          <td><?php echo $client['data_de_nascimento'] ?></td>
+                                          <!-- <td><?php echo $client['data_de_nascimento'] ?></td> -->
                                           <td><?php echo $client['nacionalidade'] ?></td>
                                           <td><?php echo $client['telefone'] ?></td>
                                           <td>
@@ -226,6 +226,7 @@
                                           </td>
                                           <td>
                                              <a href="dados_cliente.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="cliente_servicos.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm  btn-info">Serviços</a>
                                              <a href="editar.php?cliente_id=<?=base64_encode($client['id']);?>" class="btn btn-sm btn-info">Editar</a>
                                            
                                           </td>

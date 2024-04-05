@@ -15,7 +15,7 @@
          include("../../banco/config.php");
          include("consultas/viagens/buscar.php");
          include("consultas/clientes/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
  
          if(!$viagem)
          {

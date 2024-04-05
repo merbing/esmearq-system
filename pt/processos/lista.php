@@ -5,7 +5,8 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/processos/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
+         
 
                     // verificar se  o utilizador tem permissao para ver essa pagina
      if(!in_array("Ver Processo",$permissoes) ){
@@ -134,7 +135,7 @@
                                           <td><?=$processo['data_inicio']?></td>
                                           <td><?=$processo['data_fim']?></td>
                                           <td>
-                                             <a href="details.php?processo_id=<?php echo base64_encode($processo['id']); ?>" class="btn btn-icon btn-sm btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="details.php?processo_id=<?php echo base64_encode($processo['id']); ?>" class="btn btn-icon btn-sm btn-dark"><i class="dripicons dripicons-preview"></i></a>
                                              
                                              <a role="button" data-toggle="modal" data-target="#Modal<?=$processo['id']?>" class="btn btn-icon btn-sm btn-danger text-light"><i class="dripicons dripicons-trash"></i> </a>
                                              <?php if($processo['state_name']!='terminado'): ?>

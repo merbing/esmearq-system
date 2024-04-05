@@ -7,7 +7,7 @@
          include("consultas/estados/dados.php");
          include("consultas/servicos/dados.php");
          include("../clientes/consultas/clientes/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
          // verificar se  o utilizador tem permissao para ver essa pagina
          if(!in_array("Agendar Nova Consultoria",$permissoes) ){

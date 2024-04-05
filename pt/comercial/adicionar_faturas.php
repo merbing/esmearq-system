@@ -8,7 +8,7 @@
          include("consultas/contas/dados.php");
          include("consultas/servicos/dados.php");
          include("../clientes/consultas/clientes/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
          $id_funcionario = $_SESSION['funcionario_id'];
 
          // verificar se  o utilizador tem permissao para ver essa pagina

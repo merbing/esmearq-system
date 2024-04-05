@@ -14,7 +14,7 @@
          include("consultas/servicos/dados.php");
          include("../clientes/consultas/clientes/dados.php");
          include("consultas/agendamentos/buscar.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
         if(!$consulta)
         {

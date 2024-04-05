@@ -5,35 +5,28 @@ require_once("../../../../utils/Log.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    $name = $_POST["name"];
-    $nif = $_POST["nif"];
-    $birthdate = $_POST["birthdate"];
-    $nationality = $_POST["nationality"];
-    if(isset($_POST["foreingh_nationality"])){
-        $foreingh_nationality = $_POST["foreingh_nationality"];    
-    }
-    $address = $_POST["address"];
-    $phonenumber = $_POST["phonenumber"];
-    $email = $_POST["email"];
-    $state = $_POST["state"];
-    $cliente_id = $_POST['id'];
-    if($nationality == "Outra")
-    {
-        $nationality = $foreingh_nationality;
-    }
-    $query = "UPDATE clientes SET nome='$name', nif='$nif', data_de_nascimento='$birthdate', nacionalidade='$nationality', 
-            estado_civil='$state', endereco='$address', telefone='$phonenumber',email='$email' WHERE id=$cliente_id";
+    $name = htmlspecialchars($_POST["nome"]);
+    $phonenumber = htmlspecialchars($_POST["telefone"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $nif = htmlspecialchars($_POST["nif"]);
+    $banco = htmlspecialchars($_POST["banco"]);
+    $numero = htmlspecialchars($_POST["numero"]);
+    $iban = htmlspecialchars($_POST["iban"]);
+    $freelancer_id = htmlspecialchars($_POST['id_freelancer']);
+    $query = "UPDATE freelancers SET nome='$name', nif='$nif', telefone='$phonenumber',
+            email='$email', banco='$banco', numero_da_conta='$numero', iban='$iban'
+             WHERE id=$freelancer_id";
     $result = $conn->query($query);
     
     
     if ($result === TRUE) {
-        $encrypted_user_id = base64_encode($cliente_id);
+        $encrypted_user_id = base64_encode($freelancer_id);
         
         $sucess_message = "Dados alterados com sucesso!";
         $funcionario_id = $_SESSION['funcionario_id'];
         try{
             // Registar a actividade (Log)
-            $log = new Log("Editando um Cliente",('Client:'.$name."-NIF:".$nif."-NASCIMENTO:".$birthdate."-FUNCIONARIO:".$funcionario_id),$conn);
+            $log = new Log("Editando um Freelancer",('Freelancer:'.$name."-NIF:".$nif."FUNCIONARIO:".$funcionario_id),$conn);
             $log->save();
         } catch(\Exception $e)
         {
@@ -41,13 +34,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         // $_SESSION["success"] = "Utilizador Cadastrado com sucesso!"; 
         // header("Location: ../../../adicionar.php");
-        header("Location: ../../../dados_cliente.php?cliente_id=$encrypted_user_id&success_message=" . urlencode($sucess_message));
+        header("Location: ../../../details.php?freelancer_id=$encrypted_user_id&success_message=" . urlencode($sucess_message));
         exit();
 
     } else {
-        $encrypted_user_id = base64_encode($cliente_id);
+        $encrypted_user_id = base64_encode($freelancer_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../cliente_files.php?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($error_message));
+        header("Location: ../../../details.php?freelancer_id=$encrypted_user_id&error_message=" . urlencode($error_message));
         exit;
     }
 } else {

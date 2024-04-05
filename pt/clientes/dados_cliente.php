@@ -13,7 +13,7 @@
          include("../../banco/config.php");
          include("consultas/clientes/buscar.php");
          include("consultas/clientes/processos.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
          if(!$cliente)
          {
             
@@ -183,19 +183,28 @@
                   <div class="row">
                      <?php foreach($documentos as $documento): ?>
                      <div class="col-xl-3 col-sm-6">
-                        <div class="card card-statistics">
+                        <div class="card card-statistics <?=(($documento['data_validade']!=null)&&($documento['data_validade'] < date("Y-m-d") ))?'bg-light':'' ?>">
                            <div class="card-body">
 
                               <div class="text-center p-2">
                                  <div class="mb-2">
-                                    <?php if(  (explode(".",$documento['nome_arquivo']))[1] == "pdf" ): ?>
+                                    <?php $tokens = explode(".",$documento['nome_arquivo']); 
+                                        if( isset($tokens[1]) &&  ($tokens[1]) == "pdf" ): ?>
                                        <img src="../assets/img/file-icon/pdf.png" alt="png-img">
                                     <?php else: ?>
                                        <img src="../assets/img/file-icon/jpg.png" alt="png-img">
                                     <?php endif; ?>
                                     
                                  </div>
-                                 <h4 class="mb-3"><?=$documento['nome_documento']?></h4>
+                                 <h4 class="mb-3 "><?=$documento['nome_documento']?></h4>
+                                 <?php if(isset($documento['data_validade']) && ($documento['data_validade']!= null) ): ?>
+                                    <?php if($documento['data_validade'] < date("Y-m-d") ):?>
+                                       <h6 class="text-danger">Expirado: <?=$documento['data_validade']?></h6>
+                                    <?php else:?>
+                                       <h6>Expira em: <?=$documento['data_validade']?></h6>
+                                    <?php endif; ?>
+                                    
+                                 <?php endif; ?>
                                  <!-- <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-sm btn-light" download>Download</a> -->
                                  <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-icon btn-sm btn-info" target="_blank"><i  class="dripicons dripicons-preview"></i></a>
                                  <a href="editar_arquivo.php?file_id=<?=base64_encode($documento['id'])?>" class="btn btn-icon btn-sm btn-info"><i  class="dripicons dripicons-pencil"></i></a>

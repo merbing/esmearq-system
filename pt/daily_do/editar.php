@@ -6,7 +6,7 @@
          include("../views/include/head.php");
          include("../rh/consultas/funcionarios/dados.php");
          include("consultas/buscar.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
             // verificar se  o utilizador tem permissao para ver essa pagina
        if(!in_array("Editar Atividade",$permissoes) ){

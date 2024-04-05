@@ -6,7 +6,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("processar/cliente/senhas.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
          // verificar se  o utilizador tem permissao para ver essa pagina
          if(!in_array("Adicionar Clientes",$permissoes) ){

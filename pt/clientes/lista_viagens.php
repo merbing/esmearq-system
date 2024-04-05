@@ -5,7 +5,7 @@
          include("../../banco/config.php");
          include("../views/include/head.php");
          include("consultas/viagens/dados.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
 
          if(!in_array("Ver Clientes",$permissoes) ){
             header("Location: ".BASE_URL."pt/home/index.php?error_message=".urlencode("Não tem permissão para ver esta página"));
@@ -53,7 +53,7 @@
                         
                         <div class="mt-2">
                               <a href="adicionar_viagem.php" class="btn btn-sm btn-info">Adicionar</a>
-                              <a role="button" data-toggle="modal" data-target="#Modal" class="btn btn-warning btn-sm text-light">Notificar Clientes</a>
+                              <a role="button" data-toggle="modal" data-target="#Modal" class="btn btn-dark btn-sm text-light">Notificar Clientes</a>
                               <!-- MODAL Notify-->
                               <div class="modal" tabindex="-1" id="Modal">
                                  <div class="modal-dialog">
@@ -184,7 +184,7 @@
                                              <!-- <a href="dados_cliente.php?cliente_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a> -->
                                              <a href="editar_viagem.php?viagem_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-info">Editar</a>
                                              <a role="button" data-toggle="modal" data-target="#Modal<?=$item['id']?>"  class="btn btn-sm  btn-danger text-light">Excluir</a>
-                                             <a role="button" data-toggle="modal" data-target="#ModalNotify<?=$item['id']?>" class="btn  btn-warning text-light btn-sm"><i class="fe fe-bell"></i></a>
+                                             <a role="button" data-toggle="modal" data-target="#ModalNotify<?=$item['id']?>" class="btn  btn-dark text-light btn-sm"><i class="fe fe-bell"></i></a>
                                              <!-- MODAL -->
                                              <div class="modal" tabindex="-1" id="Modal<?=$item['id']?>">
                                                <div class="modal-dialog">
@@ -196,7 +196,7 @@
                                                          </button>
                                                       </div>
                                                       <div class="modal-body">
-                                                            <p class="text-warning mb-3" style="font-size: 1.4em;">Tem a certeza que deseja excluir esta viagem?</p>
+                                                            <p class="text-dark mb-3" style="font-size: 1.4em;">Tem a certeza que deseja excluir esta viagem?</p>
                                                             <div>
                                                                <h5>Cliente: <span style="font-weight: normal;"> <?=$item['client_name']?> </span></h3>
                                                                <h5>Destino: <span style="font-weight: normal;"><?=$item['destino']?> </span></h3>
@@ -224,7 +224,7 @@
                                                          </button>
                                                       </div>
                                                       <div class="modal-body">
-                                                            <p class="text-warning mb-3" style="font-size: 1.1em;">Deseja notificar <span class="text-info"><?=$item['client_name']?></span> </br>sobre a data da viagem?</p>
+                                                            <p class="text-dark mb-3" style="font-size: 1.1em;">Deseja notificar <span class="text-info"><?=$item['client_name']?></span> </br>sobre a data da viagem?</p>
                                                             <!-- <div>
                                                                <h5>Cliente: <span style="font-weight: normal;"> <?=$item['client_name']?> </span></h3>
                                                                <h5>Destino: <span style="font-weight: normal;"><?=$item['destino']?> </span></h3>

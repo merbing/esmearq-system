@@ -12,7 +12,7 @@
          include("../views/include/head.php");
          include("../../banco/config.php");
          include("consultas/funcionarios/buscar.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
          if(!$employe)
          {
             

@@ -13,23 +13,23 @@ if(!isset($_SESSION["funcionario_id"])){
 }
 
 // Buscando as permissoes do utilizador autenticado
-$papel_id = $_SESSION['papel_usuario_id'];
+// $papel_id = $_SESSION['papel_usuario_id'];
 
-$query = "SELECT P.permissao FROM permissoesporcargo PP
-    INNER JOIN funcionarios_papel PA ON (PP.cargo_id = PA.id)
-    INNER JOIN permissoessistema P ON (PP.permissao_id = P.id)
-    WHERE PP.cargo_id=".$papel_id;
-    $stmt = $conn->prepare($query);
-    $stmt->execute();
-    $result = $stmt->get_result();
+// $query = "SELECT P.permissao FROM permissoesporcargo PP
+//     INNER JOIN funcionarios_papel PA ON (PP.cargo_id = PA.id)
+//     INNER JOIN permissoessistema P ON (PP.permissao_id = P.id)
+//     WHERE PP.cargo_id=".$papel_id;
+//     $stmt = $conn->prepare($query);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
     
-    $permissoes = [];
-    if ($result->num_rows > 0) {
-                             // Obtém os dados do cliente
-        while($permition = $result->fetch_assoc()){
-         $permissoes[] = $permition['permissao']; 
-        }
-    }
+//     $permissoes = [];
+//     if ($result->num_rows > 0) {
+//                              // Obtém os dados do cliente
+//         while($permition = $result->fetch_assoc()){
+//          $permissoes[] = $permition['permissao']; 
+//         }
+//     }
     
     // Verifica se tem permissao para ver esta página
     // if(in_array("adicionar funcionario",$permissoes)){

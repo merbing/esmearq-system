@@ -13,7 +13,7 @@
          include("../../banco/config.php");
          include("consultas/freelancers/buscar.php");
          // include("consultas/clientes/processos.php");
-         include_once("../../config/auth.php");
+         include_once("../config/auth.php");
          if(!$freelancer)
          {
             
@@ -67,6 +67,8 @@
                         </div>
                         <div class="mt-3">
                            <a href="freelancer_clientes.php?freelancer_id=<?=base64_encode($freelancer['id'])?>" class="btn btn-sm btn-info">Ver Clientes</a>
+                           <a href="editar_freelancer.php?freelancer_id=<?=base64_encode($freelancer['id'])?>" class="btn btn-sm btn-dark">Editar</a>
+                       
                         </div>
                         <!-- end page title -->
                      </div>
