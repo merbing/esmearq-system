@@ -3,13 +3,14 @@ include("../../../../banco/config.php");
 
 // Verificar se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nome_agencia = $_POST['nome_agencia'];
+
+    $nome = $_POST['nome'];
     $endereco = $_POST['endereco'];
     $provincia = $_POST['provincia'];
     $telefone = $_POST['telefone'];
 
     // Inserir os dados da agência no banco de dados
-    $query = "INSERT INTO agencias (nome_agencia, endereco, provincia, telefone) VALUES (?, ?, ?, ?)";
+    $query = "INSERT INTO agencias (nome, endereco, provincia, telefone) VALUES (?, ?, ?, ?)";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("ssss", $nome_agencia, $endereco, $provincia, $telefone);
     $result = $stmt->execute();

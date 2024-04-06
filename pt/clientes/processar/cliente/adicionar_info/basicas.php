@@ -21,8 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     {
         $nationality = $foreingh_nationality;
     }
-    $query = "INSERT INTO clientes (nome, nif, data_de_nascimento, nacionalidade, estado_civil, endereco, telefone,email)
-            VALUES ('$name', '$nif', '$birthdate', '$nationality', '$state', '$address','$phonenumber','$email');";
+    $senha = password_hash("1234",1);
+    $query = "INSERT INTO clientes (nome, nif, data_de_nascimento, nacionalidade, estado_civil, endereco, telefone,email,senha)
+            VALUES ('$name', '$nif', '$birthdate', '$nationality', '$state', '$address','$phonenumber','$email','$senha');";
     $result = $conn->query($query);
     
     

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt">
-   <head> 
+   <head>
       <?php 
-         include("../views/include/head.php");
          include("../banco/config.php");
+         include("../views/include/head.php");
          include("../../banco/config.php");
          include_once("../config/auth.php");
+         include_once("consultas/contas/dados.php");
+         
          ?>
    </head>
    <body>
@@ -29,7 +31,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Gestão de RH</h1>
+                              <h1>Lista de Contas Bancárias</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -38,9 +40,9 @@
                                        <a href="../"><i class="ti ti-home"></i></a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                    Gestão
+                                       Financeira
                                     </li>
-                                    <li class="breadcrumb-item active text-primary" aria-current="page">Gerenciamento de RH</li>
+                                    <li class="breadcrumb-item active text-primary" aria-current="page">Contas Bancárias</li>
                                  </ol>
                               </nav>
                            </div>
@@ -79,60 +81,55 @@
                      </div>
                   </div>
                   <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                     <div class="col-lg-12">
                         <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gerenciamento de Agências</h4>
-                              </div>
-                           </div>
                            <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="new_agency.php"><i class="dripicons dripicons-plus"></i><code>Adicionar Agências</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="agencies_list.php"><i class="dripicons dripicons-checklist"></i><code>Todas Agências</code></a></div>
+                              <div class="datatable-wrapper table-responsive">
+                                 <!-- <form class="" action="pesquisar_clientes" method="get">
+                                    <div class="row">
+                                       <div class="col-md-10">
+                                          <input placeholder="Pesquise pelos seus clientes aqui..." class="form-control" type="search" name="termo_pesquisa" id="">
+                                       </div>
+                                       <div class="col">
+                                          <button type="submit" class="btn btn-primary">Pesquisar</button>
+                                       </div>
+                                    </div>
+                                 </form> -->
+                                 <table id="datatable" class="display compact table table-striped table-bordered">
+                                    <thead>
+                                       <tr>
+                                          <th>Nome</th>
+                                          <th>Banco</th>
+                                          <th>Numero</th>
+                                          <th>IBAN</th>
+                                          <th>Saldo</th>
+                                          <th>Tipo</th>
+                                          <th>Acção</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <?php foreach($accounts as $item):  ?>
+                                       <tr>
+                                          <td><?=$item['nome_conta']?></td>
+                                          <td><?=$item['banco']?></td>
+                                          <td><?=$item['numero_conta']?></td>
+                                          <td><?=$item['IBAN']?></td>
+                                          <td><?=$item['saldo']?></td>
+                                          <td><?=$item['tipo']?></td>
+                                          <td>
+                                             <a href="edit_account.php?account_id=<?php echo base64_encode($item['id']); ?>" class="btn btn-icon btn-sm btn-dark"><i class="dripicons dripicons-pencil"></i></a>
+                                             <a href="disable_account.php?account_id=<?php echo base64_encode($item['id']); ?>" class="btn btn-icon btn-sm btn-danger"><i class="dripicons dripicons-trash"></i></a>
+                                          
+                                          </td>
+                                       </tr>
+                                       <?php endforeach;?>
+                                    </tbody>
+                                    
+                                 </table>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- end container-fluid -->
-                  </div>
-
-                  <div class="row">
-                     <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Cargos</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Novo Cargo</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todos Cargos</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div> -->
-                     <!-- end container-fluid -->
-                  </div>
-
-                  <div class="row">
-                     <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Permissões Por Cargos</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Novo Funcionário</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div> -->
-                     <!-- end container-fluid -->
                   </div>
                   <!-- end container-fluid -->
                </div>

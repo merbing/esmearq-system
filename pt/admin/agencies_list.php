@@ -1,11 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="pt">
    <head> 
       <?php 
-         include("../views/include/head.php");
-         include("../banco/config.php");
-         include("../../banco/config.php");
-         include_once("../config/auth.php");
+           include("../banco/config.php");
+           include("../views/include/head.php");
+           include("../../banco/config.php");
+           include_once("../config/auth.php");
+           include_once("consultas/agencias/dados.php");
          ?>
    </head>
    <body>
@@ -24,12 +26,12 @@
                <!-- begin container-fluid -->
                <div class="container-fluid">
                   <!-- begin row -->
-                  <div class="row">
-                     <div class="col-md-12 m-b-30">
+                  <div class="row mb-2">
+                     <div class="col-md-12 ">
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Gestão de RH</h1>
+                              <h1>Lista de Agências</h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -38,9 +40,9 @@
                                        <a href="../"><i class="ti ti-home"></i></a>
                                     </li>
                                     <li class="breadcrumb-item">
-                                    Gestão
+                                       Agências
                                     </li>
-                                    <li class="breadcrumb-item active text-primary" aria-current="page">Gerenciamento de RH</li>
+                                    <li class="breadcrumb-item active text-primary" aria-current="page">Lista de Agências</li>
                                  </ol>
                               </nav>
                            </div>
@@ -48,7 +50,9 @@
                         <!-- end page title -->
                      </div>
                   </div>
-                  <!-- end row -->
+                  <div>
+                     <a href="new_agency.php" class="btn btn-info btn-sm">+ Adicionar</a>
+                  </div>
                   <div class="row">
                      <div class="col-12 mb-2">
                         <?php
@@ -78,61 +82,44 @@
                            ?>
                      </div>
                   </div>
+                  <!-- end row -->
                   <div class="row">
-                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                     <div class="col-lg-12">
                         <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gerenciamento de Agências</h4>
-                              </div>
-                           </div>
                            <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="new_agency.php"><i class="dripicons dripicons-plus"></i><code>Adicionar Agências</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="agencies_list.php"><i class="dripicons dripicons-checklist"></i><code>Todas Agências</code></a></div>
+                              <div class="datatable-wrapper table-responsive">
+                                 
+                                 <table id="datatable" class="display compact table table-striped table-bordered">
+                                    <thead>
+                                       <tr>
+                                          <th>ID</th>
+                                          <th>Nome</th>
+                                          <th>Endereço</th>
+                                          <th>Telefone</th>
+                                          <th>Província</th>
+                                          <th>Ação</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                       <?php foreach($agencies as $item):?>
+                                       <tr>
+                                          <td><?php echo $item['id']; ?></td>
+                                          <td><?php echo $item["nome"]; ?></td>
+                                          <td><?php echo $item["endereco"]; ?></td>
+                                          <td><?php echo $item["telefone"]; ?></td>
+                                          <td><?php echo $item["provincia"]; ?></td>
+                                          <td>
+                                             <a href="edit_agency.php?agency_id=<?php echo base64_encode($item["id"]); ?>" class="btn btn-dark btn-sm">Editar</a>
+                                          </td>
+                                       </tr>
+                                       <?php endforeach; ?>
+                                    </tbody>
+                                 </table>
+                                 
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- end container-fluid -->
-                  </div>
-
-                  <div class="row">
-                     <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Cargos</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Novo Cargo</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todos Cargos</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div> -->
-                     <!-- end container-fluid -->
-                  </div>
-
-                  <div class="row">
-                     <!-- <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                        <div class="card card-statistics">
-                           <div class="card-header">
-                              <div class="card-heading">
-                                 <h4 class="card-title">Gestão de Permissões Por Cargos</h4>
-                              </div>
-                           </div>
-                           <div class="card-body">
-                              <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Novo Funcionário</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todos</code></a></div>
-                              </div>
-                           </div>
-                        </div>
-                     </div> -->
-                     <!-- end container-fluid -->
                   </div>
                   <!-- end container-fluid -->
                </div>

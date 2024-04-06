@@ -4,6 +4,8 @@
       <?php 
          include("../views/include/head.php");
          include("../banco/config.php");
+         include("../../banco/config.php");
+         include_once("../config/auth.php");
          ?>
    </head>
    <body>
@@ -76,7 +78,7 @@
                            ?>
                      </div>
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
                            <div class="card-header">
@@ -86,16 +88,15 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Nova Transação</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checkmark"></i><code>Facturas Pagas</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-cross"></i><code>Facturas Não Pagas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="new.php"><i class="dripicons dripicons-plus"></i><code>Nova Transação</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="list.php"><i class="dripicons dripicons-checklist"></i><code>Todas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="list.php"><i class="dripicons dripicons-checkmark"></i><code>Facturas Pagas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="list.php"><i class="dripicons dripicons-cross"></i><code>Facturas Não Pagas</code></a></div>
                               </div>
                            </div>
                         </div>
                      </div>
-                     <!-- end container-fluid -->
-                  </div>
+                  </div> -->
                   <div class="row">
                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                         <div class="card card-statistics">
@@ -106,8 +107,9 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar"><i class="dripicons dripicons-plus"></i><code>Nova Transação</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista"><i class="dripicons dripicons-checklist"></i><code>Todas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="new_account.php"><i class="dripicons dripicons-plus"></i><code>Nova Transação</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="bankaccount_list.php"><i class="dripicons dripicons-checklist"></i><code>Todas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="bankaccount_types.php"><i class="dripicons dripicons-checklist"></i><code>Tipos de Conta</code></a></div>
                               </div>
                            </div>
                         </div>

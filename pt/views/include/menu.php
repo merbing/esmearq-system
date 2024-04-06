@@ -97,14 +97,14 @@ include_once("../config/auth.php");
                 </a>
             </li>
             <?php endif;?>
-            <li class="nav-static-title">Ajuda e Suporte</li>
+            <!-- <li class="nav-static-title">Ajuda e Suporte</li>
 
             <li>
                 <a href="central-ajuda.html" aria-expanded="false">
                     <i class="nav-icon ti ti-info-alt"></i>
                     <span class="nav-title">Central de Ajuda</span>
                 </a>
-            </li>
+            </li> -->
 
             <li class="nav-static-title">Sair</li>
             <li>

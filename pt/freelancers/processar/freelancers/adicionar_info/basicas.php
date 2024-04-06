@@ -13,9 +13,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $banco = htmlspecialchars($_POST["banco"]);
     $numero = htmlspecialchars($_POST["numero"]);
     $iban = htmlspecialchars($_POST["iban"]);
-    
-    $query = "INSERT INTO freelancers (nome, telefone, email,nif,banco,numero_da_conta,iban)
-            VALUES ('$name','$phonenumber','$email','$nif','$banco','$numero','$iban');";
+    $senha = password_hash("1234",1);
+    $query = "INSERT INTO freelancers (nome, telefone, email,nif,banco,numero_da_conta,iban,senha)
+            VALUES ('$name','$phonenumber','$email','$nif','$banco','$numero','$iban','$senha');";
     $result = $conn->query($query);
     
     
