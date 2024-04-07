@@ -5,14 +5,15 @@ require_once("../../../../../banco/config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $pais = $_POST["pais"];
-    $taxa = $_POST["taxa"];
-    $requisitos = $_POST["requisitos"];
-    $query = "INSERT INTO requisitos (pais,taxa,requisitos) VALUES ('$pais',$taxa,'$requisitos');";
-    $result = $conn->query($query);
+    try{
+        $pais = htmlspecialchars($_POST["pais"]);
+        $taxa = htmlspecialchars($_POST["taxa"]);
+        $requisitos = htmlspecialchars($_POST["requisitos"]);
+        $query = "INSERT INTO requisitos (pais,taxa,requisitos) VALUES ('$pais',$taxa,'$requisitos');";
+        $result = $conn->query($query);
     
     
-    if ($result === TRUE) {
+        if ($result === TRUE) {
         $encrypted_user_id = base64_encode($cliente_id);
         $sucess_message = "Requisito Cadastrado com sucesso!";
         // $_SESSION["success"] = "Papel Cadastrado com sucesso!"; 
@@ -20,9 +21,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&success_message=" . urlencode($sucess_message));
         exit();
  
-    } else {
-        $encrypted_user_id = base64_encode($cliente_id);
-        $error_message = "Ocorreu um erro.";
+        } else {
+            $encrypted_user_id = base64_encode($cliente_id);
+            $error_message = "Ocorreu um erro.";
+            header("Location: ../../../adicionar_requisitos.php?error_message=" . urlencode($error_message));
+            exit;
+        }
+    }catch(Exception $e)
+    {
+        $error_message = "Ocorreu um erro. Tenta novamente mais tarde";
         header("Location: ../../../adicionar_requisitos.php?error_message=" . urlencode($error_message));
         exit;
     }

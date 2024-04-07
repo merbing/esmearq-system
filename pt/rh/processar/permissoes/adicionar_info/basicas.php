@@ -5,7 +5,7 @@ require_once("../../../../../banco/config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $name = $_POST["name"];
+    $name = htmlspecialchars($_POST["name"]);
     $query = "INSERT INTO permissoessistema (permissao) VALUES ('$name');";
     $result = $conn->query($query);
     

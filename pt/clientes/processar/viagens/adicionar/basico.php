@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cliente_id = $_POST["id_client"];
         $date = $_POST["date"];
         $time = $_POST["time"];
-        $destino = $_POST["destino"];
+        $destino = htmlspecialchars($_POST["destino"]);
     //    var_dump($cliente_id);
     //    exit;
         $query = "INSERT INTO viagens (id_cliente, data_viagem, hora_viagem, realizado,destino)

@@ -6,9 +6,9 @@ require_once("../../../../config/auth.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $id = $_POST["user_id"];;
-    $atual = $_POST["atual_password"];
-    $new = $_POST["new_password"];
-    $confirm = $_POST["confirm_password"];
+    $atual = htmlspecialchars($_POST["atual_password"]);
+    $new = htmlspecialchars($_POST["new_password"]);
+    $confirm =htmlspecialchars( $_POST["confirm_password"]);
 
     try{
 

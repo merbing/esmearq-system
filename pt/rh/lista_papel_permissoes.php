@@ -65,7 +65,7 @@
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
-                              <h1>Lista de Permissões do <?=$papel['nome']?></h1>
+                              <h1>Lista de Permissões do <span class="text-info"><?=$papel['nome']?></span></h1>
                            </div>
                            <div class="ml-auto d-flex align-items-center">
                               <nav>
@@ -182,7 +182,7 @@
                                           <td><?php echo $item['id'] ?></td>
                                           <td><?php echo $item['permissao'] ?></td>
                                           <td>
-                                             <a href="show.php?id=<?=base64_encode($item['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="remover_permissao.php?id=<?=base64_encode($item['id_permissao']);?>&papel_id=<?=base64_encode($papel['id'])?>" class="btn  btn-sm btn-danger">Remover</a>
                                               
                                           </td>
                                        </tr>

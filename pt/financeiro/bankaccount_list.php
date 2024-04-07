@@ -27,7 +27,7 @@
                <div class="container-fluid">
                   <!-- begin row -->
                   <div class="row">
-                     <div class="col-md-12 m-b-30">
+                     <div class="col-md-12 mb-2">
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
@@ -49,6 +49,9 @@
                         </div>
                         <!-- end page title -->
                      </div>
+                  </div>
+                  <div class="mb-2">
+                     <a href="new_account.php" class="btn btn-sm btn-dark">+ Adicionar</a>
                   </div>
                   <!-- end row -->
                   <div class="row">

@@ -67,6 +67,54 @@
                         </div>
                         <div class="mt-3">
                            <a href="viagens_cliente.php?cliente_id=<?=base64_encode($cliente['id'])?>" class="btn btn-sm btn-info">Viagens</a>
+                              <?php if($cliente['ativo']==1): ?>
+                                 <a class="btn btn-sm btn-danger text-light" data-toggle="modal" data-target="#ModalDisable">Desactivar</a>
+                              <?php else:?>
+                                 <a class="btn btn-sm btn-success text-light" data-toggle="modal" data-target="#ModalEnable">Activar</a>
+                              <?php endif;?>
+
+                              
+                              <div class="modal" tabindex="-1" id="ModalDisable">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Desactivar conta de utilizador?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p class="text-dark">Se desativar, este Cliente deixará de ter acesso ao sistema</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="disable.php?cliente_id=<?=base64_encode($cliente['id'])?>" class="btn btn-danger text-light" >Desactivar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
+
+                                 <div class="modal" tabindex="-1" id="ModalEnable">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Activar conta de utilizador?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p class="text-dark">Se activar, este cliente poderá ter acesso ao sistema</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="enable.php?cliente_id=<?=base64_encode($cliente['id'])?>" class="btn btn-success text-light" >Activar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
                         </div>
                         <!-- end page title -->
                      </div>
@@ -163,6 +211,10 @@
                                  <div class="col-2">
                                     <h5 class="">Nacionalidade</h5>
                                     <h4 class="text-info"><?=$cliente['nacionalidade']?></h4>
+                                 </div>
+                                 <div class="col-2">
+                                    <h5 class="">Estado da Conta</h5>
+                                    <h4 class="text-info"><?=$cliente['ativo']==1?"Activada":'Desactivada'?></h4>
                                  </div>
 
                               </div>
@@ -328,7 +380,37 @@
                      </div>
                   </div>
 
-
+                  <h4>Área Restrita</h4>
+                  <div class="row ">
+                     <div class="col-md-12">
+                        <div class="card">
+                           <div class="card-body">
+                              <a role="button" class="btn btn-danger text-light" data-toggle="modal" data-target="#ModalEliminar">Eliminar Cliente</a>
+                              <div class="modal" tabindex="-1" id="ModalEliminar">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Deseja eliminar este cliente?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p class="text-dark text-center"><span class="text-danger " style="font-weight: bold;">AVISO:</span> Se eliminar este cliente, todos os dados associados a ele serão perdidos</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="eliminar.php?cliente_id=<?=base64_encode($cliente['id'])?>" class="btn btn-danger text-light" >Eliminar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
+                              <!-- END DIV TABLE -->
+                           </div>
+                        </div>
+                     </div>
+                  </div>   
                   <!-- <div class="row mt-4">
                      <div class="col-md-12">
                         <div class="card">

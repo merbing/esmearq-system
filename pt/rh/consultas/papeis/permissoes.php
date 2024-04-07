@@ -15,7 +15,7 @@
     
 
 
-    $query = "SELECT P.permissao, P.id FROM permissoesporcargo PP
+    $query = "SELECT P.permissao, P.id, PP.id as id_permissao FROM permissoesporcargo PP
     INNER JOIN funcionarios_papel PA ON (PP.cargo_id = PA.id)
     INNER JOIN permissoessistema P ON (PP.permissao_id = P.id)
     WHERE PP.cargo_id=".$papel_id;

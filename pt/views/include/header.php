@@ -32,11 +32,11 @@
             <ul class="navbar-nav nav-right ml-auto">
                <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="navbarDropdown3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fe fe-bell"></i>
-                  <span class="notify">
-                  <span class="blink"></span>    
-                  <span class="dot"></span>
-                  </span> 
+                  <!-- <i class="fe fe-bell"></i> -->
+                  <!-- <span class="notify"> -->
+                  <!-- <span class="blink"></span>     -->
+                  <!-- <span class="dot"></span> -->
+                  <!-- </span>  -->
                   </a>
                   <div class="dropdown-menu extended animated fadeIn" aria-labelledby="navbarDropdown">
                      <ul>
@@ -76,33 +76,34 @@
                      <div class="bg-gradient px-4 py-3">
                         <div class="d-flex align-items-center justify-content-between">
                            <div class="mr-1">
-                              <h4 class="text-white mb-0"><?php $user_name?></h4>
-                              <small class="text-white"><?php $user_email?></small>
+                              <h4 class="text-white mb-0"><?php echo $user_name??$auth_user_name??'Utilizador'?></h4>
+                              <small class="text-white"><?php echo $user_email??$auth_user_email??'Sem email'?></small>
                            </div>
-                           <a href="../../Logout.php" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
+                           <a href="../logout.php" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
                               class="zmdi zmdi-power"></i></a>
                         </div>
                      </div>
                      <div class="p-4">
-                        <a class="dropdown-item d-flex nav-link" href="../perfil/">
-                        <i class="fa fa-user pr-2 text-success"></i> Meu Perfil</a>
-                        <a class="dropdown-item d-flex nav-link" href="../perfil/solicitacoes_pedidos">
+                        <a class="dropdown-item d-flex nav-link" href="../perfil/conta.php">
+                           <i class="fa fa-user pr-2 text-success"></i> Meu Perfil
+                        </a>
+                        <!-- <a class="dropdown-item d-flex nav-link" href="../perfil/solicitacoes_pedidos">
                         <i class="fa fa-envelope pr-2 text-primary"></i> Novas de Solicitações
                         </a>
                         <a class="dropdown-item d-flex nav-link" href="../perfil/solicitacoes_minhas">
-                        <i class="fa fa-exclamation-circle pr-2 text-warning"></i> Estado de Solicitações
+                        <i class="fa fa-exclamation-circle pr-2 text-warning"></i> Estado de Solicitações -->
                         </a>
-                        <a class="dropdown-item d-flex nav-link" href="../perfil/">
-                        <i class=" ti ti-unlock pr-2 text-info"></i> Minha Senha
+                        <a class="dropdown-item d-flex nav-link" href="../perfil/senha.php">
+                        <i class=" ti ti-unlock pr-2 text-info"></i> Alterar Senha
                         </a>
-                        <div class="row mt-2">
+                        <!-- <div class="row mt-2">
                            <div class="col">
                               <a class="bg-light p-3 text-center d-block" href="../perfil/solicitacoes_solicitar">
                               <i class="fe fe-plus font-20 text-primary"></i>
                               <span class="d-block font-13 mt-2">Nova Solicitação</span>
                               </a>
                            </div>
-                        </div>
+                        </div> -->
                      </div>
                   </div>
                </li>

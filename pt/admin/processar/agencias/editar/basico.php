@@ -6,10 +6,10 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $nome = $_POST["nome"];
-    $endereco = $_POST["endereco"];
-    $provincia = $_POST["provincia"];
-    $telefone = $_POST["telefone"];
+    $nome = htmlspecialchars($_POST["nome"]);
+    $endereco = htmlspecialchars($_POST["endereco"]);
+    $provincia = htmlspecialchars($_POST["provincia"]);
+    $telefone = htmlspecialchars($_POST["telefone"]);
     $id = $_POST['id'];
 
     $query = "UPDATE agencias SET nome='$nome', endereco='$endereco', provincia='$provincia', telefone='$telefone'

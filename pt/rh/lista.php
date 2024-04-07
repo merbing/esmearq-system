@@ -30,7 +30,7 @@
                <div class="container-fluid">
                   <!-- begin row -->
                   <div class="row">
-                     <div class="col-md-12 m-b-30">
+                     <div class="col-md-12 ">
                         <!-- begin page title -->
                         <div class="d-block d-sm-flex flex-nowrap align-items-center">
                            <div class="page-title mb-2 mb-sm-0">
@@ -52,6 +52,9 @@
                         </div>
                         <!-- end page title -->
                      </div>
+                  </div>
+                  <div class="mt-3">
+                     <a href="adicionar.php" class="btn btn-sm btn-dark">+ Adicionar</a>
                   </div>
                   <!-- end row -->
                   <div class="row">
@@ -118,7 +121,8 @@
                                           <td><?php echo $item['agencia'] ?></td>
                                           <td><?php echo $item['departamento'] ?></td>
                                           <td>
-                                             <a href="details_funcionario.php?funcionario_id=<?=base64_encode($item['id']);?>" class="btn btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="details_funcionario.php?funcionario_id=<?=base64_encode($item['id']);?>" class="btn btn-icon btn-sm btn-success"><i class="dripicons dripicons-preview"></i></a>
+                                             <a href="edit_funcionario.php?funcionario_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-dark">Editar</a>
                                            </td>
                                        </tr>
                                        <?php endforeach; ?>

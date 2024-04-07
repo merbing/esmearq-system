@@ -5,9 +5,10 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $name = $_POST["name"];
-    $duracao = $_POST["duracao"];
-    $valor = $_POST["valor"];
+    try{
+        $name = htmlspecialchars($_POST["name"]);
+    $duracao = htmlspecialchars($_POST["duracao"]);
+    $valor = htmlspecialchars($_POST["valor"]);
     $service_id = $_POST['service_id'];
     $query = "UPDATE servicos SET nome='$name', custo=$duracao, prazo_dias='$valor' WHERE id=$service_id;";
     $result = $conn->query($query);
@@ -32,9 +33,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../editar_servico.php?error_message=" . urlencode($error_message));
+        header("Location: ../../../editar_servico.php?service_id=".base64_encode($service_id)."&error_message=" . urlencode($error_message));
         exit;
     }
+    }catch(Exception $e)
+    {
+        $encrypted_user_id = base64_encode($cliente_id);
+        $error_message = "Ocorreu um erro. Tenta novamente mais tarde";
+        header("Location: ../../../editar_servico.php?service_id=".base64_encode($service_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
+    
 } else {
     // Página de login se o formulário não for submetido via POST
     header("Location: ../../login.php");

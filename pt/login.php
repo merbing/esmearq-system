@@ -87,7 +87,7 @@
                                        </div>
                                        <div class="col-12">
                                           <div class="d-block d-sm-flex  align-items-center">
-                                             <a href="esqueceu" class="ml-auto">Esqueceu A Senha?</a>
+                                             <a href="forgot.php" class="text-dark ml-auto">Esqueceu A Senha?</a>
                                           </div>
                                        </div>
                                        <div class="col-12 mt-3">

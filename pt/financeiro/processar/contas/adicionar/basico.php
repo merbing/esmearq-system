@@ -6,12 +6,13 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $nome = $_POST["nome"];
-    $numero = $_POST["numero"];
-    $banco = $_POST["banco"];
-    $iban = $_POST["iban"];
-    $saldo = $_POST["saldo"];
-    $tipo = $_POST["tipo"];
+    try{
+        $nome = htmlspecialchars($_POST["nome"]);
+    $numero = htmlspecialchars($_POST["numero"]);
+    $banco = htmlspecialchars($_POST["banco"]);
+    $iban = htmlspecialchars($_POST["iban"]);
+    $saldo = htmlspecialchars($_POST["saldo"]);
+    $tipo = htmlspecialchars($_POST["tipo"]);
 
     $query = "INSERT INTO bancariasinformacoes (nome_conta, banco, IBAN, numero_conta, saldo, tipo_conta_id)
             VALUES ('$nome', '$banco', '$iban', '$numero', '$saldo', '$tipo');";
@@ -36,6 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
         $error_message = "Ocorreu um erro.";
+        header("Location: ../../../new_account.php?error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
+        $error_message = "Ocorreu um erro. Tente novamente mais tarde";
         header("Location: ../../../new_account.php?error_message=" . urlencode($error_message));
         exit;
     }

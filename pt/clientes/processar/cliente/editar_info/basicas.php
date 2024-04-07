@@ -5,22 +5,37 @@ require_once("../../../../utils/Log.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    $name = $_POST["name"];
-    $nif = $_POST["nif"];
-    $birthdate = $_POST["birthdate"];
-    $nationality = $_POST["nationality"];
+    try{
+        $name = htmlspecialchars($_POST["name"]);
+    $nif = htmlspecialchars($_POST["nif"]);
+    $birthdate = htmlspecialchars($_POST["birthdate"]);
+    $nationality = htmlspecialchars($_POST["nationality"]);
     if(isset($_POST["foreingh_nationality"])){
-        $foreingh_nationality = $_POST["foreingh_nationality"];    
+        $foreingh_nationality = htmlspecialchars($_POST["foreingh_nationality"]);    
     }
-    $address = $_POST["address"];
-    $phonenumber = $_POST["phonenumber"];
-    $email = $_POST["email"];
-    $state = $_POST["state"];
+    $address = htmlspecialchars($_POST["address"]);
+    $phonenumber = htmlspecialchars($_POST["phonenumber"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $state = htmlspecialchars($_POST["state"]);
     $cliente_id = $_POST['id'];
     if($nationality == "Outra")
     {
         $nationality = $foreingh_nationality;
     }
+
+    // verify email
+    $query = "SELECT * FROM clientes WHERE email = '$email' AND id != '$cliente_id'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $error_message = "Ocorreu um erro. Este email já está em uso";
+        header("Location: ../../../editar.php?cliente_id=".base64_encode($cliente_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
+
+
     $query = "UPDATE clientes SET nome='$name', nif='$nif', data_de_nascimento='$birthdate', nacionalidade='$nationality', 
             estado_civil='$state', endereco='$address', telefone='$phonenumber',email='$email' WHERE id=$cliente_id";
     $result = $conn->query($query);
@@ -47,7 +62,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../cliente_files.php?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($error_message));
+        header("Location: ../../../editar.php?cliente_id=$encrypted_user_id&error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e)
+    {
+        $encrypted_user_id = base64_encode($cliente_id);
+        $error_message = "Ocorreu um erro. Tenta novamente mais tarde";
+        header("Location: ../../../editar.php?cliente_id=$encrypted_user_id&error_message=" . urlencode($error_message));
         exit;
     }
 } else {

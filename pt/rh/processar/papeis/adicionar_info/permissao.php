@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../cliente_files?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($error_message));
+        header("Location: ../../../lista_papel_permissoes.php?papel_id=".base64_encode($papel_id)."&error_message=" . urlencode($error_message));
         exit;
     }
 } else {

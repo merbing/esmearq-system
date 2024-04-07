@@ -12,13 +12,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
 
-    // var_dump($_POST);
+   try{
+             // var_dump($_POST);
     // exit;
-    $client_id = $_POST["id_client"];
-    $country = $_POST["pais"];
-    $service_id = $_POST["id_service"];
-    $date = $_POST["date"];
-    $time = $_POST["time"];
+    $client_id = htmlspecialchars($_POST["id_client"]);
+    $country = htmlspecialchars($_POST["pais"]);
+    $service_id = htmlspecialchars($_POST["id_service"]);
+    $date = htmlspecialchars($_POST["date"]);
+    $time = htmlspecialchars($_POST["time"]);
     $state_id = $_POST["id_state"];
     // $name = $_POST["name"];
     $date = $date." ".$time;
@@ -51,6 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
         exit;
     }
+
+   }catch(Exception $e)
+   {
+    $error_message = "Ocorreu um erro. Tente novamente mais tarde";
+    header("Location: ../../../adicionar.php?error_message=" . urlencode($error_message));
+    exit;
+   }
+
 } else {
     // Página de login se o formulário não for submetido via POST
     header("Location: ../../login.php");

@@ -5,11 +5,24 @@ require_once("../../../../config/auth.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
-    $client_id = $user_id;
-    $name = $_POST["nome"];
-    $email = $_POST["email"];
-    $phone = $_POST["telefone"];
-    $nif = $_POST["nif"];
+    try{
+        $client_id = $user_id;
+    $name = htmlspecialchars($_POST["nome"]);
+    $email = htmlspecialchars($_POST["email"]);
+    $phone = htmlspecialchars($_POST["telefone"]);
+    $nif = htmlspecialchars($_POST["nif"]);
+
+    // verify email
+    $query = "SELECT * FROM freelancers WHERE email = '$email' AND id != '$client_id'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $error_message = "Ocorreu um erro. Este email já está em uso";
+        header("Location: ../../../conta.php?user_id=".base64_encode($user_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
 
     $query = "UPDATE freelancers SET nome = '$name',email='$email',telefone='$phone',nif='$nif'
     WHERE id = '$client_id';";
@@ -31,6 +44,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
+        $error_message = "Ocorreu um erro.";
+        header("Location: ../../../conta.php?user_id=".base64_encode($user_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
         $error_message = "Ocorreu um erro.";
         header("Location: ../../../conta.php?user_id=".base64_encode($user_id)."&error_message=" . urlencode($error_message));
         exit;

@@ -5,7 +5,8 @@ require_once("../../../../../banco/config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $name = $_POST["name"];
+   try{
+    $name =htmlspecialchars( $_POST["name"]);
     $query = "INSERT INTO consultasestado (nome) VALUES ('$name');";
     $result = $conn->query($query);
     
@@ -24,6 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: ../../../adicionar_estado.php?error_message=" . urlencode($error_message));
         exit;
     }
+   }catch(Exception $e){
+    $error_message = "Ocorreu um erro. Tenta novamente mais tarde";
+    header("Location: ../../../adicionar_estado.php?error_message=" . urlencode($error_message));
+    exit;
+   }
 } else {
     // Página de login se o formulário não for submetido via POST
     header("Location: ../../login.php");

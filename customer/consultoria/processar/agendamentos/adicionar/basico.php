@@ -14,11 +14,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // var_dump($_POST);
     // exit;
-    $client_id = $_SESSION["cliente_id"];
-    $country = $_POST["pais"];
-    $service_id = $_POST["id_service"];
-    $date = $_POST["data"];
-    $time = $_POST["hora"];
+    try{
+        $client_id = $_SESSION["cliente_id"];
+    $country = htmlspecialchars($_POST["pais"]);
+    $service_id = htmlspecialchars($_POST["id_service"]);
+    $date = htmlspecialchars( $_POST["data"]);
+    $time = htmlspecialchars($_POST["hora"]);
     $state_id = $_POST["id_state"];
     // $name = $_POST["name"];
     $date = $date." ".$time;
@@ -48,6 +49,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
+        header("Location: ../../../agendar.php?error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
+        $error_message = "Ocorreu um erro. Tente novamente";
         header("Location: ../../../agendar.php?error_message=" . urlencode($error_message));
         exit;
     }

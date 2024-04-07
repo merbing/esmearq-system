@@ -25,6 +25,9 @@
             <div class="app-main" id="main">
                <!-- begin container-fluid -->
                <div class="container-fluid">
+                  <div>
+                     <a href="bankaccount_list.php" class="btn btn-sm btn-dark">Ver Lista</a>
+                  </div>
                   <!-- begin row -->
                   <div class="row">
                      <div class="col-12 mb-2">

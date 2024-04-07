@@ -4,10 +4,11 @@ require_once("../../banco/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = $_POST["email"];
-    $senha = $_POST["pass"];
+    try{
+        $email = htmlspecialchars($_POST["email"]);
+    $senha = htmlspecialchars($_POST["pass"]);
 
-    $verificar_usuario = "SELECT * FROM clientes WHERE email = '$email'";
+    $verificar_usuario = "SELECT * FROM clientes WHERE email = '$email' AND ativo=1";
     $result = $conn->query($verificar_usuario);
    
     
@@ -35,6 +36,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // Usuário não encontrado
         $error_message = "Nenhum usuário encontrado";
+        header("Location: login.php?&error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
+        $error_message = "Autenticação Falhou. Tenta novamente.";
         header("Location: login.php?&error_message=" . urlencode($error_message));
         exit;
     }
@@ -86,22 +92,22 @@ $conn->close();
                     <div class="materialContainer">
                         <div class="box">
                             <div class="login-title">
-                                <h3 class="mb-2">Area de Clientes</h3>
-                                <h2>Login</h2>
+                                <h3 class="mb-2">Área de Clientes</h3>
+                                <h2>Iniciar Sessão</h2>
                             </div>
                             <form action="" method="post">
                             <div class="input">
-                                <label for="email">Username</label>
+                                <label for="email">Email</label>
                                 <input type="email" name="email" id="email">
                                 <span class="spin"></span>
                             </div>
 
                             <div class="input">
-                                <label for="pass">Password</label>
+                                <label for="pass">Senha</label>
                                 <input type="password" name="pass" id="pass">
                                 <span class="spin"></span>
                             </div>
-                            <a href="forgot-password.html" class="pass-forgot mb-3">Forgot your password?</a>
+                            <a href="forgot.php" class="pass-forgot mb-3">Esqueceu sua senha?</a>
                             <div class="w-100 ">
                                 <?php if(isset($_GET['error_message'])): ?>
                                 <span class=" text-danger text-center d-block"><?= $_GET['error_message']?></span>
@@ -109,7 +115,7 @@ $conn->close();
                             </div>
                             <div class=" button logn">
                                 <button  type="submit" style="background-color: blue; color: white;">
-                                    <span>Log In</span>
+                                    <span>Entrar</span>
                                     <i class="fa fa-check"></i>
                                 </button>
                             </div>
@@ -118,7 +124,7 @@ $conn->close();
 
                             
 
-                            <p>Not a member? <a href="sign-up.html" class="theme-color">Sign up now</a></p>
+                            <!-- <p>Not a member? <a href="sign-up.html" class="theme-color">Sign up now</a></p> -->
                         </div>
                     </div>
                 </div>

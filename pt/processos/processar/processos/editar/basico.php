@@ -5,12 +5,13 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $processo_id = $_POST['processo_id'];
+    try{
+        $processo_id = $_POST['processo_id'];
     $client_id = $_POST["id_client"];
-    $description = $_POST["descricao"];
-    $service_id = $_POST["id_service"];
-    $start_date = $_POST["data_inicio"];
-    $end_date = $_POST["data_fim"];
+    $description = htmlspecialchars($_POST["descricao"]);
+    $service_id = htmlspecialchars($_POST["id_service"]);
+    $start_date = htmlspecialchars($_POST["data_inicio"]);
+    $end_date = htmlspecialchars($_POST["data_fim"]);
     $employee_id = $_POST["funcionario_id"];
     $state_id = $_POST["id_state"];
     
@@ -39,6 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
+        $error_message = "Ocorreu um erro.";
+        header("Location: ../../../editar_processo.php?processo_id=".base64_encode($processo_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
         $error_message = "Ocorreu um erro.";
         header("Location: ../../../editar_processo.php?processo_id=".base64_encode($processo_id)."&error_message=" . urlencode($error_message));
         exit;

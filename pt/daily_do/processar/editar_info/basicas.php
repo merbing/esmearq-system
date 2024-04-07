@@ -5,10 +5,11 @@ require_once("../../../../banco/config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $id = $_POST["id_atividade"];
-    $atividade = $_POST["atividade"];
-    $inicio = $_POST["data_inicio"];
-    $fim = $_POST["data_fim"];
+    try{
+        $id = $_POST["id_atividade"];
+    $atividade =htmlspecialchars( $_POST["atividade"]);
+    $inicio = htmlspecialchars($_POST["data_inicio"]);
+    $fim = htmlspecialchars($_POST["data_fim"]);
     $id_funcionario = $_POST["id_funcionario"];
     $status = $_POST["status"];
     
@@ -28,6 +29,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_atividade_id = base64_encode($id);
         $error_message = "Ocorreu um erro.";
+        header("Location: ../../editar.php?atividade_id=$encrypted_atividade_id&error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
+        $encrypted_atividade_id = base64_encode($id);
+        $error_message = "Ocorreu um erro. Tenta novamente mais tarde";
         header("Location: ../../editar.php?atividade_id=$encrypted_atividade_id&error_message=" . urlencode($error_message));
         exit;
     }

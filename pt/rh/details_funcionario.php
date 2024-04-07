@@ -114,8 +114,8 @@
                                     <p><?=$employe['email']?></p>
                                  </li>
                                  <li class="flex-fill">
-                                    <h3 class="mb-0">Estado</h3>
-                                    <p><?=$employe['estado']?></p>
+                                    <h3 class="mb-0">Estado da conta</h3>
+                                    <p><?=$employe['ativo']==1?"Activada":"Desactivada"?></p>
                                  </li>
                               </ul>
                            </div>
@@ -135,6 +135,55 @@
                               <li>Departamento: <strong><?=$employe['departamento']?></strong></li>
                               <li>Salario: <strong><?=$employe['salario']?></strong></li>
                               <li>Nivel de Acesso: <strong><?=$employe['papel']?></strong></li>
+                              <?php if($employe['ativo']==1): ?>
+                                 <a class="btn btn-sm mt-2 btn-danger text-light" data-toggle="modal" data-target="#ModalDisable">Desactivar</a>
+                              <?php else:?>
+                                 <a class="btn btn-sm mt-2 btn-success text-light" data-toggle="modal" data-target="#ModalEnable">Activar</a>
+                              <?php endif;?>
+
+                              
+                              <div class="modal" tabindex="-1" id="ModalDisable">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Desactivar conta de utilizador?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p>Se desativar, este funcionário deixará de ter acesso ao sistema</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="disable.php?funcionario_id=<?=base64_encode($employe['id'])?>" class="btn btn-danger text-light" >Desactivar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
+
+                                 <div class="modal" tabindex="-1" id="ModalEnable">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Activar conta de utilizador?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p>Se activar, este funcionário poderá ter acesso ao sistema</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="enable.php?funcionario_id=<?=base64_encode($employe['id'])?>" class="btn btn-success text-light" >Activar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
+                              </ul>
                            </div>
                         </div>
                      </div>

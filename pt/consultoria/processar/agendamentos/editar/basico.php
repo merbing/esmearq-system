@@ -5,11 +5,12 @@ require_once("../../../../../banco/config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $client_id = $_POST["id_client"];
-    $country = $_POST["pais"];
-    $service_id = $_POST["id_service"];
-    $date = $_POST["date"];
-    $time = $_POST["time"];
+    try{
+        $client_id = htmlspecialchars($_POST["id_client"]);
+    $country = htmlspecialchars($_POST["pais"]);
+    $service_id = htmlspecialchars($_POST["id_service"]);
+    $date = htmlspecialchars($_POST["date"]);
+    $time = htmlspecialchars($_POST["time"]);
     $state_id = $_POST["id_state"];
     $agendamento_id = $_POST["agendamento_id"];
 
@@ -32,6 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
+        header("Location: ../../../editar_agendamento.php?agendamento_id=".base64_encode($agendamento_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e)
+    {
+        $error_message = "Ocorreu um erro. Tente novamente mais tarde";
         header("Location: ../../../editar_agendamento.php?agendamento_id=".base64_encode($agendamento_id)."&error_message=" . urlencode($error_message));
         exit;
     }

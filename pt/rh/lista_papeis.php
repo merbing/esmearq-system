@@ -53,6 +53,9 @@
                         <!-- end page title -->
                      </div>
                   </div>
+                  <div>
+                     <a href="adicionar_papel.php" class="btn btn-sm btn-dark">+ Adicionar</a>
+                  </div>
                   <!-- end row -->
                   <div class="row">
                      <div class="col-12 mb-2">

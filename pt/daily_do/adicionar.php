@@ -30,6 +30,9 @@
             <div class="app-main" id="main">
                <!-- begin container-fluid -->
                <div class="container-fluid">
+                  <div class="">
+                        <a href="lista.php" class="btn btn-sm btn-dark">Voltar a lista</a>
+                  </div>
                   <!-- begin row -->
                   <div class="row">
                      <div class="col-12 mb-2">

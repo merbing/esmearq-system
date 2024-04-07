@@ -5,7 +5,8 @@ require_once("../../../../../banco/config.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $name = $_POST["name"];
+    try{
+        $name = htmlspecialchars($_POST["name"]);
     $query = "INSERT INTO departamentos (nome) VALUES ('$name');";
     $result = $conn->query($query);
     
@@ -13,15 +14,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($result === TRUE) {
         $encrypted_user_id = base64_encode($cliente_id);
         $sucess_message = "Cadastrado realizado com sucesso!";
-        $_SESSION["success"] = "Departamento Cadastrado com sucesso!"; 
-        header("Location: ../../../adicionar_departamentos.php");
+        // $_SESSION["success"] = "Departamento Cadastrado com sucesso!"; 
+        header("Location: ../../../adicionar_departamentos.php?success_message=" . urlencode($sucess_message));
         // header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&success_message=" . urlencode($sucess_message));
         exit();
  
     } else {
         $encrypted_user_id = base64_encode($cliente_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../cliente_files?conta_do_cliente=$encrypted_user_id&error_message=" . urlencode($error_message));
+        header("Location: ../../../adicionar_departamentos.php?error_message=" . urlencode($error_message));
+        exit;
+    }
+    }catch(Exception $e){
+        $error_message = "Ocorreu um erro. Tente novamente mais tarde";
+        header("Location: ../../../adicionar_departamentos.php?error_message=" . urlencode($error_message));
         exit;
     }
 } else {

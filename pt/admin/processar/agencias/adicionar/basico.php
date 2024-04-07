@@ -6,11 +6,16 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $nome = $_POST["nome"];
-    $endereco = $_POST["endereco"];
-    $provincia = $_POST["provincia"];
-    $telefone = $_POST["telefone"];
+    $nome = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["nome"]));
+    $endereco = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["endereco"]));
+    $provincia = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["provincia"]));
+    $telefone = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["telefone"]));
 
+    if(($_POST['nome']==null || $_POST['nome']=='') || ($_POST['endereco']==null || $_POST['endereco']=='')){
+        $error_message = "Ocorreu um erro. Preenha todos os campos";
+        header("Location: ../../new_agency.php?&error_message=" . urlencode($error_message));
+        exit;
+    }
     $query = "INSERT INTO agencias (nome, endereco, provincia, telefone)
             VALUES ('$nome', '$endereco', '$provincia', '$telefone');";
     $result = $conn->query($query);

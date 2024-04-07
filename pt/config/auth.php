@@ -12,6 +12,16 @@ if(!isset($_SESSION["funcionario_id"])){
     header("Location: ".BASE_URL."pt/login.php?error_message=".urlencode("Tem de iniciar sessão primeiro"));
 }
 
+// buscando dados do utilizador autenticado
+    $auth_funcionario_id =$user_id = $_SESSION["funcionario_id"];
+    $auth_user_name = $_SESSION["nome_usuario"];
+    $auth_user_email = $_SESSION["email_usuario"];
+    $auth_user_phone = $_SESSION["telefone_usuario"];
+    $auth_papel_usuario_id = $_SESSION["papel_usuario_id"];
+    $auth_papel_usuario = $_SESSION["papel_usuario"];
+    $auth_agencia_id = $_SESSION["agencia_id"];
+    $auth_user_address = $_SESSION['endereco_usuario']??'';
+    
 // Buscando as permissoes do utilizador autenticado
 $papel_id = $_SESSION['papel_usuario_id'];
 

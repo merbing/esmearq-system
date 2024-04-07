@@ -5,6 +5,7 @@ require_once("../../../../utils/Log.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
+   try{
     $name = htmlspecialchars($_POST["nome"]);
     $phonenumber = htmlspecialchars($_POST["telefone"]);
     $email = htmlspecialchars($_POST["email"]);
@@ -13,6 +14,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $numero = htmlspecialchars($_POST["numero"]);
     $iban = htmlspecialchars($_POST["iban"]);
     $freelancer_id = htmlspecialchars($_POST['id_freelancer']);
+
+    // verify email
+    $query = "SELECT * FROM freelancers WHERE email = '$email' AND id != '$freelancer_id'";
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        $error_message = "Ocorreu um erro. Este email já está em uso";
+        header("Location: ../../../editar_freelancer.php?freelancer_id=".base64_encode($freelancer_id)."&error_message=" . urlencode($error_message));
+        exit;
+    }
+
+
+
     $query = "UPDATE freelancers SET nome='$name', nif='$nif', telefone='$phonenumber',
             email='$email', banco='$banco', numero_da_conta='$numero', iban='$iban'
              WHERE id=$freelancer_id";
@@ -40,9 +56,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $encrypted_user_id = base64_encode($freelancer_id);
         $error_message = "Ocorreu um erro.";
-        header("Location: ../../../details.php?freelancer_id=$encrypted_user_id&error_message=" . urlencode($error_message));
+        header("Location: ../../../editar_freelancer.php?freelancer_id=$encrypted_user_id&error_message=" . urlencode($error_message));
         exit;
     }
+   }catch(Exception $e){
+    $encrypted_user_id = base64_encode($freelancer_id);
+    $error_message = "Ocorreu um erro. Tente novamente mais tarde";
+    header("Location: ../../../editar_freelancer.php?freelancer_id=$encrypted_user_id&error_message=" . urlencode($error_message));
+    exit;
+   }
 } else {
     // Página de login se o formulário não for submetido via POST
     header("Location: ../../login.php");

@@ -107,7 +107,7 @@
                            </div>
                            <div class="card-body">
                               <div class="row no-gutters icon-list">
-                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="new_account.php"><i class="dripicons dripicons-plus"></i><code>Nova Transação</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="new_account.php"><i class="dripicons dripicons-plus"></i><code>Nova Conta</code></a></div>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="bankaccount_list.php"><i class="dripicons dripicons-checklist"></i><code>Todas</code></a></div>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="bankaccount_types.php"><i class="dripicons dripicons-checklist"></i><code>Tipos de Conta</code></a></div>
                               </div>

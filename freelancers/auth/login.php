@@ -4,10 +4,11 @@ require_once("../../banco/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $email = $_POST["email"];
-    $senha = $_POST["pass"];
+   try{
+    $email = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["email"]));
+    $senha = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["pass"]));
 
-    $verificar_usuario = "SELECT * FROM freelancers WHERE email = '$email'";
+    $verificar_usuario = "SELECT * FROM freelancers WHERE email = '$email' AND ativo=1";
     $result = $conn->query($verificar_usuario);
    
     
@@ -38,6 +39,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location: login.php?&error_message=" . urlencode($error_message));
         exit;
     }
+   }catch(Exception $e){
+    $error_message = "Autenticação não concluída. Tente novamente";
+    header("Location: login.php?&error_message=" . urlencode($error_message));
+    exit;
+   }
 }
 
 $conn->close();
@@ -91,7 +97,7 @@ $conn->close();
                             </div>
                             <form action="" method="post">
                             <div class="input">
-                                <label for="email">Username</label>
+                                <label for="email">Email</label>
                                 <input type="email" name="email" id="email">
                                 <span class="spin"></span>
                             </div>
@@ -101,7 +107,7 @@ $conn->close();
                                 <input type="password" name="pass" id="pass">
                                 <span class="spin"></span>
                             </div>
-                            <a href="forgot-password.html" class="pass-forgot mb-3">Forgot your password?</a>
+                            <a href="forgot.php" class="pass-forgot mb-3">Esqueceu sua senha?</a>
                             <div class="w-100 ">
                                 <?php if(isset($_GET['error_message'])): ?>
                                 <span class=" text-danger text-center d-block"><?= $_GET['error_message']?></span>
@@ -109,7 +115,7 @@ $conn->close();
                             </div>
                             <div class=" button logn">
                                 <button  type="submit" style="background-color: blue; color: white;">
-                                    <span>Log In</span>
+                                    <span>Entrar</span>
                                     <i class="fa fa-check"></i>
                                 </button>
                             </div>
@@ -118,7 +124,7 @@ $conn->close();
 
                             
 
-                            <p>Not a member? <a href="sign-up.html" class="theme-color">Sign up now</a></p>
+                            <!-- <p>Not a member? <a href="sign-up.html" class="theme-color">Sign up now</a></p> -->
                         </div>
                     </div>
                 </div>

@@ -5,9 +5,9 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $pais = $_POST["pais"];
-    $taxa = $_POST["taxa"];
-    $requisitos = $_POST["requisitos"];
+    $pais = htmlspecialchars($_POST["pais"]);
+    $taxa = htmlspecialchars($_POST["taxa"]);
+    $requisitos = htmlspecialchars($_POST["requisitos"]);
     $requisito_id = $_POST['requisito_id'];
    try{
     $query = "UPDATE requisitos SET pais='$pais', taxa=$taxa, requisitos='$requisitos' WHERE id=$requisito_id;";

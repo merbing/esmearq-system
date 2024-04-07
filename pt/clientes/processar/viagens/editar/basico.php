@@ -8,9 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try{
          
     $cliente_id = $_POST["id_client"];
-    $date = $_POST["date"];
-    $time = $_POST["time"];
-    $destino = $_POST["destino"];
+    $date = htmlspecialchars($_POST["date"]);
+    $time = htmlspecialchars($_POST["time"]);
+    $destino = htmlspecialchars($_POST["destino"]);
     $viagem_id = $_POST['id_viagem'];
     $realizada = $_POST['realizada'];
     $query = "UPDATE viagens SET id_cliente='$cliente_id', data_viagem='$date', hora_viagem='$time', destino='$destino', 

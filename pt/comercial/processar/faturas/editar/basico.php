@@ -5,15 +5,16 @@ require_once("../../../../utils/Log.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // var_dump($_POST);
     // exit;
-    $client_id = $_POST["id_client"];
-    $conta_id = $_POST["id_conta"];
-    $service_id = $_POST["id_service"];
-    $nome_empresa = $_POST["nome_empresa"];
-    $email_empresa = $_POST["email_empresa"];
-    $telefone_empresa = $_POST["telefone_empresa"];
-    $endereco_empresa = $_POST["endereco_empresa"];
-    $desconto = $_POST["desconto"];
-    $valor = $_POST["valor"];
+    try{
+        $client_id = htmlspecialchars($_POST["id_client"]);
+    $conta_id = htmlspecialchars($_POST["id_conta"]);
+    $service_id = htmlspecialchars($_POST["id_service"]);
+    $nome_empresa = htmlspecialchars($_POST["nome_empresa"]);
+    $email_empresa = htmlspecialchars($_POST["email_empresa"]);
+    $telefone_empresa = htmlspecialchars($_POST["telefone_empresa"]);
+    $endereco_empresa = htmlspecialchars($_POST["endereco_empresa"]);
+    $desconto = htmlspecialchars($_POST["desconto"]);
+    $valor = htmlspecialchars($_POST["valor"]);
     $id_pago = $_POST["id_pago"];
     $id_fatura = $_POST['id_fatura'];
     
@@ -141,6 +142,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_message = "Ocorreu um erro.";
         header("Location: ../../../editar_fatura.php?fatura_id=".base64_encode($id_fatura)."&error_message=" . urlencode($error_message));
         exit;
+    }
+    }catch(Exception $e)
+    {   
+        $encrypted_user_id = base64_encode($cliente_id);
+        $error_message = "Ocorreu um erro. Tenta novamente mais tarde";
+        header("Location: ../../../editar_fatura.php?fatura_id=".base64_encode($id_fatura)."&error_message=" . urlencode($error_message));
+        exit;
+
     }
 } else {
     // Página de login se o formulário não for submetido via POST

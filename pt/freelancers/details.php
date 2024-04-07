@@ -68,7 +68,54 @@
                         <div class="mt-3">
                            <a href="freelancer_clientes.php?freelancer_id=<?=base64_encode($freelancer['id'])?>" class="btn btn-sm btn-info">Ver Clientes</a>
                            <a href="editar_freelancer.php?freelancer_id=<?=base64_encode($freelancer['id'])?>" class="btn btn-sm btn-dark">Editar</a>
-                       
+                           <?php if($freelancer['ativo']==1): ?>
+                                 <a class="btn btn-sm btn-danger text-light" data-toggle="modal" data-target="#ModalDisable">Desactivar conta</a>
+                              <?php else:?>
+                                 <a class="btn btn-sm btn-success text-light" data-toggle="modal" data-target="#ModalEnable">Activar Conta</a>
+                              <?php endif;?>
+
+                              
+                              <div class="modal" tabindex="-1" id="ModalDisable">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Desactivar conta de utilizador?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p class="text-dark">Se desativar, este Freelancer deixará de ter acesso ao sistema</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="disable.php?freelancer_id=<?=base64_encode($freelancer['id'])?>" class="btn btn-danger text-light" >Desactivar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
+
+                                 <div class="modal" tabindex="-1" id="ModalEnable">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                       <h4 class="modal-title">Activar conta de utilizador?</h4>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                       </div>
+                                       <div class="modal-body">
+                                          <p class="text-dark">Se activar, este Freelancer poderá ter acesso ao sistema</p>
+                                       </div>
+                                       <div class="modal-footer">
+                                          <a href="enable.php?freelancer_id=<?=base64_encode($freelancer['id'])?>" class="btn btn-success text-light" >Activar</a>
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        
+                                       </div>
+                                    </div>
+                                 </div>
+                                 </div>
                         </div>
                         <!-- end page title -->
                      </div>
@@ -164,6 +211,10 @@
                                  <div class="col-4">
                                     <h5 class="">IBAN</h5>
                                     <h4 class="text-info"><?=$freelancer['iban']?></h4>
+                                 </div>
+                                 <div class="col-4">
+                                    <h5 class="">Estado da Conta</h5>
+                                    <h4 class="text-info"><?=$freelancer['ativo']==1?"Activada":"Desactivada"?></h4>
                                  </div>
 
                               </div>
