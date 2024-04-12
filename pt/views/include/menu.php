@@ -53,9 +53,16 @@ include_once("../config/auth.php");
                 </a>
             </li>
             <?php endif;?>
-
-            <?php if(in_array("Ver Atividade",$permissoes) ):?>
             <li class="nav-static-title">TODO</li>
+            <li>
+                <a href="../daily_do/minhas_atividades.php" aria-expanded="false">
+                    <i class="nav-icon ti ti-list"></i>
+                    <span class="nav-title">Minhas Atividades</span>
+                </a>
+            </li>
+            <?php if(in_array("Ver Atividade",$permissoes) ):?>
+            
+            
             <li>
                 <a href="../daily_do/" aria-expanded="false">
                     <i class="nav-icon ti ti-list"></i>

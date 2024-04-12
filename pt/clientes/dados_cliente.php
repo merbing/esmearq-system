@@ -258,8 +258,40 @@
                                     
                                  <?php endif; ?>
                                  <!-- <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-sm btn-light" download>Download</a> -->
-                                 <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-icon btn-sm btn-info" target="_blank"><i  class="dripicons dripicons-preview"></i></a>
+                                 <?php $headers=get_headers(BASE_URL."pt/clientes/arquivos/".$documento['nome_arquivo']); ?>
+                                 <?php if(stripos($headers[0],"200 OK")): ?>
+                                    <a href="arquivos/<?=$documento['nome_arquivo']?>" class="btn btn-icon btn-sm btn-info" target="_blank"><i  class="dripicons dripicons-preview"></i></a>
+                                 <?php else: ?>
+                                    <a  class="btn btn-icon btn-sm btn-info text-light" role="button"  
+                                    data-toggle="modal" data-target="#ModalUnavaiable<?=$documento['id']?>"><i  class="dripicons dripicons-preview"></i></a>
+                                    <div class="modal" tabindex="-1" id="ModalUnavaiable<?=$documento['id']?>">
+                                    <div class="modal-dialog">
+                                       <div class="modal-content">
+                                          <div class="modal-header">
+                                             <h5 class="modal-title">Documento não disponível</h5>
+                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                             </button>
+                                          </div>
+                                          <div class="modal-body">
+                                                <h4 class="text-danger">Ficheiro não disponível</h4>
+                                                <p class="text-dark " style="font-size: 1em;">Ficheiro inexistente ou talvez tenha sido movido para outro lugar</p>
+                                          </div>
+                                          <div class="modal-footer">
+                                          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                          </div>
+                                        </div>
+                                    </div>
+                                 </div>
+                                 <?php endif; ?>
+                                 
+                                 
+
+                                 <!-- BOTAO EDITAR -->
                                  <a href="editar_arquivo.php?file_id=<?=base64_encode($documento['id'])?>" class="btn btn-icon btn-sm btn-info"><i  class="dripicons dripicons-pencil"></i></a>
+                                 
+                                 <!-- BOTAO REMOVER -->
                                  <a role="button"   class=" btn btn-icon btn-sm btn-danger text-light"
                                  data-toggle="modal" data-target="#Modal<?=$documento['id']?>" ><i  class="dripicons dripicons-trash"></i></a>
                                     <!-- href="processar/cliente/remover_arquivo.php?file_id=<?=base64_encode($documento['id'])?>&cliente_id=<?=base64_encode($cliente['id'])?>" -->
@@ -273,7 +305,7 @@
                                              </button>
                                           </div>
                                           <div class="modal-body">
-                                                <p class="text-warning " style="font-size: 1.4em;">Tem a certeza que deseja excluir este documento?</p>
+                                                <p class="text-dark " style="font-size: 1.4em;">Tem a certeza que deseja excluir este documento?</p>
                                           </div>
                                           <div class="modal-footer">
                                           <a  class="btn btn-danger text-light" href="processar/cliente/remover_arquivo.php?file_id=<?=base64_encode($documento['id'])?>&cliente_id=<?=base64_encode($cliente['id'])?>" >Excluir</a>   

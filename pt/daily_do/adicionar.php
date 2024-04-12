@@ -110,7 +110,7 @@
                                        <input type="date" class="form-control" id="data_fim" name="data_fim" placeholder="Data" />
                                     </div>
                                  </div>
-                                 <div class="col-4 form-group">
+                                 <!-- <div class="col-4 form-group">
                                     <label class="control-label" for="nome">Estado</label>
                                     <div class="mb-2">
                                        <select name="status" class="form-control" id="">
@@ -119,7 +119,7 @@
                                           <option value="cancelada" disabled>Cancelada</option>
                                        </select>
                                     </div>
-                                 </div>
+                                 </div> -->
                                  
                                  </div>
                                  <div class="form-group">

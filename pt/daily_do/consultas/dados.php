@@ -1,16 +1,16 @@
 <?php
-if(isset($_GET['estado']) && $_GET['estado']=="em_andamento")
+if(isset($_GET['estado']) && $_GET['estado']=="1")
 {
     $query = "SELECT F.nome as funcionario,F.id as funcionario_id, A.atividade,A.id,
-    A.data_inicio,A.data_fim,A.status,A.estado FROM atividadesregistro A
-    INNER JOIN funcionarios F ON(F.id = A.funcionario_id) WHERE A.estado='em_andamento' ";
-}else if(isset($_GET['estado']) && $_GET['estado']=="concluida") {
+    A.data_inicio,A.data_fim,A.status,A.estado,A.state FROM atividadesregistro A
+    INNER JOIN funcionarios F ON(F.id = A.funcionario_id) WHERE A.state=1 ";
+}else if(isset($_GET['estado']) && $_GET['estado']=="3") {
     $query = "SELECT F.nome as funcionario,F.id as funcionario_id, A.atividade,A.id,
-    A.data_inicio,A.data_fim,A.status,A.estado FROM atividadesregistro A
-    INNER JOIN funcionarios F ON(F.id = A.funcionario_id) WHERE A.estado='concluida' ";
+    A.data_inicio,A.data_fim,A.status,A.estado,A.state FROM atividadesregistro A
+    INNER JOIN funcionarios F ON(F.id = A.funcionario_id) WHERE A.state=3 ";
 }else{
     $query = "SELECT F.nome as funcionario,F.id as funcionario_id, A.atividade,A.id,
-    A.data_inicio,A.data_fim,A.status,A.estado FROM atividadesregistro A
+    A.data_inicio,A.data_fim,A.status,A.estado,A.state FROM atividadesregistro A
     INNER JOIN funcionarios F ON(F.id = A.funcionario_id) ";
 }
     

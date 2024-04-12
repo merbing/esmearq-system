@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
                 
                 if($mail->send()){
                     // $_SESSION["success"] = "Papel Cadastrado com sucesso!"; 
-                    $success_message = "Notificação enviada com sucesso! #".$mail->error;
-                    header("Location: lista_viagens.php?success_message=". urlencode($sucess_message));
+                    $success_message = "Notificação enviada com sucesso! #";
+                    header("Location: lista_viagens.php?success_message=". urlencode($success_message));
                     // header("Location: ../../../dados_cliente?conta_do_cliente=$encrypted_user_id&success_message=" . urlencode($sucess_message));
                     exit();
                 }else{

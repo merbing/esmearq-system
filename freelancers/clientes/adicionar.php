@@ -161,6 +161,21 @@ include("../config/auth.php");
         </div>
         <!-- Container closed -->
     </div>
+    <script>
+         function handleNacionalidade() {
+             var nacionalidadeSelect = document.getElementById('nacionalidade');
+             var nacionalidadeInput = document.getElementById('nacionalidade_input');
+             var outraNacionalidadeDiv = document.getElementById('outra_nacionalidade');
+             
+             if (nacionalidadeSelect.value === 'Outra') {
+                 outraNacionalidadeDiv.style.display = 'block';
+                 nacionalidadeInput.removeAttribute('disabled');
+             } else {
+                 outraNacionalidadeDiv.style.display = 'none';
+                 nacionalidadeInput.setAttribute('disabled', 'disabled');
+             }
+         }
+      </script>
     <!-- main-content closed -->
     <!-- Right-sidebar-->
     <?php require_once("../views/include/menu_notificacoes.php"); ?>

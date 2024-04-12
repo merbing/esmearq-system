@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $inicio = $_POST["data_inicio"];
     $fim = $_POST["data_fim"];
     $id_funcionario = $_POST["id_funcionario"];
-    $status = $_POST["status"];
+    $status = "em_andamento";
     
     if(($_POST['id_funcionario']==null || $_POST['id_funcionario']=='') ){
         $error_message = "Ocorreu um erro. Preenha todos os campos";
@@ -20,8 +20,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
-    $query = "INSERT INTO atividadesregistro (funcionario_id, atividade, estado, data_inicio, data_fim)
-            VALUES ($id_funcionario, '$atividade', '$status', '$inicio', '$fim');";
+    $query = "INSERT INTO atividadesregistro (funcionario_id, atividade, estado, data_inicio, data_fim,state)
+            VALUES ($id_funcionario, '$atividade', '$status', '$inicio', '$fim',0);";
     $result = $conn->query($query);
     
     

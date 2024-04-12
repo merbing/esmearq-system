@@ -66,12 +66,12 @@
                                        </div>
                                        <form action="notificar_viagem.php" method="post">
                                        <div class="modal-body">
-                                             <p class="text-info mb-3" id="text" style="font-size: 1.1em;">Deseja notificar vários clientes sobre a aproximação de suas viagens?</p>
+                                             <p class="text-dark mb-3" id="text" style="font-size: 1.1em;">Deseja notificar vários clientes sobre a aproximação de suas viagens?</p>
                                              <div id="form" class="row">
-                                             <div class="col-6">
+                                             <!-- <div class="col-6">
                                                 <label for="">Dias restantes para viagem</label>
                                                 <input type="number" name="days" id="days" min="1" class="form-control">
-                                             </div>
+                                             </div> -->
                                              </div>
                                              <div id="spinner" class=" mt-3 text-center">
                                                    <h4 class=" mb-3">Notificando. Por favor aguarde...</h4>
@@ -224,6 +224,13 @@
                                                          </button>
                                                       </div>
                                                       <div class="modal-body">
+                                                         <?php if(isset($item['no_dia']) && $item['no_dia']==1 ): ?>
+                                                            <h6>Última notificação: <span style="font-weight: normal;"><?=date("Y-m-d")?></span></h6>
+                                                         <?php elseif(isset($item['ultimos_sete_dias']) && $item['ultimos_sete_dias']!=null ): ?>
+                                                            <h6>Última notificação: <span style="font-weight: normal;"><?=$item['ultimos_sete_dias']?></span></h6>
+                                                         <?php elseif(isset($item['ultima_notificacao']) && $item['ultima_notificacao']!=null ): ?>
+                                                            <h6>Última notificação: <span style="font-weight: normal;"><?=$item['ultima_notificacao']?></span></h6>
+                                                         <?php endif; ?>
                                                             <p class="text-dark mb-3" style="font-size: 1.1em;">Deseja notificar <span class="text-info"><?=$item['client_name']?></span> </br>sobre a data da viagem?</p>
                                                             <!-- <div>
                                                                <h5>Cliente: <span style="font-weight: normal;"> <?=$item['client_name']?> </span></h3>
@@ -284,7 +291,7 @@
                $("#spinner").fadeIn();
 
                $.ajax({
-                  url: "<?=BASE_URL?>pt/clientes/notificar_viagem.php",
+                  url: "<?=BASE_URL?>pt/clientes/notificar_viagem2.php",
                   method:"POST", 
                   dataType:"json",
                   data:{
@@ -314,7 +321,7 @@
                               $("#sucesso").hide();
                               $("#error").fadeIn();
                   }
-            });
+               });
             
             });
 

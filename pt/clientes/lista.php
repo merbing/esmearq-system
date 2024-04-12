@@ -57,7 +57,48 @@
                   </div>
                   <div class="mt-3 d-flex justify-content-between align-items-center">
                            <div class="">
-                              <a href="#" class="btn btn-sm btn-primary ">Notificar</a>
+                              <?php if(isset($expirados) && count($expirados) > 0): ?>
+                                 <a role="button" data-toggle="modal" data-target="#ModalAll" class="btn btn-sm btn-dark text-light">Notificar Todos</a>
+                                 <!-- MODAL Notify-->
+                              <div class="modal" tabindex="-1" id="ModalAll">
+                                 <div class="modal-dialog">
+                                    <div class="modal-content">
+                                       <div class="modal-header">
+                                          <h5 class="modal-title">Notificar Todos os Clientes</h5>
+                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                             <span aria-hidden="true">&times;</span>
+                                          </button>
+                                       </div>
+                                       <form action="notificar_viagem.php" method="post">
+                                       <div class="modal-body">
+                                             <p class="text-dark mb-3" id="text" style="font-size: 1.1em;">Deseja notificar todos os clientes com alguma documentação expirada?</p>
+                                             <div id="form" class="row">
+                                             
+                                             </div>
+                                             <div id="spinner" class=" mt-3 text-center">
+                                                   <h4 class=" mb-3">Notificando. Por favor aguarde...</h4>
+                                                   <img src="../assets/img/loading.gif" width="70px" height="70px" alt="">
+                                             </div>
+                                             <div id="sucesso" class=" mt-3 text-center">
+                                                   <h4 class=" mb-3"> <span id="total_sent"></span> Clientes notificados com sucesso!</h4>
+                                                   <img src="../assets/img/checked.png" width="70px" height="70px" alt="">
+                                             </div>
+                                             <div id="error" class=" mt-3 text-center">
+                                                   <h4 class=" mb-3">Não foi possível notificar clientes!</h4>
+                                                   <img src="../assets/img/remove.png" width="70px" height="70px" alt="">
+                                             </div>
+                                       </div>
+                                       <div class="modal-footer" id="botoes">
+                                       <a id="notificar" class="btn btn-info text-light">Notificar</a>   
+                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                       <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                       </div>
+                                       </form>
+                                    </div>
+                                  </div>
+                              </div>
+                              <!-- END MODAL -->
+                              <?php endif; ?>
                               <!-- <a href="#" class="btn btn-sm btn-primary ">Notificar</a> -->
                            </div>
                            <div class="">
@@ -270,6 +311,10 @@
       <script>
          $(document).ready(function(){
             
+            // 
+            // NOTIFICAR DOCUMENTO EXPIRADO INDIVIDUALMENTE
+            // 
+
             $(".notificado").hide();
             $(".error").hide();
             $(".spinner_notify").hide();
@@ -317,7 +362,68 @@
                   }
             });
 
-            })
+            });
+
+            // 
+            // FIM DO NOTIFICAR DOCUMENTO EXPIRADO INDIVIDUALMENTE
+            // 
+
+
+            // 
+            // NOTIFICAR DOCUMENTO EXPIRADO COLECTIVAMENTE
+            // 
+
+            $("#spinner").hide();
+            $("#sucesso").hide();
+            $("#error").hide();
+
+            $("#notificar").click(function(){
+               // alert();
+               // exit();
+               $("#form").hide();
+               $("#botoes").hide();
+               $("#text").hide();
+               $("#sucesso").hide();
+               $("#error").hide();
+               $("#spinner").fadeIn();
+
+               $.ajax({
+                  url: "<?=BASE_URL?>pt/clientes/notificar_documento_all.php",
+                  method:"POST", 
+                  dataType:"json",
+                  data:{
+                     
+                  },
+                  success: function(result){
+                     // console.log(result);
+                     if((result != undefined) && (result != null)  )
+                     {
+                        if( (result.status!= undefined) &&  (result.status!= null) )
+                        {
+                           if(result.status == "success")
+                           {
+                              $("#spinner").hide();
+                              $("#sucesso").fadeIn();
+                              $("#total_sent").text(result.total_sent?result.total_sent:'')
+                           }else{
+                              $("#spinner").hide();
+                              $("#sucesso").hide();
+                              $("#error").fadeIn();
+                           }
+                        }
+                     } 
+                  },
+                  error: function(xhr){
+                     console.log(xhr);
+                     $("#spinner").hide();
+                     $("#sucesso").hide();
+                     $("#error").fadeIn();
+                  }
+               });
+            
+            });
+
+
 
          });
 

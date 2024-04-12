@@ -8,9 +8,9 @@
    </div>
    <div class="main-sidebar-body circle-animation ">
       <ul class="side-menu circle" >
-         <li>
+         <!-- <li>
             <h3 class="">Dashboard</h3>
-         </li>
+         </li> -->
          <li class="slide">
             <a class="side-menu__item" href="../"><i class="side-menu__icon ti-desktop"></i><span class="side-menu__label">Dashboard</span></a>
          </li>
@@ -23,10 +23,10 @@
          <li class="slide">
             <a class="side-menu__item" href="../servico/lista"><i class="side-menu__icon mdi mdi-format-list-bulleted"></i><span class="side-menu__label">Lista de Serviços</span></a>
          </li> -->
-         
+<!--          
          <li>
             <h3>CLIENTES</h3>
-         </li>
+         </li> -->
          <li class="slide">
             <!-- <a class="side-menu__item" href="../consultoria/agendar.php"><i class="side-menu__icon mdi mdi-calendar-clock"></i><span class="side-menu__label">Agendar Consultoria</span></a> -->
          </li>
@@ -52,6 +52,18 @@
          </li>
          <li class="slide">
             <!-- <a class="side-menu__item" href="../vistos/lista.php"><i class="side-menu__icon mdi mdi-format-list-bulleted"></i><span class="side-menu__label">Lista de Vistos</span></a> -->
+         </li>
+         <li>
+            <h3>Comercial</h3>
+         </li>
+         <li class="slide">
+            <a class="side-menu__item" href="../comercial/solicitar_servico.php"><i class="side-menu__icon mdi mdi-plus"></i><span class="side-menu__label">Solicitar Serviço</span></a>
+         </li>
+         <li class="slide">
+            <!-- <a class="side-menu__item" href="../comercial/"><i class="side-menu__icon mdi mdi-search-web"></i><span class="side-menu__label">Requisitos de Vistos</span></a> -->
+         </li>
+         <li class="slide">
+            <a class="side-menu__item" href="../comercial/lista_servicos.php"><i class="side-menu__icon mdi mdi-format-list-bulleted"></i><span class="side-menu__label">Serviços Solicitados</span></a>
          </li>
          <li>
             <h3>Perfil</h3>

@@ -42,6 +42,15 @@
             <a class="side-menu__item" href="../consultoria/lista.php"><i class="side-menu__icon mdi mdi-format-list-bulleted"></i><span class="side-menu__label">Lista de Consultorias</span></a>
          </li>
          <li>
+            <h3>Comercial</h3>
+         </li>
+         <li class="slide">
+            <a class="side-menu__item" href="../comercial/solicitar_servicos.php"><i class="side-menu__icon mdi mdi-calendar-clock"></i><span class="side-menu__label">Solicitar Serviço</span></a>
+         </li>
+         <li class="slide">
+            <a class="side-menu__item" href="../comercial/lista_servicos.php"><i class="side-menu__icon mdi mdi-format-list-bulleted"></i><span class="side-menu__label">Serviços</span></a>
+         </li>
+         <li>
             <h3>Perfil</h3>
          </li>
          <li class="slide">

@@ -92,8 +92,8 @@
                                  <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar.php"><i class="dripicons dripicons-plus"></i><code>Nova</code></a></div>
                                  <?php endif;?>
                                  <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php"><i class="dripicons dripicons-clipboard"></i><code>Todos</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=em_andamento"><i class="dripicons dripicons-clock"></i><code>Em Andamento</code></a></div>
-                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=concluida"><i class="dripicons dripicons-checkmark"></i><code>Terminadas</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=1"><i class="dripicons dripicons-clock"></i><code>Em Andamento</code></a></div>
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista.php?estado=3"><i class="dripicons dripicons-checkmark"></i><code>Terminadas</code></a></div>
                               </div>
                            </div>
                         </div>

@@ -1,7 +1,8 @@
 <?php
     
     $activity_id = base64_decode($_GET['atividade_id']);
-    $query = "SELECT * FROM atividadesregistro WHERE id = '$activity_id'";
+    $query = "SELECT A.*, F.nome as funcionario_name FROM atividadesregistro A 
+    INNER JOIN funcionarios F ON (F.id = A.funcionario_id) WHERE A.id = '$activity_id'";
     $stmt = $conn->prepare($query);
     $stmt->execute();
     $result = $stmt->get_result();

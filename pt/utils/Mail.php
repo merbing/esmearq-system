@@ -44,6 +44,7 @@ class Mail{
         
         // REMETENTE
         $this->obMail->setFrom(self::FROM_EMAIL,self::FROM_NAME);
+        $this->obMail->addReplyTo(self::FROM_EMAIL, self::FROM_NAME);
 
         // DESTINATARIO
         $this->setDest();

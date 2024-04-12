@@ -26,4 +26,5 @@
       <!-- Switcher css -->
       <link href="../assets/switcher/css/switcher.css" rel="stylesheet">
       <link rel="stylesheet" href="../assets/switcher/demo.css">
+      <title>Esmearq - Área Freelancers</title>
    </head>

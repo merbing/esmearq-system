@@ -126,6 +126,27 @@
                      </div>
                      <!-- end container-fluid -->
                   </div>
+                  <div class="row">
+                     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card card-statistics">
+                           <div class="card-header">
+                              <div class="card-heading">
+                                 <h4 class="card-title">Serviços Solicitados</h4>
+                              </div>
+                           </div>
+                           <div class="card-body">
+                              <div class="row no-gutters icon-list">
+                               <!-- <div class="icon-wrap col-sm-6 col-md-6 col-xl-4"><a href="adicionar_viagem.php"><i class="dripicons dripicons-plus"></i><code>Cadastro</code></a></div> -->
+                                 <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="lista_servicos_solicitados.php"><i class="dripicons dripicons-checklist"></i><code>Lista de Serviços</code></a></div>
+                                
+                                <!-- <div class="icon-wrap col-sm-6 col-md-4 col-xl-4"><a href="documentos.php"><i class="dripicons dripicons-document"></i><code>Documentação</code></a></div> -->
+                                 
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!-- end container-fluid -->
+                  </div>
                </div>
                <!-- end app-main -->
             </div>

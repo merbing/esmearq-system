@@ -126,13 +126,28 @@
                                           <td><?=$activity['funcionario']?></td>
                                           <td><?=$activity['data_inicio']?></td>
                                           <td><?=$activity['data_fim']?></td>
-                                          <td><?=$activity['estado']?></td>
                                           <td>
+                                          <?php if($activity['state']==0):?>
+                                                    <span>PENDENTE</span>
+                                                <?php elseif($activity['state']==1):?>
+                                                    <span>EM ANDAMENTO</span>
+                                                <?php elseif($activity['state']==2):?>
+                                                    <span class="text-dark">EM PAUSA</span>
+                                                <?php elseif($activity['state']==3):?>
+                                                    <span class="text-info">CONCLUÍDO</span>
+                                                <?php elseif($activity['state']==4):?>
+                                                    <span class="text-danger">CANCELADO</span>
+                                                <?php endif;?>
+                                             
+                                          
+                                          </td>
+                                          <td>
+                                          <a href="detalhes_atividade.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-sm btn-icon btn-info"><i class="dripicons dripicons-preview"></i></a>
                                           <?php if(in_array("Editar Atividade",$permissoes) ):?>
-                                             <a href="editar.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-icon btn-dark"><i class="dripicons dripicons-document-edit"></i></a>
+                                             <a href="editar.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-icon btn-sm btn-dark"><i class="dripicons dripicons-document-edit"></i></a>
                                              <?php endif;?>
                                              <?php if(in_array("Remover Atividade",$permissoes) ):?>
-                                             <a role="button" data-toggle="modal" data-target="#Modal<?=$activity['id']?>"  class="btn btn-icon btn-danger text-light"><i class="dripicons dripicons-trash"></i></a>
+                                             <a role="button" data-toggle="modal" data-target="#Modal<?=$activity['id']?>"  class="btn btn-icon btn-sm btn-danger text-light"><i class="dripicons dripicons-trash"></i></a>
                                              
                                              <!-- MODAL -->
                                              <div class="modal" tabindex="-1" id="Modal<?=$activity['id']?>">

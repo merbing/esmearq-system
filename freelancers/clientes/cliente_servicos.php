@@ -142,6 +142,7 @@
                                         <h5 class="card-title "><?=$item['id']?></h5>
                                         <p>Serviço: <span style="font-weight: bold;"><?php echo ($item['service_name']) ?></span> </p>
                                         <p>Data de solicitação: <span style="font-weight: bold;"><?php echo ($item['created_at']) ?></span></p>
+                                        <p>Estado: <span style="font-weight: bold;"><?php echo $item['estado']==1?"CONCLUÍDO":"PENDENTE" ?></span></p>
                                         <!-- <p>Estado: <span style="font-weight: bold;text-transform:uppercase"><?=$item['telefone']?></span></p> -->
                                         <!-- <p>Quantidade de Processos: <span style="font-weight: bold;text-transform:uppercase"></span></p> -->
                                         <!-- <a href="cliente_servicos.php?cliente_id=<?=base64_encode($item['id'])?>" class="btn btn-primary">Serviços</a> -->

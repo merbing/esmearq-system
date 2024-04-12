@@ -11,7 +11,7 @@
         include("../../banco/config.php");
         include_once("../config/auth.php");
         include("consultas/agendamentos/buscar.php");
-        include_once("consultas/estados/buscar_cancelado.php");
+        include_once("consultas/estados/buscar_espera.php");
         // var_dump($consulta);
         // exit;
         if(!$consulta)
@@ -102,7 +102,7 @@
                                 <p>Status: <span style="font-weight:bold;text-transform:uppercase"><?=$consulta['state_name']??'Não disponível'?></span></p>
                                 <!-- Botão para cancelar a consultoria -->
                                 <?php if($state): ?>
-                                    <?php if($state['id']!= $consulta['state_id']): ?>
+                                    <?php if($state['id']== $consulta['state_id']): ?>
                                         <button id="cancelar-consultoria" class="btn btn-danger" data-toggle="modal" data-target="#modal-confirmar-cancelamento">Cancelar Consultoria</button>
                                     <?php endif ?>
                                 <?php endif; ?>

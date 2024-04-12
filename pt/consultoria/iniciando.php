@@ -137,7 +137,7 @@
                                                       <div class="form-group" id="visto_concedido" style="display: none;">
                                                          <label class="control-label" for="visto_concedido_select">O visto foi concedido?</label>
                                                          <div class="mb-2">
-                                                            <select class="form-control" name="visto_concedido_select" id="visto_concedido_select" required onchange="handleVistoConcedido()">
+                                                            <select class="form-control" name="visto_concedido_select" id="visto_concedido_select"  onchange="handleVistoConcedido()">
                                                                <option selected disabled>Selecionar</option>
                                                                <option value="Sim">Sim</option>
                                                                <option value="Não">Não</option>
@@ -182,7 +182,7 @@
                                                          <label class="control-label" for="data_vencimento">Data de vencimento</label>
                                                          <div class="mb-2">
                                                             <input type="date" class="form-control" id="data_vencimento" name="data_vencimento" 
-                                                            placeholder="" required />
+                                                            placeholder="" />
                                                          </div>
                                                       </div>
 
@@ -208,7 +208,7 @@
                                                       <div class="form-group">
                                                          <label class="control-label" for="responsabilidade_despesas">Quem se responsabilizará pelas despesas de viagens e subsistências?</label>
                                                          <div class="mb-2">
-                                                            <select class="form-control" name="responsabilidade_despesas" id="responsabilidade_despesas" required>
+                                                            <select class="form-control" name="responsabilidade_despesas" id="responsabilidade_despesas" >
                                                                <option selected disabled>Selecionar</option>
                                                                <option value="Por Conta Própria">Por Conta Própria</option>
                                                                <option value="Outrem">Outrem</option>

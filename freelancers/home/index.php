@@ -62,7 +62,7 @@
                                             </a>
                                         </div>
                                         <div class="col-md-4 mb-4">
-                                            <a href="../consultoria/agendar.php" class="text-decoration-none">
+                                            <a href="../clientes/lista.php" class="text-decoration-none">
                                                 <div class="card rounded-10 shadow">
                                                     <div class="card-body text-center">
                                                         <i class="mdi mdi-earth menu__icon"></i>

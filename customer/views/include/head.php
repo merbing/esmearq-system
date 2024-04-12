@@ -3,7 +3,7 @@
       <meta name='viewport' content='width=device-width, initial-scale=1.0, user-scalable=0'>
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <!-- Title -->
-      <title> Mbuli S.A</title>
+      <title> Esmearq - Área Clientes</title>
       <!-- Favicon -->
       <link rel="icon" href="../assets/img/brand/logo.png" type="image/x-icon"/>
       <!-- Icons css -->
