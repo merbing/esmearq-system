@@ -15,9 +15,9 @@ if(!isset($_SESSION["cliente_id"])){
 
 $user_id = $_SESSION['cliente_id'];
 $user_name = $_SESSION["nome_usuario"];
-$user_email = $_SESSION["email_usuario"];
-$user_phone = $_SESSION["telefone_usuario"];
-
+$user_email = $_SESSION["email_usuario"]??'';
+$user_phone = $_SESSION["telefone_usuario"]??'';
+// exit;
 // // Buscando as permissoes do utilizador autenticado
 // $papel_id = $_SESSION['papel_usuario_id'];
 

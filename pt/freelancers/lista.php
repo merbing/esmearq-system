@@ -120,7 +120,7 @@
                                           <td><?php echo $item['nome'] ?></td>
                                           <td><?php echo $item['email'] ?></td>
                                           <td><?php echo $item['telefone'] ?></td>
-                                          <td><?php echo $item['estado'] ?></td>
+                                          <td><?php echo $item['estado']==1?"Activo":"Inactivo" ?></td>
                                           <td>
                                              <a href="details.php?freelancer_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-icon btn-success"><i class="dripicons dripicons-preview"></i></a>
                                              <!-- <a href="editar.php?cliente_id=<?=base64_encode($item['id']);?>" class="btn btn-sm btn-info btn-icon"><i class="dripicons dripicons-pencil"></i></a> -->

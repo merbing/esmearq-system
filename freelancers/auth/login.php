@@ -119,6 +119,9 @@ $conn->close();
                                     <i class="fa fa-check"></i>
                                 </button>
                             </div>
+                            <div class="text-center">
+                                Não tem uma conta? <a href="registar.php" style="font-weight: bold;text-decoration:underline">Crie uma conta</a>
+                            </div>
                             </form>
                            
 

@@ -3,9 +3,61 @@
    <head>
       <?php 
          include("../../banco/config.php");
+         require_once("../utils/Log.php");
          include("../views/include/head.php");
          include_once("../config/auth.php");
          include("consultas/minhas_atividades.php");
+
+         
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+   // ADICIONAR UMA ACTIVIDADE
+
+   try{
+       $atividade = htmlspecialchars(mysqli_real_escape_string($conn,$_POST["atividade"]));
+   // $inicio = $_POST["data_inicio"];
+   // $fim = $_POST["data_fim"];
+   $id_funcionario = $_POST["id_funcionario"];
+   
+   if(($_POST['id_funcionario']==null || $_POST['id_funcionario']=='') ){
+       $error_message = "Ocorreu um erro. Preenha todos os campos";
+       header("Location: minhas_atividades.php?&error_message=" . urlencode($error_message));
+       exit;
+   }
+   
+   $query = "INSERT INTO atividadesregistro (funcionario_id, atividade, estado,state)
+           VALUES ($id_funcionario, '$atividade', 'em_andamento',0);";
+   $result = $conn->query($query);
+   
+   
+   if ($result === TRUE) {
+       $encrypted_user_id = base64_encode($cliente_id);
+       $sucess_message = "Atividade cadastrada com sucesso!";
+       $funcionario_id = $_SESSION['funcionario_id'];
+       try{
+           // Registar a actividade (Log)
+           $log = new Log("Adicionando uma atividade",('Actividade:'.$atividade."-FUNCIONARIO:".$funcionario_id),$conn);
+           $log->save();
+       } catch(\Exception $e)
+       {
+           
+       }
+       header("Location: minhas_atividades.php?success_message=" . urlencode($sucess_message));
+       exit();
+
+   } else {
+       $encrypted_user_id = base64_encode($cliente_id);
+       $error_message = "Ocorreu um erro.";
+       header("Location: minhas_atividades.php?&error_message=" . urlencode($error_message));
+       exit;
+   }
+   }catch(Exception $e)
+   {
+       $error_message = "Ocorreu um erro. Tente novamente mais tarde";
+       header("Location: minhas_atividades.php?&error_message=" . urlencode($error_message));
+       exit;
+   }
+}
+
          
          ?>
    </head>
@@ -56,7 +108,38 @@
                   <div class="row ">
                      <div class="col-12">
                         <div class="">
-                           <a href="adicionar.php" class="btn btn-sm btn-info">Adicionar</a>
+                           <!-- <a href="adicionar.php" class="btn btn-sm btn-info">Adicionar</a> -->
+                           <a data-toggle="modal" class="btn btn-sm btn-info text-light" data-target="#ModalAdd">Adicionar</a>
+                           <!-- MODAL -->
+                           <div class="modal" tabindex="-1" id="ModalAdd">
+                              <div class="modal-dialog">
+                                 <div class="modal-content">
+                                    <div class="modal-header">
+                                       <h5 class="modal-title">Adicionar Actividade</h5>
+                                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                          <span aria-hidden="true">&times;</span>
+                                       </button>
+                                    </div>
+                                    <form action="" method="post">
+                                       <input type="hidden" name="id_funcionario" value="<?=$user_id?>">
+                                    <div class="modal-body">
+                                          <div class="form-input">
+                                             <label for="">Descrição da atividade</label>
+                                             <input type="text" class="form-control" name="atividade" id="" required>
+                                          </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button  class="btn btn-info text-light"  >Adicionar</a>   
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                                      <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                    </div>
+                                    </form>
+
+                                 </div>
+                              </div>
+                           </div>
+
+                                             <!-- END MODAL -->
                         </div>
                      </div>
                      <div class="col-12 mb-2 mt-3">
@@ -144,7 +227,7 @@
                                                     <!-- <a href="editar.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-sm btn-info">Detalhes</a> -->
 
                                                 <?php elseif($activity['state']==2):?>
-                                                    <a href="alterar_momento.php?atividade_id=<?php echo base64_encode($activity['id']) ?>&moment=1" class="btn btn-sm btn-dark">Recomeçar</a>
+                                                    <a href="alterar_momento.php?atividade_id=<?php echo base64_encode($activity['id']) ?>&moment=1" class="btn btn-sm btn-dark">Retomar</a>
                                                     <a href="alterar_momento.php?atividade_id=<?php echo base64_encode($activity['id']) ?>&moment=3" class="btn btn-sm btn-dark">Concluir</a>
                                                     <!-- <a href="editar.php?atividade_id=<?php echo base64_encode($activity['id']) ?>" class="btn btn-sm btn-dark">Detalhes</a> -->
                                                 <?php elseif($activity['state']==3):?>

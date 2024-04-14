@@ -234,9 +234,9 @@
                                  <?php if($activity['state']==3):?>
                                     <h5 class="">Tempo decorrido</h5>
                                     <?php if($hour_elapsed>0): ?>
-                                       <h4 class="text-info"><?=$hour_elapsed?>h:<?=$time_elapsed?>min</h4>
+                                       <h4 class="text-info"><i class="dripicons dripicons-alarm"></i> <?=$hour_elapsed?>h:<?=$time_elapsed?>min</h4>
                                     <?php else: ?>
-                                       <h4 class="text-info"><?=$time_elapsed?> min</h4>
+                                       <h4 class="text-info"><i class="dripicons dripicons-alarm"></i> <?=$time_elapsed?> min</h4>
                                     <?php endif; ?>
                                     
                                     <?php endif;?>
@@ -265,7 +265,7 @@
                                         <?php if($activity['state']==0):?>
                                                     <span>PENDENTE</span>
                                                 <?php elseif($moment['momento']==1):?>
-                                                    <span class="text-dark">EM ANDAMENTO</span>
+                                                    <span class="text-dark"> EM ANDAMENTO</span>
                                                 <?php elseif($moment['momento']==2):?>
                                                     <span class="text-dark">EM PAUSA</span>
                                                 <?php elseif($moment['momento']==3):?>
